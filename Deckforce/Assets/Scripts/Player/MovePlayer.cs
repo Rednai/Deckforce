@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovePlayer : MonoBehaviour
 {
-    public SelectCase select;
+    public SelectCase floor;
 
     private Transform character;
 
@@ -17,10 +17,9 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (select.currentSelected != null & Input.GetMouseButtonDown(0))
+        if (floor.currentSelected != null & Input.GetMouseButtonDown(0))
         {
-            Vector3 casePos = select.currentSelected.GetComponentInParent<Transform>().position;
-            Debug.Log(casePos);
+            Vector3 casePos = floor.currentSelected.GetComponentInParent<Transform>().position;
             casePos.y += 0.5f;
             character.position = casePos;
         }
