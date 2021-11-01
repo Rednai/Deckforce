@@ -27,10 +27,10 @@ public class CameraScrolling : MonoBehaviour
     private void HandleZoom()
     {
         float scroll = Mouse.current.scroll.ReadValue().y * scrollSpeed;
-        cam.fieldOfView -= scroll;
-        if (cam.fieldOfView > maxScroll)
-            cam.fieldOfView = maxScroll;
-        else if (cam.fieldOfView < minScroll)
-            cam.fieldOfView = minScroll;
+        cam.orthographicSize -= scroll;
+        if (cam.orthographicSize > maxScroll)
+            cam.orthographicSize = maxScroll;
+        else if (cam.orthographicSize < minScroll)
+            cam.orthographicSize = minScroll;
     }
 }
