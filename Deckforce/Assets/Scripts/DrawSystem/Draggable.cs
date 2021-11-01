@@ -14,6 +14,7 @@ namespace DrawSystem
         public void OnBeginDrag(PointerEventData eventData)
         {
             parentToReturnTo = this.transform.parent;
+            discardPile = GameObject.Find("DiscardPile");
             this.transform.SetParent(this.transform.parent.parent);
             this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             this.transform.Rotate(new Vector3(0f, 0f, 40f));

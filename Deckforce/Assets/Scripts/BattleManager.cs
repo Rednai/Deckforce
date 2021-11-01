@@ -37,6 +37,7 @@ public class BattleManager : MonoBehaviour
 
     public void StartTurn()
     {
+        currentPlayer.StartTurn();
         currentPlayer.selectedCharacter.StartTurn();
         
         playerNameText.text = $"{currentPlayer.playerName}'s turn";
@@ -62,6 +63,7 @@ public class BattleManager : MonoBehaviour
 
     public void FinishTurn()
     {
+        currentPlayer.EndTurn();
         currentPlayer.selectedCharacter.canMove = false;
         if (currentPlayer == firstPlayer) {
             currentPlayer = secondPlayer;
