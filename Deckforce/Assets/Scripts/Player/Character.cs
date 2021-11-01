@@ -11,8 +11,6 @@ public class Character : Entity
 
     public List<Entity> alliedEntities;
 
-    public bool canMove = false;
-
     public void RightClick()
     {}
 
@@ -23,7 +21,6 @@ public class Character : Entity
     {
         currentMovePoints = maxMovePoints;
         currentActionPoints = maxActionPoints;
-        canMove = true;
     }
 
     public void AddEntityToAllies(Entity newEntity)
