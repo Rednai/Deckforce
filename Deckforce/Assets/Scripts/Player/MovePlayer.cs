@@ -17,8 +17,8 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (select.currentSelected != null && Input.GetMouseButtonDown(0) && character.canMove) {
-            Vector3 casePos = select.currentSelected.GetComponentInParent<Transform>().position;
+        if (floor.currentSelected != null && Input.GetMouseButtonDown(0) && character.canMove) {
+            Vector3 casePos = floor.currentSelected.GetComponentInParent<Transform>().position;
             int distance = (int)Mathf.Abs((casePos - character.transform.position).magnitude);
             Debug.Log(casePos);
             Debug.Log(distance);
