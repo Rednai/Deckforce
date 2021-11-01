@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    int currentMovePoints;
+    public int currentMovePoints;
     public int maxMovePoints;
-    int currentActionPoints;
+    public int currentActionPoints;
     public int maxActionPoints;
 
     public void RightClick()

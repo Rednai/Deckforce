@@ -30,25 +30,34 @@ public class BattleManager : MonoBehaviour
         StartTurn();
     }
 
+    void Update()
+    {
+        DisplayStats();
+    }
+
     public void StartTurn()
     {
         currentPlayer.selectedCharacter.StartTurn();
         
         playerNameText.text = $"{currentPlayer.playerName}'s turn";
         
+        DisplayStats();
+        //TODO: focus la caméra sur le joueur actuel
+    }
+
+    void DisplayStats()
+    {
         healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
         healthSlider.value = currentPlayer.selectedCharacter.maxLife;
-        healthText.text = $"{currentPlayer.selectedCharacter.maxLife}/{currentPlayer.selectedCharacter.maxLife}";
+        healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
 
         actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
         actionSlider.value = currentPlayer.selectedCharacter.maxActionPoints;
-        actionText.text = $"{currentPlayer.selectedCharacter.maxActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
+        actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
 
         movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
         movementSlider.value = currentPlayer.selectedCharacter.maxMovePoints;
-        movementText.text = $"{currentPlayer.selectedCharacter.maxMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
-
-        //TODO: focus la caméra sur le joueur actuel
+        movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
     }
 
     public void FinishTurn()
