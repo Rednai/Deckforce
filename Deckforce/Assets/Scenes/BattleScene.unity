@@ -320,7 +320,7 @@ RectTransform:
   - {fileID: 1133759428}
   - {fileID: 457090824}
   m_Father: {fileID: 1208642823}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1207,8 +1207,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 881226247}
-  - {fileID: 1265006659}
   - {fileID: 210802063}
+  - {fileID: 1265006659}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1421,7 +1421,7 @@ RectTransform:
   m_Children:
   - {fileID: 811742863}
   m_Father: {fileID: 1208642823}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1474,7 +1474,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 86950812}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: StartTurn
+        m_MethodName: FinishTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1887,9 +1887,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLife: 0
-  maxLife: 0
-  maxMovePoints: 0
-  maxActionPoints: 0
+  maxLife: 7
+  currentMovePoints: 0
+  maxMovePoints: 7
+  currentActionPoints: 0
+  maxActionPoints: 4
 --- !u!1 &1601954518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,9 +2305,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLife: 0
-  maxLife: 0
-  maxMovePoints: 0
-  maxActionPoints: 0
+  maxLife: 12
+  currentMovePoints: 0
+  maxMovePoints: 3
+  currentActionPoints: 0
+  maxActionPoints: 3
 --- !u!1 &1940599099
 GameObject:
   m_ObjectHideFlags: 0
