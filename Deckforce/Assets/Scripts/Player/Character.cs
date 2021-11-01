@@ -9,6 +9,8 @@ public class Character : Entity
     public int currentActionPoints;
     public int maxActionPoints;
 
+    public List<Entity> alliedEntities;
+
     public void RightClick()
     {}
 
@@ -19,5 +21,15 @@ public class Character : Entity
     {
         currentMovePoints = maxMovePoints;
         currentActionPoints = maxActionPoints;
+    }
+
+    public void AddEntityToAllies(Entity newEntity)
+    {
+        alliedEntities.Add(newEntity);
+    }
+
+    public void RemoveEntityFromAllies(Entity newEntity)
+    {
+        alliedEntities.Remove(newEntity);
     }
 }
