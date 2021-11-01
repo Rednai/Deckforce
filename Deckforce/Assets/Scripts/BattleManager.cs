@@ -48,20 +48,21 @@ public class BattleManager : MonoBehaviour
     void DisplayStats()
     {
         healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
-        healthSlider.value = currentPlayer.selectedCharacter.maxLife;
+        healthSlider.value = currentPlayer.selectedCharacter.currentLife;
         healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
 
         actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
-        actionSlider.value = currentPlayer.selectedCharacter.maxActionPoints;
+        actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
         actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
 
         movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
-        movementSlider.value = currentPlayer.selectedCharacter.maxMovePoints;
+        movementSlider.value = currentPlayer.selectedCharacter.currentMovePoints;
         movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
     }
 
     public void FinishTurn()
     {
+        currentPlayer.selectedCharacter.canMove = false;
         if (currentPlayer == firstPlayer) {
             currentPlayer = secondPlayer;
             StartTurn();
