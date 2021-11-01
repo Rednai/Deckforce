@@ -10,6 +10,18 @@ public class Entity : MonoBehaviour
     Animator animator;
     AudioSource audioSource;
 
+    void Start()
+    {
+        Init();
+    }
+
+    public virtual void Init()
+    {
+        currentLife = maxLife;
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public virtual void Move(Tile targetTile)
     {}
 

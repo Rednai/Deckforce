@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    public int movementPoints;
-    public int actionPoints;
+    int currentMovePoints;
+    public int maxMovePoints;
+    int currentActionPoints;
+    public int maxActionPoints;
 
     public void RightClick()
     {}
 
     public void LeftClick()
     {}
+
+    public void StartTurn()
+    {
+        currentMovePoints = maxMovePoints;
+        currentActionPoints = maxActionPoints;
+    }
 }

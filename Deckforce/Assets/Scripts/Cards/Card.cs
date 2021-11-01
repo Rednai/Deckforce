@@ -13,6 +13,9 @@ public class Card : ScriptableObject
 
     public AudioClip activateClip;
 
+    public virtual void Select()
+    {}
+
     public virtual void Activate(Tile targetTile)
     {}
 }
