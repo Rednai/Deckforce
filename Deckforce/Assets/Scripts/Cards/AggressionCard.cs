@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AggressionCard : Card
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int damage;
 
-    // Update is called once per frame
-    void Update()
+    public override void Activate(Player currentPlayer, Tile targetTile)
     {
-        
+        Entity targetEntity = targetTile.tileEntity;
+
+        if (targetEntity) {
+            targetEntity.TakeDamge(damage);
+        }
+        currentPlayer.selectedCharacter.currentActionPoints -= cost;
     }
 }

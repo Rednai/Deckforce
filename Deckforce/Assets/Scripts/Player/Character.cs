@@ -4,12 +4,35 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    public int movementPoints;
-    public int actionPoints;
+    public int currentMovePoints;
+    public int maxMovePoints;
+    public int currentActionPoints;
+    public int maxActionPoints;
+
+    public List<Entity> alliedEntities;
+
+    public bool canMove = false;
 
     public void RightClick()
     {}
 
     public void LeftClick()
     {}
+
+    public void StartTurn()
+    {
+        currentMovePoints = maxMovePoints;
+        currentActionPoints = maxActionPoints;
+        canMove = true;
+    }
+
+    public void AddEntityToAllies(Entity newEntity)
+    {
+        alliedEntities.Add(newEntity);
+    }
+
+    public void RemoveEntityFromAllies(Entity newEntity)
+    {
+        alliedEntities.Remove(newEntity);
+    }
 }
