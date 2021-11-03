@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    public string entityName;
     public int currentLife;
     public int maxLife;
+    public Sprite entityIcon;
+
+    public int initiative;
 
     Animator animator;
     AudioSource audioSource;
+
+    public bool canMove = false;
 
     void Start()
     {
@@ -21,6 +27,12 @@ public class Entity : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
+
+    public virtual void StartTurn()
+    {}
+
+    public virtual void EndTurn()
+    {}
 
     public virtual void Move(Tile targetTile)
     {}

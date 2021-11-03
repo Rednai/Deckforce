@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: FireRay
   m_EditorClassIdentifier: 
   cost: 3
+  activationRange: 1
   range: 5
   visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
+  cardColor: {r: 1, g: 0, b: 0, a: 1}
   description: 'A Ray of fire that '
   activateClip: {fileID: 0}
+  userParticle: {fileID: 0}
+  targetParticle: {fileID: 0}
+  playerOwner: {fileID: 0}

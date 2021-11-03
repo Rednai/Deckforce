@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,17 +6,26 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
+    public struct BattleTurn {
+        public int turnNb;
+        public float turnTime;
+        public List<Entity> playingEntities;
+    }
+    public float normalTurnTime;
+    public float overtimeTurnTime;
+
+    Entity currentPlayingEntity;
+    BattleTurn battleTurn;
     [Header("Players")]
-    public Player firstPlayer;
-    public Player secondPlayer;
+    public List<Player> battlePlayers;
 
-    public Player currentPlayer;
-    public List<Entity> playerAlliedEntitites;
-    
-    [Header("UI")]
-    public Text playerNameText;
+    public Text entityNameText;
+    [Header("UI Turn")]
+    public Text timeText;
     public Button finishTurnButton;
+    public InitiativeDisplay initiativeDisplay;
 
+    [Header("UI Stats")]
     public Slider healthSlider;
     public Text healthText;
 
@@ -27,22 +37,59 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        currentPlayer = firstPlayer;
+        //currentPlayer = firstPlayer;
+        //currentPlayingEntity = battleTurn.playingEntities[0];
+        InitTurn();
         StartTurn();
     }
 
     void Update()
     {
+        battleTurn.turnTime -= Time.deltaTime;
+        if (battleTurn.turnTime <= 0) {
+            FinishTurn();
+        }
+
         DisplayStats();
+    }
+
+    void InitTurn()
+    {
+        battleTurn = new BattleTurn();
+
+        battleTurn.turnNb = battleTurn.turnNb + 1;
+        if (battleTurn.turnNb < 10) {
+            battleTurn.turnTime = normalTurnTime;
+        } else {
+            battleTurn.turnTime = overtimeTurnTime;
+        }
+
+        battleTurn.playingEntities = new List<Entity>();
+        foreach (Player player in battlePlayers) {
+            battleTurn.playingEntities.Add(player.selectedCharacter);
+            foreach (Entity alliedEntity in player.selectedCharacter.alliedEntities) {
+                battleTurn.playingEntities.Add(alliedEntity);
+            }
+        }
+        battleTurn.playingEntities.Sort(delegate(Entity E1, Entity E2) {
+            return (-E1.initiative.CompareTo(E2.initiative));
+        });
+        currentPlayingEntity = battleTurn.playingEntities[0];
+        initiativeDisplay.DisplayEntitiesInitiatives(battleTurn.playingEntities);
     }
 
     public void StartTurn()
     {
-        currentPlayer.StartTurn();
-        currentPlayer.selectedCharacter.StartTurn();
-        playerAlliedEntitites = new List<Entity>(currentPlayer.selectedCharacter.alliedEntities);
+        foreach (Player player in battlePlayers) {
+            if (currentPlayingEntity == player.selectedCharacter) {
+                player.StartTurn();
+            }
+        }
+        //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
+        currentPlayingEntity.StartTurn();
+        initiativeDisplay.AdvanceInitiative(currentPlayingEntity);
         
-        playerNameText.text = $"{currentPlayer.playerName}'s turn";
+        entityNameText.text = $"{currentPlayingEntity.entityName}'s turn";
         
         DisplayStats();
         //TODO: focus la caméra sur le joueur actuel
@@ -50,29 +97,65 @@ public class BattleManager : MonoBehaviour
 
     void DisplayStats()
     {
-        healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
-        healthSlider.value = currentPlayer.selectedCharacter.currentLife;
-        healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
+        int seconds = (int)(battleTurn.turnTime % 60);
+        timeText.text = "Time remaining: " + string.Format("{0:00}", seconds);
 
-        actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
-        actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
-        actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
+        Player currentPlayer = CheckIfCurrentEntityIsPlayer();
+        if (currentPlayer != null) {
+            healthSlider.gameObject.SetActive(true);
+            healthText.gameObject.SetActive(true);
+            actionSlider.gameObject.SetActive(true);
+            actionText.gameObject.SetActive(true);
+            movementSlider.gameObject.SetActive(true);
+            movementText.gameObject.SetActive(true);
+            healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
+            healthSlider.value = currentPlayer.selectedCharacter.currentLife;
+            healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
 
-        movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
-        movementSlider.value = currentPlayer.selectedCharacter.currentMovePoints;
-        movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
+            actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
+            actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
+            actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
+
+            movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
+            movementSlider.value = currentPlayer.selectedCharacter.currentMovePoints;
+            movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
+        } else {
+            healthSlider.gameObject.SetActive(false);
+            healthText.gameObject.SetActive(false);
+            actionSlider.gameObject.SetActive(false);
+            actionText.gameObject.SetActive(false);
+            movementSlider.gameObject.SetActive(false);
+            movementText.gameObject.SetActive(false);
+        }
+    }
+
+    Player CheckIfCurrentEntityIsPlayer()
+    {
+        foreach (Player player in battlePlayers) {
+            if (currentPlayingEntity == player.selectedCharacter) {
+                return (player);
+            }
+        }
+        return (null);
     }
 
     public void FinishTurn()
     {
-        currentPlayer.EndTurn();
-        currentPlayer.selectedCharacter.canMove = false;
-        if (currentPlayer == firstPlayer) {
-            currentPlayer = secondPlayer;
-            StartTurn();
-            return ;
+        foreach (Player player in battlePlayers) {
+            if (currentPlayingEntity == player.selectedCharacter) {
+                player.EndTurn();
+            }
         }
-        currentPlayer = firstPlayer;
+        //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
+        currentPlayingEntity.EndTurn();
+        currentPlayingEntity.canMove = false;
+        initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
+
+        battleTurn.playingEntities.RemoveAt(0);
+        if (battleTurn.playingEntities.Count == 0) {
+            InitTurn();
+        }
+        currentPlayingEntity = battleTurn.playingEntities[0];
         StartTurn();
     }
 }

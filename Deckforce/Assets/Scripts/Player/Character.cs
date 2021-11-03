@@ -11,15 +11,13 @@ public class Character : Entity
 
     public List<Entity> alliedEntities;
 
-    public bool canMove = false;
-
     public void RightClick()
     {}
 
     public void LeftClick()
     {}
 
-    public void StartTurn()
+    public override void StartTurn()
     {
         currentMovePoints = maxMovePoints;
         currentActionPoints = maxActionPoints;

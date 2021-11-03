@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AggressionCard : Card
 {
+    public enum ExplosionType { SINGLETILE, SQUARE, ARC };
+    public ExplosionType explosionType;
     public int damage;
 
     public override void Activate(Player currentPlayer, Tile targetTile)
