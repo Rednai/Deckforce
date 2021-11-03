@@ -13,10 +13,10 @@ namespace DrawSystem
         private bool isDrawing = false;
         private float duration = 1f;
         GameObject tempCardTarget;
+        private int queue = 0;
         
         IEnumerator Drawing() 
         {
-            isDrawing = false;
             tempCardTarget = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             tempCardTarget.transform.SetParent(hand.transform);
             tempCardTarget.transform.localScale = new Vector3(0f, 0f, 0f);
@@ -31,19 +31,26 @@ namespace DrawSystem
             card.parentToReturnTo = hand.transform.parent;
             Destroy(tempCardTarget);
             card.transform.SetParent(hand.transform);
+            isDrawing = false;
+        }
 
+        private void DrawQueuing()
+        {
+            isDrawing = true;
+            queue--;
+            card = this.transform.GetChild(Random.Range(1, this.transform.childCount)).GetComponent<Draggable>();
+            StartCoroutine(Drawing());
         }
         public void Draw()
         {
-            card = this.transform.GetChild(Random.Range(1, this.transform.childCount)).GetComponent<Draggable>();
-            isDrawing = true;
+            queue++;
         }
 
-        public void FixedUpdate()
+        private void FixedUpdate()
         {
-            if (isDrawing)
+            if (queue > 0 && !isDrawing)
             {
-                StartCoroutine(Drawing());
+                DrawQueuing();
             }
         }
     }

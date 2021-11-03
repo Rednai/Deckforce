@@ -38,6 +38,7 @@ public class BattleManager : MonoBehaviour
 
     public void StartTurn()
     {
+        currentPlayer.StartTurn();
         currentPlayer.selectedCharacter.StartTurn();
         playerAlliedEntitites = new List<Entity>(currentPlayer.selectedCharacter.alliedEntities);
         
@@ -64,6 +65,7 @@ public class BattleManager : MonoBehaviour
 
     public void FinishTurn()
     {
+        currentPlayer.EndTurn();
         currentPlayer.selectedCharacter.canMove = false;
         if (currentPlayer == firstPlayer) {
             currentPlayer = secondPlayer;
