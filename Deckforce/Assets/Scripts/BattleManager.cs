@@ -10,6 +10,7 @@ public class BattleManager : MonoBehaviour
     public Player secondPlayer;
 
     public Player currentPlayer;
+    public List<Entity> playerAlliedEntitites;
     
     [Header("UI")]
     public Text playerNameText;
@@ -38,6 +39,7 @@ public class BattleManager : MonoBehaviour
     public void StartTurn()
     {
         currentPlayer.selectedCharacter.StartTurn();
+        playerAlliedEntitites = new List<Entity>(currentPlayer.selectedCharacter.alliedEntities);
         
         playerNameText.text = $"{currentPlayer.playerName}'s turn";
         
