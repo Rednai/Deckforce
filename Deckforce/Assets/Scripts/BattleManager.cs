@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
     Entity currentPlayingEntity;
     BattleTurn battleTurn;
     [Header("Players")]
-    public List<Player> battlePlayers;
+    List<Player> battlePlayers;
 
     public Text entityNameText;
     [Header("UI Turn")]
@@ -37,8 +37,11 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        //currentPlayer = firstPlayer;
-        //currentPlayingEntity = battleTurn.playingEntities[0];
+        battlePlayers = new List<Player>();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i != players.Length; i++) {
+            battlePlayers.Add(players[i].GetComponent<Player>());
+        }
         InitTurn();
         StartTurn();
     }

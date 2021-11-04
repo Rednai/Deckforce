@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Card", menuName = "Card/Summoning Card")]
 public class SummoningCard : Card
 {
     public Entity summoningEntity;

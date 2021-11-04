@@ -15,7 +15,7 @@ public class CardDisplay : MonoBehaviour
     public Image cardLayout;
     public Image visual;
     public Text description;
-    public Text name;
+    public Text cardName;
     public Color color;
 
     public AudioClip activateClip;
@@ -28,7 +28,7 @@ public class CardDisplay : MonoBehaviour
         effectRange = card.effectRange;
         visual.sprite = card.visual; 
         description.text = card.description;
-        name.text = card.name;
+        cardName.text = card.name;
         activateClip = card.activateClip;
         cardLayout.color = card.color;
     }

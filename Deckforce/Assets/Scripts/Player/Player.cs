@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
 {
     public string playerName;
     public Character selectedCharacter;
-    [SerializeField]public CardDisplay cardPrefab;
+    [SerializeField]
+    public CardDisplay cardPrefab;
 
     public Deck deck;
     public GameObject discardPile;

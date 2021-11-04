@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
+[CreateAssetMenu(fileName = "New Card", menuName = "Card/Basic Card")]
 public class Card : ScriptableObject
 {
     public enum RangeType
@@ -23,7 +23,7 @@ public class Card : ScriptableObject
     public Sprite visual;
     public Color cardColor;
     public string description;
-    public string name;
+    public string cardName;
     public Color color;
 
     public AudioClip activateClip;
