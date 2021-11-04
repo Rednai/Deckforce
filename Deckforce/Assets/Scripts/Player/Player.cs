@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public string playerName;
     public Character selectedCharacter;
-    [SerializeField]public GameObject cardPrefab;
+    [SerializeField]public CardDisplay cardPrefab;
 
     public Deck deck;
     public GameObject discardPile;
@@ -18,26 +18,53 @@ public class Player : MonoBehaviour
     public List<Card> handCards;
 
     private bool firstTurn = true;
-
-    public void StartTurn()
+    
+    public void InstanciateDeckCards()
     {
         foreach (Card card in deckCards)
         {
-            var newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            CardDisplay newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            newCard.card = card;
+            newCard.InitiateCard(this);
             newCard.transform.SetParent(deck.transform);
         }
-        foreach (Card card in discardedCards)
+    }
+
+    private void ManagingActivation(bool activating)
+    {
+        foreach (Transform child in deck.transform)
         {
-            var newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            newCard.transform.SetParent(discardPile.transform);
+            CardDisplay card = child.GetComponent<CardDisplay>();
+            if (card.ownerPlayer == this)
+            {
+                card.gameObject.SetActive(activating);
+            }
         }
-        foreach (Card card in handCards)
+        foreach (Transform child in discardPile.transform)
         {
-            var newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            newCard.transform.SetParent(hand.transform);
+            CardDisplay card = child.GetComponent<CardDisplay>();
+            if (card.ownerPlayer == this)
+            {
+                card.gameObject.SetActive(activating);
+            }
         }
+        foreach (Transform child in hand.transform)
+        {
+            CardDisplay card = child.GetComponent<CardDisplay>();
+            if (card.ownerPlayer == this)
+            {
+                card.gameObject.SetActive(activating);
+            }
+        }
+    }
+    
+    public void StartTurn()
+    {
+        ManagingActivation(true);
         if (firstTurn)
         {
+            InstanciateDeckCards();
+            deck.Shuffle();
             deck.Draw();
             deck.Draw();
             deck.Draw();
@@ -48,22 +75,10 @@ public class Player : MonoBehaviour
         {
             deck.Draw();
         }
-        
     }
     
     public void EndTurn()
     {
-        foreach (Transform child in deck.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in discardPile.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in hand.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        ManagingActivation(false);
     }
 }

@@ -18,6 +18,8 @@ MonoBehaviour:
   visual: {fileID: 21300000, guid: d2dfec4ced9ee06488b52ce3042c02eb, type: 3}
   cardColor: {r: 0.032125235, g: 1, b: 0, a: 0}
   description: Summons a small slime to fight by your side
+  name: Slime
+  color: {r: 0.29186568, g: 0.8301887, b: 0.254539, a: 1}
   activateClip: {fileID: 0}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}

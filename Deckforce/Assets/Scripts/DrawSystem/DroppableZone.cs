@@ -10,12 +10,12 @@ namespace DrawSystem
         {
             if (floor.currentSelected != null)
             {
+                Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
+                if (d != null)
+                {
+                    d.parentToReturnTo = d.discardPile.transform;
+                }
                 Debug.Log(eventData.pointerDrag.name + " was dropped to " + floor.currentSelected.gameObject.name);
-            }
-            Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-            if (d != null)
-            {
-                d.parentToReturnTo = d.discardPile.transform;
             }
         }
     }

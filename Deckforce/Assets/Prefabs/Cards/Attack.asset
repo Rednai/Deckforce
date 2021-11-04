@@ -10,17 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1a507092b0edf74dbaf24e033a1cb0b, type: 3}
-  m_Name: FireRay
+  m_Name: Attack
   m_EditorClassIdentifier: 
-  cost: 3
-  activationRange: 1
-  range: 5
-  visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
-  cardColor: {r: 1, g: 0, b: 0, a: 1}
-  description: 'A Ray of fire that '
-  name: Fire Bolt
-  color: {r: 1, g: 0.5745198, b: 0.21226418, a: 1}
+  cost: 0
+  playerRange: 0
+  effectRange: 0
+  visual: {fileID: 0}
+  description: GANG
+  name: ATTACK
+  color: {r: 0.7830189, g: 0.18836774, b: 0.18836774, a: 1}
   activateClip: {fileID: 0}
-  userParticle: {fileID: 0}
-  targetParticle: {fileID: 0}
-  playerOwner: {fileID: 0}
