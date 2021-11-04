@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: FireRay
   m_EditorClassIdentifier: 
   cost: 3
-  range: 5
+  playerRange: 0
+  effectRange: 0
   visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
   description: 'A Ray of fire that '
+  name: Fire Bolt
+  color: {r: 1, g: 0.5745198, b: 0.21226418, a: 1}
   activateClip: {fileID: 0}
