@@ -9,7 +9,7 @@ public class SummoningCard : Card
     public override void Activate(Player currentPlayer, Tile targetTile)
     {
         GameObject entityGO = Instantiate(summoningEntity).gameObject;
-        entityGO.transform.position = targetTile.centerPosition.transform.position;
+        // entityGO.transform.position = targetTile.centerPosition.transform.position;
         Entity newEntity = entityGO.GetComponent<Entity>();
 
         targetTile.tileEntity = newEntity;

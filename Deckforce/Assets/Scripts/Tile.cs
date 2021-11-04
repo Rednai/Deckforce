@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public GameObject centerPosition;
     public Entity tileEntity;
+    public Vector2 tilePosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        tilePosition = new Vector2(transform.position.x, transform.position.z);
     }
 
     // Update is called once per frame
