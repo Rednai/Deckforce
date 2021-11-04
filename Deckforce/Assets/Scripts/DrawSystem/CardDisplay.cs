@@ -8,14 +8,11 @@ public class CardDisplay : MonoBehaviour
     public Player ownerPlayer;
     public Card card;
     
-    public int cost;
-    public int playerRange;
-    public int effectRange;
-
     public Image cardLayout;
     public Image visual;
     public Text description;
     public Text cardName;
+    public Text cardCost;
     public Color color;
 
     public AudioClip activateClip;
@@ -23,24 +20,12 @@ public class CardDisplay : MonoBehaviour
     public void InitiateCard(Player currentPlayer)
     {
         ownerPlayer = currentPlayer;
-        cost = card.cost;
-        playerRange = card.playerRange;
-        effectRange = card.effectRange;
-        visual.sprite = card.visual; 
+
+        visual.sprite = card.visual;
         description.text = card.description;
-        cardName.text = card.name;
+        cardName.text = card.cardName;
+        cardCost.text = $"{card.cost}";
         activateClip = card.activateClip;
         cardLayout.color = card.color;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

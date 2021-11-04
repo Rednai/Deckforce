@@ -6,32 +6,31 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Basic Card")]
 public class Card : ScriptableObject
 {
-    public enum RangeType
-    {
-        CIRCULAR,
-        LINEAR,
-        SQUARE,
-        DIAGONAL,
-    }
+    public string cardName;
+    public string description;
+    public Color color;
+    
+    public Sprite visual;
+    public Player playerOwner;
+
+    public enum AreaTypePattern {
+        CIRCULAR, LINEAR, SQUARE, DIAGONAL
+    };
+    /*
+    public enum EffectPattern {
+        CROSS, SQUARE, DIAGONALS
+    };
+    */
 
     public int cost;
-    public enum ActivationRange { CROSS, SQUARE, DIAGONALS };
-    public ActivationRange activationRange;
+    public AreaTypePattern areaTypePattern;
     public int playerRange;
     public int effectRange;
-
-    public Sprite visual;
-    public Color cardColor;
-    public string description;
-    public string cardName;
-    public Color color;
 
     public AudioClip activateClip;
 
     public ParticleSystem userParticle;
     public ParticleSystem targetParticle;
-
-    public Player playerOwner;
 
     public virtual void Select()
     {}

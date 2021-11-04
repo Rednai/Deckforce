@@ -9,18 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a507092b0edf74dbaf24e033a1cb0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c5bc2ddde9f89e4daac669fbe4cee79, type: 3}
   m_Name: FireRay
   m_EditorClassIdentifier: 
-  cost: 3
-  activationRange: 1
-  range: 5
+  cardName: Fire Ray
+  description: A Ray of fire that targets a single entity to deal a small amount
+    of damage
+  color: {r: 1, g: 0, b: 0, a: 1}
   visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
-  cardColor: {r: 1, g: 0, b: 0, a: 1}
-  description: 'A Ray of fire that '
-  name: Fire Bolt
-  color: {r: 1, g: 0.5745198, b: 0.21226418, a: 1}
+  playerOwner: {fileID: 0}
+  cost: 3
+  areaTypePattern: 0
+  playerRange: 3
+  effectRange: 0
   activateClip: {fileID: 0}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
-  playerOwner: {fileID: 0}
+  explosionType: 0
+  damage: 3

@@ -68,6 +68,11 @@ public class BattleManager : MonoBehaviour
         }
 
         battleTurn.playingEntities = new List<Entity>();
+        
+        if (battlePlayers.Count == 0) {
+            Debug.Log("Warning: No entities with the tag Player found");
+            return ;
+        }
         foreach (Player player in battlePlayers) {
             battleTurn.playingEntities.Add(player.selectedCharacter);
             foreach (Entity alliedEntity in player.selectedCharacter.alliedEntities) {
