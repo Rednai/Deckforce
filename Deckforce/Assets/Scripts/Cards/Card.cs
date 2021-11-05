@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class Card : ScriptableObject
 {
+    public enum RangeType
+    {
+        CIRCULAR,
+        LINEAR,
+        SQUARE,
+        DIAGONAL,
+    }
+
     public int cost;
-    public int range;
+    public int playerRange;
+    public int effectRange;
 
     public Sprite visual;
     public string description;
+    public string name;
+    public Color color;
 
     public AudioClip activateClip;
 
