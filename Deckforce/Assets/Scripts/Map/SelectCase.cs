@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class SelectCase: MonoBehaviour {
     public LayerMask floorMask;
-    public GameObject currentSelected = null;
+    public Tile currentSelected = null;
 
     void Update() {
         RaycastHit hit;
@@ -14,36 +14,45 @@ public class SelectCase: MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, floorMask)) {
             if (currentSelected != null) {
-                currentSelected.GetComponent<Animator>().SetBool("Selected", false);
+                currentSelected.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.UP)?.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.DOWN)?.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.LEFT)?.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.StopAnimation();
+                currentSelected.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.UP)?.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.DOWN)?.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.LEFT)?.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.StopOutline();
             }
-            currentSelected = hit.transform.parent.gameObject;
-            currentSelected.GetComponent<Animator>().SetBool("Selected", true);
+            currentSelected = hit.transform.parent.GetComponent<Tile>();
+                currentSelected.StartAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.UP)?.StartAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.DOWN)?.StartAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.LEFT)?.StartAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.StartAnimation();
+                currentSelected.SetOutline(OutlineType.MOVE);
+                currentSelected.GetRelatedPos(RelatedPos.UP)?.SetOutline(OutlineType.MOVE);
+                currentSelected.GetRelatedPos(RelatedPos.DOWN)?.SetOutline(OutlineType.MOVE);
+                currentSelected.GetRelatedPos(RelatedPos.LEFT)?.SetOutline(OutlineType.MOVE);
+                currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.SetOutline(OutlineType.MOVE);
         } else if (currentSelected != null) {
-            currentSelected.GetComponent<Animator>().SetBool("Selected", false);
+                currentSelected.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.UP)?.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.DOWN)?.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.LEFT)?.StopAnimation();
+                currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.StopAnimation();
+                currentSelected.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.UP)?.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.DOWN)?.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.LEFT)?.StopOutline();
+                currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.StopOutline();
             currentSelected = null;
         }
-    }
-}
 
-
-// Custom Editor the "old" way by modifying the script variables directly.
-// No handling of multi-object editing, undo, and Prefab overrides!
-[CustomEditor (typeof(SelectCase))]
-public class SelectCaseEditor : Editor
-{
-    bool[,] patterns = new bool[10, 10];
-
-    public override void OnInspectorGUI()
-    {
-        EditorGUILayout.Space();
-        for (ushort y = 0; y < 10; y++) {
-            EditorGUILayout.BeginHorizontal();
-            for (ushort x = 0; x < 10; x++) {
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.Toggle(patterns[y, x]);
-                EditorGUILayout.EndVertical();
-            }
-            EditorGUILayout.EndHorizontal();
+        // Debug, aucune utilité
+        if (Input.GetMouseButtonDown(0) && currentSelected != null) {
+            Debug.Log($"Current tile: {currentSelected.name} T: {currentSelected.GetRelatedPos(RelatedPos.UP)?.name} D: {currentSelected.GetRelatedPos(RelatedPos.DOWN)?.name} L: {currentSelected.GetRelatedPos(RelatedPos.LEFT)?.name} R: {currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.name}");
         }
     }
 }

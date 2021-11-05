@@ -1349,6 +1349,7 @@ MonoBehaviour:
   floorMask:
     serializedVersion: 2
     m_Bits: 128
+  OutlineShader: {fileID: 4800000, guid: 19fa52a5f4666b74ea773703244c6188, type: 3}
   currentSelected: {fileID: 0}
 --- !u!483693784 &467666662
 TilemapRenderer:
