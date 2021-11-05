@@ -66,7 +66,27 @@ namespace DrawSystem
         
         public void Draw()
         {
-            queue++;
+            int handActiveCount = 0;
+            int deckActiveCount = 0;
+            foreach (Transform child in hand.transform)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    handActiveCount++;
+                }
+            }
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    deckActiveCount++;
+                }
+            }
+            Debug.Log(deckActiveCount);
+            if (handActiveCount < 9 || deckActiveCount != 0)
+            {
+                queue++;
+            }
         }
 
         private void FixedUpdate()
