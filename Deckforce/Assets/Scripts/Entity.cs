@@ -37,9 +37,18 @@ public class Entity : MonoBehaviour
     public virtual void Move(Tile targetTile)
     {}
 
-    public virtual void TakeDamge(int damageAmount)
-    {}
+    public virtual void TakeDamage(int damageAmount)
+    {
+        currentLife -= damageAmount;
+
+        if (currentLife <= 0) {
+            Die();
+        }
+    }
 
     public virtual void Die()
-    {}
+    {
+        Debug.Log("DIE");
+        Destroy(gameObject);
+    }
 }

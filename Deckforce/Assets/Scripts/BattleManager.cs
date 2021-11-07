@@ -166,4 +166,21 @@ public class BattleManager : MonoBehaviour
         currentPlayingEntity = battleTurn.playingEntities[0];
         StartTurn();
     }
+
+    public void RemovePlayer(Player player)
+    {
+        initiativeDisplay.RemoveFromTimeline(player.selectedCharacter);
+        battlePlayers.Remove(player);
+
+        battleTurn.playingEntities.Remove(player.selectedCharacter);
+        foreach (Entity entity in player.selectedCharacter.alliedEntities) {
+            battleTurn.playingEntities.Remove(entity);
+        }
+    }
+
+    public void RemoveEntity(Entity entity)
+    {
+        initiativeDisplay.RemoveFromTimeline(entity);
+        battleTurn.playingEntities.Remove(entity);
+    }
 }

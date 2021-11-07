@@ -26,4 +26,4 @@ MonoBehaviour:
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
   explosionType: 0
-  damage: 3
+  damage: 100

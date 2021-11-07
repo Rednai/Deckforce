@@ -23,11 +23,9 @@ public class Player : MonoBehaviour
     
     public void InstanciateDeckCards()
     {
-        foreach (Card card in deckCards)
-        {
+        foreach (Card card in deckCards) {
             CardDisplay newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            newCard.card = card;
-            newCard.InitiateCard(this);
+            newCard.InitiateCard(this, card);
             newCard.transform.SetParent(deck.transform);
         }
     }

@@ -14,7 +14,14 @@ public class SummoningCard : Card
         Entity newEntity = entityGO.GetComponent<Entity>();
 
         targetTile.tileEntity = newEntity;
+        newEntity.transform.position = new Vector3(
+            targetTile.transform.position.x,
+            targetTile.transform.position.y + 0.5f,
+            targetTile.transform.position.z
+        );
+        //targetTile.transform.position;
 
         currentPlayer.selectedCharacter.currentActionPoints -= cost;
+        currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
     }
 }

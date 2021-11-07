@@ -14,7 +14,7 @@ public class AggressionCard : Card
         Entity targetEntity = targetTile.tileEntity;
 
         if (targetEntity) {
-            targetEntity.TakeDamge(damage);
+            targetEntity.TakeDamage(damage);
         }
         currentPlayer.selectedCharacter.currentActionPoints -= cost;
     }
