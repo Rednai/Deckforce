@@ -52,7 +52,7 @@ public class SelectCase: MonoBehaviour {
 
         // Debug, aucune utilité
         if (Input.GetMouseButtonDown(0) && currentSelected != null) {
-            Debug.Log($"Current tile: {currentSelected.name} T: {currentSelected.GetRelatedPos(RelatedPos.UP)?.name} D: {currentSelected.GetRelatedPos(RelatedPos.DOWN)?.name} L: {currentSelected.GetRelatedPos(RelatedPos.LEFT)?.name} R: {currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.name}");
+            //Debug.Log($"Current tile: {currentSelected.name} T: {currentSelected.GetRelatedPos(RelatedPos.UP)?.name} D: {currentSelected.GetRelatedPos(RelatedPos.DOWN)?.name} L: {currentSelected.GetRelatedPos(RelatedPos.LEFT)?.name} R: {currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.name}");
         }
     }
 }
