@@ -32,11 +32,13 @@ public class MovePlayer : MonoBehaviour
             Vector3 casePos = currentSelected.GetComponentInParent<Transform>().position;
             int movementCost = path.Count - 1;
 
-            if (character.currentMovePoints >= movementCost)
+            if (movementCost > 0 && character.currentMovePoints >= movementCost)
             {
                 move = path;
                 character.currentMovePoints -= movementCost;
+                pathfinding.startTile.tileEntity = null;
                 pathfinding.setStartTile(currentSelected);
+                currentSelected.tileEntity = character;
             }
         }
 

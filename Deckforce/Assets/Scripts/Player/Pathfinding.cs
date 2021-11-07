@@ -6,7 +6,7 @@ public class Pathfinding : MonoBehaviour
 {
     public Tile startTile = null;
 
-    private void getStartTile()
+    private void GetStartTile()
     {
         Vector3 pos = GetComponent<Transform>().position;
         Debug.Log(pos);
@@ -33,7 +33,10 @@ public class Pathfinding : MonoBehaviour
         {
             Tile current = frontier[0];
             frontier.RemoveAt(0);
-            List<Tile> neighbors = getFrontierTile(current);
+            List<Tile> neighbors = GetFrontierTile(current);
+
+            if (current == goal)
+                break;
 
             foreach (Tile next in neighbors)
             {
@@ -48,6 +51,9 @@ public class Pathfinding : MonoBehaviour
 
         Tile actual = goal;
 
+        if (!reached.ContainsKey(actual))
+            return path;
+
         while (actual != startTile)
         {
             path.Add(actual);
@@ -59,7 +65,7 @@ public class Pathfinding : MonoBehaviour
         return path;
     }
 
-    private List<Tile> getFrontierTile(Tile current)
+    private List<Tile> GetFrontierTile(Tile current)
     {
         List<Tile> next = new List<Tile>();
 

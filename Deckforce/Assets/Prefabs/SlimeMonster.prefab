@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5835800882044367628}
   - component: {fileID: 1881464967770408282}
   - component: {fileID: 684162041105363127}
+  - component: {fileID: 595537496976912887}
   m_Layer: 0
   m_Name: SlimeMonster
   m_TagString: Untagged
@@ -114,3 +115,17 @@ MonoBehaviour:
   entityIcon: {fileID: 21300000, guid: d2dfec4ced9ee06488b52ce3042c02eb, type: 3}
   initiative: 2
   canMove: 0
+  playerOwner: {fileID: 0}
+--- !u!114 &595537496976912887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684162041105363120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d146e830c4df24b9f70c9cd16181ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTile: {fileID: 0}

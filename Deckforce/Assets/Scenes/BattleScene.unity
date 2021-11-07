@@ -533,6 +533,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1941825578808471463, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: startTile
+      value: 
+      objectReference: {fileID: 1795934976}
     - target: {fileID: 7127482487977786976, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: floor
       value: 
@@ -724,6 +728,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1941825578808471463, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: startTile
+      value: 
+      objectReference: {fileID: 1207399663}
     - target: {fileID: 7127482487977786976, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: floor
       value: 
@@ -2016,7 +2024,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 137555025776978950, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
       propertyPath: m_Name
-      value: Case
+      value: Spawn Player 1
       objectReference: {fileID: 0}
     - target: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
       propertyPath: tileEntity
@@ -3363,6 +3371,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9188987476866275646, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
   m_PrefabInstance: {fileID: 872424649}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &874238529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
+  m_PrefabInstance: {fileID: 996546042}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4357a9ff98e31e5438cb61a8f32ab264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &933899122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3513,7 +3532,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 137555025776978950, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
       propertyPath: m_Name
-      value: Case
+      value: Spawn Player 2
       objectReference: {fileID: 0}
     - target: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
       propertyPath: tileEntity
@@ -4447,6 +4466,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193188365}
   m_CullTransparentMesh: 0
+--- !u!114 &1207399663 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
+  m_PrefabInstance: {fileID: 1830377262}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4357a9ff98e31e5438cb61a8f32ab264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1221453469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6468,6 +6498,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1941825578808471463, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: startTile
+      value: 
+      objectReference: {fileID: 874238529}
     - target: {fileID: 7127482487977786976, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: floor
       value: 
@@ -6598,6 +6632,17 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+--- !u!114 &1795934976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
+  m_PrefabInstance: {fileID: 454392982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4357a9ff98e31e5438cb61a8f32ab264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1814567658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6731,7 +6776,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 137555025776978950, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
       propertyPath: m_Name
-      value: Case
+      value: Spawn Player 3
       objectReference: {fileID: 0}
     - target: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
       propertyPath: tileEntity
@@ -7318,6 +7363,7 @@ GameObject:
   - component: {fileID: 1980003067}
   - component: {fileID: 1980003066}
   - component: {fileID: 1980003065}
+  - component: {fileID: 1980003068}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7390,6 +7436,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+--- !u!114 &1980003068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980003064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93dd1f0aee107f3489f383a590e70745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 0.01
+  maxScroll: 10
+  minScroll: 2
 --- !u!1001 &2003312467
 PrefabInstance:
   m_ObjectHideFlags: 0
