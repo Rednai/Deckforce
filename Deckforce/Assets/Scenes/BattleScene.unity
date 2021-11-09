@@ -8094,6 +8094,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1748034087}
     m_Modifications:
+    - target: {fileID: 4626040066003115960, guid: 271c85d1030278544912378067883b52, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4626040066003115963, guid: 271c85d1030278544912378067883b52, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -19
@@ -8267,7 +8271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ed3788cd3c030458f122b5c95d87dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalTurnTime: 60
+  normalTurnTime: 10
   overtimeTurnTime: 30
   entityNameText: {fileID: 436733039}
   timeText: {fileID: 1372152719}

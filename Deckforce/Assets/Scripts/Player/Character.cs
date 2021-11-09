@@ -34,7 +34,6 @@ public class Character : Entity
 
     public override void TakeDamage(int damageAmount)
     {
-        Debug.Log("take damage");
         base.TakeDamage(damageAmount);
     }
 

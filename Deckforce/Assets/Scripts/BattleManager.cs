@@ -159,6 +159,11 @@ public class BattleManager : MonoBehaviour
         currentPlayingEntity.canMove = false;
         initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
 
+        if (battleTurn.turnNb < 10) {
+            battleTurn.turnTime = normalTurnTime;
+        } else {
+            battleTurn.turnTime = overtimeTurnTime;
+        }
         battleTurn.playingEntities.RemoveAt(0);
         if (battleTurn.playingEntities.Count == 0) {
             InitTurn();

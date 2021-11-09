@@ -35,6 +35,8 @@ public class Card : ScriptableObject
     public virtual void Select()
     {}
 
-    public virtual void Activate(Player currentPlayer, Tile targetTile)
-    {}
+    public virtual bool Activate(Player currentPlayer, Tile targetTile)
+    {
+        return (false);
+    }
 }

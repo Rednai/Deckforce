@@ -15,11 +15,10 @@ namespace DrawSystem
                 Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
                 Card card = draggable.GetComponent<CardDisplay>().card;
 
-                if (draggable != null) {
+                bool isActivated = card.Activate(card.playerOwner, floor.currentSelected);
+                if (draggable != null && isActivated == true) {
                     draggable.parentToReturnTo = draggable.discardPile.transform;
                 }
-
-                card.Activate(card.playerOwner, floor.currentSelected);
                 Debug.Log(eventData.pointerDrag.name + " was dropped to " + floor.currentSelected.gameObject.name);
             }
         }
