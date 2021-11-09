@@ -16,6 +16,7 @@ public class Character : Entity
     void Start()
     {
         battleManager = GameObject.FindObjectOfType<BattleManager>();
+        Init();
     }
 
     public void RightClick()
