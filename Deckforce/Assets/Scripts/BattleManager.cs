@@ -174,6 +174,11 @@ public class BattleManager : MonoBehaviour
 
     public void RemovePlayer(Player player)
     {
+        if (player.selectedCharacter == currentPlayingEntity) {
+            player.EndTurn();
+            currentPlayingEntity.EndTurn();
+        }
+
         initiativeDisplay.RemoveFromTimeline(player.selectedCharacter);
         battlePlayers.Remove(player);
 
@@ -181,6 +186,17 @@ public class BattleManager : MonoBehaviour
         foreach (Entity entity in player.selectedCharacter.alliedEntities) {
             battleTurn.playingEntities.Remove(entity);
         }
+
+        if (battleTurn.turnNb < 10) {
+            battleTurn.turnTime = normalTurnTime;
+        } else {
+            battleTurn.turnTime = overtimeTurnTime;
+        }
+        if (battleTurn.playingEntities.Count == 0) {
+            InitTurn();
+        }
+        currentPlayingEntity = battleTurn.playingEntities[0];
+        StartTurn();
     }
 
     public void RemoveEntity(Entity entity)
