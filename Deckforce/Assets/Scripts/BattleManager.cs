@@ -88,6 +88,8 @@ public class BattleManager : MonoBehaviour
 
     public void StartTurn()
     {
+        //TODO: si première entité du tour, faut afficher le numéro du tour avant le reste
+
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.StartTurn();
@@ -134,6 +136,12 @@ public class BattleManager : MonoBehaviour
             actionText.gameObject.SetActive(false);
             movementSlider.gameObject.SetActive(false);
             movementText.gameObject.SetActive(false);
+        }
+
+        if (currentPlayer.deck.isDrawingOver) {
+            finishTurnButton.gameObject.SetActive(true);
+        } else {
+            finishTurnButton.gameObject.SetActive(false);
         }
     }
 

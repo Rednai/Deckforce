@@ -53,7 +53,6 @@ public class Character : Entity
     public void RemoveEntityFromAllies(Entity newEntity)
     {
         alliedEntities.Remove(newEntity);
-        //TODO: retirer aussi du battleturn
         battleManager.RemoveEntity(newEntity);
     }
 }

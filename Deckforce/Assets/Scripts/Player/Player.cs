@@ -61,8 +61,7 @@ public class Player : MonoBehaviour
     public void StartTurn()
     {
         ManagingActivation(true);
-        if (firstTurn)
-        {
+        if (firstTurn) {
             InstanciateDeckCards();
             deck.Shuffle();
             deck.Draw();
@@ -70,9 +69,7 @@ public class Player : MonoBehaviour
             deck.Draw();
             deck.Draw();
             firstTurn = false;
-        }
-        else
-        {
+        } else {
             deck.Draw();
         }
     }
