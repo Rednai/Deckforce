@@ -7,6 +7,8 @@ public class Entity : MonoBehaviour
     public string entityName;
     public int currentLife;
     public int maxLife;
+    public int currentArmor;
+    public int maxArmor;
     public Sprite entityIcon;
 
     public int initiative;

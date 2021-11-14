@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ploby
       objectReference: {fileID: 0}
+    - target: {fileID: 7127482487977786988, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce0cfc6ef9cb9204dbe5dc9317b4d834, type: 2}
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: maxLife
       value: 7
@@ -743,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 7127482487977786988, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: cd92604aba0767f42accbf3129083fd3, type: 2}
+      objectReference: {fileID: 2100000, guid: eac7c99a7dfbb114db65622fcd3316f4, type: 2}
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: maxLife
       value: 15
@@ -5138,6 +5142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 3903762472632428731, guid: 6b31c43bd498baf43b819edf0cc9d811, type: 3}
   hand: {fileID: 621894339}
+  isDrawingOver: 0
 --- !u!1 &1372152717
 GameObject:
   m_ObjectHideFlags: 0
@@ -6549,7 +6554,7 @@ PrefabInstance:
     - target: {fileID: 7127482487977786988, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4d7efd53f74c54d4fb49ece124db07c1, type: 2}
+      objectReference: {fileID: 2100000, guid: b65d05d21e20324478697e42929de0ee, type: 2}
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: maxLife
       value: 12
