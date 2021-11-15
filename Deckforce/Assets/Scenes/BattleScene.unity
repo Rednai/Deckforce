@@ -554,6 +554,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: maxShield
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: entityIcon
       value: 
       objectReference: {fileID: 21300000, guid: ec328164951b9a148b3f0bbd85527119, type: 3}
@@ -751,6 +755,10 @@ PrefabInstance:
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: maxLife
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: maxShield
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: entityIcon
@@ -3885,6 +3893,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1748034087}
     m_Modifications:
+    - target: {fileID: 3521127006820047837, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521127006820047837, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3996,6 +4012,10 @@ PrefabInstance:
     - target: {fileID: 5959923161858631936, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991906942010744566, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5882353
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
@@ -5222,6 +5242,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372152717}
   m_CullTransparentMesh: 1
+--- !u!114 &1373263831 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7340123969693863259, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+  m_PrefabInstance: {fileID: 1073196970}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1389183381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6560,6 +6591,10 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: maxShield
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127482487977786991, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: entityIcon
       value: 
       objectReference: {fileID: 21300000, guid: 3ed106f36f015674ab525040e117647e, type: 3}
@@ -6666,11 +6701,11 @@ PrefabInstance:
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
 --- !u!114 &1795934976 stripped
@@ -8328,14 +8363,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ed3788cd3c030458f122b5c95d87dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalTurnTime: 10
-  overtimeTurnTime: 30
+  normalTurnTime: 30
+  overtimeTurnTime: 15
   entityNameText: {fileID: 436733039}
   timeText: {fileID: 1372152719}
   finishTurnButton: {fileID: 1885623256}
   initiativeDisplay: {fileID: 2131037451}
   healthSlider: {fileID: 1073196977}
   healthText: {fileID: 1073196976}
+  shieldSlider: {fileID: 1373263831}
   actionSlider: {fileID: 1073196975}
   actionText: {fileID: 1073196974}
   movementSlider: {fileID: 1073196973}

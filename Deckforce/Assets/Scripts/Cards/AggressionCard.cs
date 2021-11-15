@@ -20,12 +20,4 @@ public class AggressionCard : Card
         }
         return (false);
     }
-
-    bool CheckIfAlly(Player currentPlayer, Entity targetEntity)
-    {
-        if (targetEntity == currentPlayer.selectedCharacter) {
-            return (true);
-        }
-        return (currentPlayer.selectedCharacter.alliedEntities.Contains(targetEntity));
-    }
 }

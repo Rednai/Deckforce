@@ -28,6 +28,7 @@ public class BattleManager : MonoBehaviour
     [Header("UI Stats")]
     public Slider healthSlider;
     public Text healthText;
+    public Slider shieldSlider;
 
     public Slider actionSlider;
     public Text actionText;
@@ -114,6 +115,7 @@ public class BattleManager : MonoBehaviour
         if (currentPlayer != null) {
             healthSlider.gameObject.SetActive(true);
             healthText.gameObject.SetActive(true);
+            shieldSlider.gameObject.SetActive(true);
             actionSlider.gameObject.SetActive(true);
             actionText.gameObject.SetActive(true);
             movementSlider.gameObject.SetActive(true);
@@ -121,6 +123,8 @@ public class BattleManager : MonoBehaviour
             healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
             healthSlider.value = currentPlayer.selectedCharacter.currentLife;
             healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
+            shieldSlider.maxValue = currentPlayer.selectedCharacter.maxShield;
+            shieldSlider.value = currentPlayer.selectedCharacter.currentShield;
 
             actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
             actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
@@ -132,6 +136,7 @@ public class BattleManager : MonoBehaviour
         } else {
             healthSlider.gameObject.SetActive(false);
             healthText.gameObject.SetActive(false);
+            shieldSlider.gameObject.SetActive(false);
             actionSlider.gameObject.SetActive(false);
             actionText.gameObject.SetActive(false);
             movementSlider.gameObject.SetActive(false);
