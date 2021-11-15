@@ -11,13 +11,22 @@ public class Tile : MonoBehaviour
     public MeshRenderer floorMeshRenderer;
     public Vector2 tilePosition;
     private Animator animator;
+    public Transform tileFloor;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         tilePosition = new Vector2(transform.position.x, transform.position.z);
         gameObject.name = $"Case x:{tilePosition.x} y:{tilePosition.y}";
         animator = GetComponent<Animator>();
+    }
+
+    void Update() {
+        if (tileEntity != null) {
+            Vector3 entityPosition = tileEntity.transform.position;
+            entityPosition.y = tileFloor.position.y;
+            tileEntity.transform.position = entityPosition;
+        }
     }
 
     public void StartAnimation() {

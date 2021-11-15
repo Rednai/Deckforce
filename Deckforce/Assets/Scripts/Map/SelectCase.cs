@@ -25,7 +25,7 @@ public class SelectCase: MonoBehaviour {
                 currentSelected.GetRelatedPos(RelatedPos.LEFT)?.StopOutline();
                 currentSelected.GetRelatedPos(RelatedPos.RIGHT)?.StopOutline();
             }
-            currentSelected = hit.transform.parent.GetComponent<Tile>();
+            currentSelected = hit.transform.GetComponent<Tile>();
                 currentSelected.StartAnimation();
                 currentSelected.GetRelatedPos(RelatedPos.UP)?.StartAnimation();
                 currentSelected.GetRelatedPos(RelatedPos.DOWN)?.StartAnimation();
