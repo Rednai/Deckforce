@@ -643,7 +643,7 @@ PrefabInstance:
       objectReference: {fileID: 409411117}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.size
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[0]
@@ -665,6 +665,106 @@ PrefabInstance:
       propertyPath: deckCards.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[11]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[14]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[15]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[16]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[18]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[19]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[20]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[21]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[22]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[23]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[24]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[25]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[26]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[27]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[28]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[29]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
 --- !u!1001 &166029845
@@ -850,7 +950,7 @@ PrefabInstance:
       objectReference: {fileID: 409411117}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.size
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[0]
@@ -871,7 +971,107 @@ PrefabInstance:
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[4]
       value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[5]
+      value: 
       objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[11]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[14]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[15]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[16]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[18]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[19]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[20]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[21]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[22]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[23]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[24]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[25]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[26]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[27]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[28]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb0c9de474c834c46a49fd30d9ba2fa7, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[29]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
 --- !u!1001 &256056310
@@ -3750,7 +3950,7 @@ RectTransform:
   m_GameObject: {fileID: 1009866738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.0279508, y: 2.0279508, z: 2.0279508}
   m_Children:
   - {fileID: 573976139}
   - {fileID: 1372152718}
@@ -3759,7 +3959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1038506443
@@ -3903,11 +4103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_RootOrder
@@ -3936,6 +4136,18 @@ PrefabInstance:
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2583
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2583
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2583
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3967,11 +4179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5959923160395134668, guid: 289d5d8e253be7e459c6a3a683d2453d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6684,7 +6896,7 @@ PrefabInstance:
       objectReference: {fileID: 409411117}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.size
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[0]
@@ -6704,6 +6916,106 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
     - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
       propertyPath: deckCards.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[11]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[14]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[15]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[16]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[18]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[19]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[20]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[21]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[22]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[23]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[24]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[25]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[26]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[27]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[28]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e7bcf1d7d07047409df57458eb74435, type: 2}
+    - target: {fileID: 7127482488019826596, guid: 1c951ed0df9bc2d428c9644242b06fd6, type: 3}
+      propertyPath: deckCards.Array.data[29]
       value: 
       objectReference: {fileID: 11400000, guid: 82441e142a0e4a04c9fbf7a81312e92d, type: 2}
     m_RemovedComponents: []
