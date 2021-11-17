@@ -13,6 +13,7 @@ public class BattleManager : MonoBehaviour
     }
     public float normalTurnTime;
     public float overtimeTurnTime;
+    bool isGameOver = false;
 
     Entity currentPlayingEntity;
     BattleTurn battleTurn;
@@ -36,6 +37,9 @@ public class BattleManager : MonoBehaviour
     public Slider movementSlider;
     public Text movementText;
 
+    [Header("EndGameDisplay")]
+    public EndDisplay endDisplay;
+
     void Start()
     {
         battlePlayers = new List<Player>();
@@ -49,7 +53,9 @@ public class BattleManager : MonoBehaviour
 
     void Update()
     {
-        battleTurn.turnTime -= Time.deltaTime;
+        if (!isGameOver) {
+            battleTurn.turnTime -= Time.deltaTime;
+        }
         if (battleTurn.turnTime <= 0) {
             FinishTurn();
         }
@@ -188,6 +194,9 @@ public class BattleManager : MonoBehaviour
     public void RemovePlayer(Player player)
     {
         if (player.selectedCharacter == currentPlayingEntity) {
+            //TODO: quand ca sera multijoueur, ajouter un menu qui permet de continuer à spectate, ou de retourner au menu
+            endDisplay.gameObject.SetActive(true);
+            endDisplay.DisplayDefeat(player);
             player.EndTurn();
             currentPlayingEntity.EndTurn();
         }
@@ -198,6 +207,20 @@ public class BattleManager : MonoBehaviour
         battleTurn.playingEntities.Remove(player.selectedCharacter);
         foreach (Entity entity in player.selectedCharacter.alliedEntities) {
             battleTurn.playingEntities.Remove(entity);
+        }
+
+        if (battlePlayers.Count == 1) {
+            isGameOver = true;
+            battlePlayers[0].selectedCharacter.canMove = false;
+            //TODO: empecher au joueur de poser des cartes
+            //TODO: passer la souris sur la map ne doit plus rien faire
+            endDisplay.gameObject.SetActive(true);
+            endDisplay.DisplayVictory(battlePlayers[0]);
+
+            return ;
+        } else if (battlePlayers.Count == 0) {
+            endDisplay.gameObject.SetActive(true);
+            endDisplay.DisplayDraw();
         }
 
         if (battleTurn.turnNb < 10) {
