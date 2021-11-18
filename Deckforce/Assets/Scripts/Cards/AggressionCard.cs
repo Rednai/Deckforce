@@ -13,7 +13,8 @@ public class AggressionCard : Card
     {
         Entity targetEntity = targetTile.tileEntity;
 
-        if (targetEntity && CheckIfAlly(currentPlayer, targetEntity) == false && currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+        if (targetEntity && CheckIfAlly(currentPlayer, targetEntity) == false &&
+            currentPlayer.selectedCharacter.currentActionPoints >= cost) {
             targetEntity.TakeDamage(damage);
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             return (true);

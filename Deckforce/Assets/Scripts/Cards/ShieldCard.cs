@@ -10,7 +10,8 @@ public class ShieldCard : ManipulationCard
     public override bool Activate(Player currentPlayer, Tile targetTile)
     {
         Debug.Log("activate shield");
-        if (CheckIfAlly(currentPlayer, targetTile.tileEntity)) {
+        if (CheckIfAlly(currentPlayer, targetTile.tileEntity) && 
+            currentPlayer.selectedCharacter.currentActionPoints >= cost) {
             Debug.Log("ally");
             targetTile.tileEntity.AddShield(shieldAmount);
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
