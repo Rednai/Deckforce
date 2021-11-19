@@ -1,5 +1,0 @@
-C:\Users\hugob\Desktop\GameDev\Projets\Deckforce\DeckforceServer\bin\Debug\netcoreapp3.1\publish\DeckforceServer.exe
-C:\Users\hugob\Desktop\GameDev\Projets\Deckforce\DeckforceServer\bin\Debug\netcoreapp3.1\publish\DeckforceServer.dll
-C:\Users\hugob\Desktop\GameDev\Projets\Deckforce\DeckforceServer\bin\Debug\netcoreapp3.1\publish\DeckforceServer.deps.json
-C:\Users\hugob\Desktop\GameDev\Projets\Deckforce\DeckforceServer\bin\Debug\netcoreapp3.1\publish\DeckforceServer.runtimeconfig.json
-C:\Users\hugob\Desktop\GameDev\Projets\Deckforce\DeckforceServer\bin\Debug\netcoreapp3.1\publish\DeckforceServer.pdb

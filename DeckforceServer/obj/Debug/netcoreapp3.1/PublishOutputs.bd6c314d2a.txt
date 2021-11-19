@@ -1,7 +1,0 @@
-C:\Users\hugob\Desktop\BuildServer\DeckforceServer.exe
-C:\Users\hugob\Desktop\BuildServer\DeckforceServer.dll
-C:\Users\hugob\Desktop\BuildServer\DeckforceServer.deps.json
-C:\Users\hugob\Desktop\BuildServer\DeckforceServer.runtimeconfig.json
-C:\Users\hugob\Desktop\BuildServer\DeckforceServer.pdb
-C:\Users\hugob\Desktop\BuildServer\Microsoft.Playfab.Gaming.GSDK.CSharp.dll
-C:\Users\hugob\Desktop\BuildServer\Newtonsoft.Json.dll
