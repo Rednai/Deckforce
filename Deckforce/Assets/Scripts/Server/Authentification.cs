@@ -1,43 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using PlayFab;
 
 public class Authentification : MonoBehaviour
 {
-    private void Login()
+    public static Authentification instance;
+
+    public bool isAuthenticated { get; private set; } = false;
+    public UserInfo userInfo = new UserInfo();
+
+    [HideInInspector]
+    public string sessionTicket;
+
+    private Action<PlayFab.ClientModels.LoginResult> loginSuccessCallback;
+    private Action<PlayFabError> loginErrorCallback;
+
+    private void Awake()
     {
+        instance = this;
     }
 
-    private void Register()
+    public void Login(Action<PlayFab.ClientModels.LoginResult> successCallback = null, Action<PlayFabError> errorCallback = null)
     {
+        this.loginSuccessCallback = successCallback;
+        this.loginErrorCallback = errorCallback;
+
         switch (Application.platform)
         {
             case RuntimePlatform.WindowsPlayer:
-                RegisterPC();
+            case RuntimePlatform.WindowsEditor:
+                LoginCustomID();
                 break;
             case RuntimePlatform.IPhonePlayer:
-                RegisterIOS();
+                LoginIOS();
                 break;
             case RuntimePlatform.Android:
-                RegisterAndroid();
+                LoginAndroid();
                 break;
             default:
                 break;
         }
     }
 
-    private void RegisterPC()
+    private void LoginCustomID()
     {
-        System.Guid id = System.Guid.NewGuid();
+        string id;
+
+        if (PlayerPrefs.HasKey("CustomId"))
+            id = PlayerPrefs.GetString("CustomId");
+        else
+            id = System.Guid.NewGuid().ToString();
+
         PlayFabClientAPI.LoginWithCustomID(new PlayFab.ClientModels.LoginWithCustomIDRequest
         {
-            CustomId = id.ToString(),
+            CustomId = id,
             CreateAccount = true
-        }, LoginSuccess, LoginError);
+        },
+        result => {
+            PlayerPrefs.SetString("CustomId", id);
+            LoginSuccess(result);
+        }, LoginError);
     }
 
-    private void RegisterIOS()
+    private void LoginIOS()
     {
         PlayFabClientAPI.LoginWithIOSDeviceID(new PlayFab.ClientModels.LoginWithIOSDeviceIDRequest
         {
@@ -48,7 +73,7 @@ public class Authentification : MonoBehaviour
         }, LoginSuccess, LoginError);
     }
 
-    private void RegisterAndroid()
+    private void LoginAndroid()
     {
         PlayFabClientAPI.LoginWithAndroidDeviceID(new PlayFab.ClientModels.LoginWithAndroidDeviceIDRequest
         {
@@ -61,9 +86,15 @@ public class Authentification : MonoBehaviour
 
     private void LoginSuccess(PlayFab.ClientModels.LoginResult result)
     {
+        isAuthenticated = true;
+        sessionTicket = result.SessionTicket;
+        userInfo.playFabId = result.PlayFabId;
+        userInfo.entityId = result.EntityToken.Entity.Id;
+        loginSuccessCallback?.Invoke(result);
     }
 
     private void LoginError(PlayFabError error)
     {
+        loginErrorCallback?.Invoke(error);
     }
 }
