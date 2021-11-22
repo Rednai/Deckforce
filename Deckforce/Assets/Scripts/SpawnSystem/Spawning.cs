@@ -8,11 +8,22 @@ namespace Assets.Scripts.SpawnSystem
     {
         private Tile currentSelected = null;
         private Player newPlayer;
-        public List<Player> futurePlayers;
+        List<Player> futurePlayers;
+
+        public List<Player> savePlayers;
 
         void Start()
         {
             futurePlayers = new List<Player>(GameObject.FindObjectsOfType<Player>());
+
+            //Appelé si la scène est lancée telle quelle. Plus pratique quand il faut tester qqchose sur la scène de combat
+            if (futurePlayers.Count == 0) {
+                futurePlayers = new List<Player>();
+                foreach (Player player in savePlayers) {
+                    player.gameObject.SetActive(true);
+                    futurePlayers.Add(player);
+                }
+            }
         }
 
         public Player SpawningPhase()
