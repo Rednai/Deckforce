@@ -16,6 +16,7 @@ namespace Assets.Scripts.SpawnSystem
         {
             futurePlayers = new List<Player>(GameObject.FindObjectsOfType<Player>());
 
+            Debug.Log(futurePlayers.Count);
             //Appelé si la scène est lancée telle quelle. Plus pratique quand il faut tester qqchose sur la scène de combat
             if (futurePlayers.Count == 0) {
                 futurePlayers = new List<Player>();
@@ -23,6 +24,7 @@ namespace Assets.Scripts.SpawnSystem
                     player.gameObject.SetActive(true);
                     futurePlayers.Add(player);
                 }
+                Debug.Log(futurePlayers.Count);
             }
         }
 
