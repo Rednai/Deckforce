@@ -9,17 +9,17 @@ public class InitiativeDisplay : MonoBehaviour
 
     public GameObject entityIconTemplate;
     public GameObject iconsHolder;
-    Dictionary<Entity, GameObject> icons;
-
-    void Start()
-    {
-        icons = new Dictionary<Entity, GameObject>();
-    }
+    [SerializeField]
+    public Dictionary<Entity, GameObject> icons;
 
     public void DisplayEntitiesInitiatives(List<Entity> battleEntities)
     {
         initiativeSlider.maxValue = 10;
         initiativeSlider.value = 0;
+
+        if (icons == null) {
+            icons = new Dictionary<Entity, GameObject>();
+        }
 
         foreach (Entity entity in battleEntities) {
             GameObject newDisplay = Instantiate(entityIconTemplate);
@@ -38,7 +38,9 @@ public class InitiativeDisplay : MonoBehaviour
 
     public void RemoveFromTimeline(Entity playingEntity)
     {
-        Destroy(icons[playingEntity]);
-        icons.Remove(playingEntity);
+        if (icons.ContainsKey(playingEntity)) {
+            Destroy(icons[playingEntity]);
+            icons.Remove(playingEntity);
+        }
     }
 }

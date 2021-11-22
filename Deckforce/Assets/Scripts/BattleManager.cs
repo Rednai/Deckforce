@@ -24,6 +24,8 @@ public class BattleManager : MonoBehaviour
     List<Player> battlePlayers;
     public Spawning spawner;
 
+    public GameObject deckButton;
+    public GameObject discardButton;
     public Text entityNameText;
     [Header("UI Turn")]
     public Text timeText;
@@ -31,6 +33,7 @@ public class BattleManager : MonoBehaviour
     public InitiativeDisplay initiativeDisplay;
 
     [Header("UI Stats")]
+    public GameObject statsSlidersDisplay;
     public Slider healthSlider;
     public Text healthText;
     public Slider shieldSlider;
@@ -75,10 +78,13 @@ public class BattleManager : MonoBehaviour
 
     void StartGame()
     {
-        // GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        // for (int i = 0; i != players.Length; i++) {
-        //     battlePlayers.Add(players[i].GetComponent<Player>());
-        // }
+        //Afficher les stats, le text du tour et du temps, la barre d'initiative, et les boutons pour les cartes
+
+        timeText.transform.parent.gameObject.SetActive(true);
+        initiativeDisplay.gameObject.SetActive(true);
+        statsSlidersDisplay.gameObject.SetActive(true);
+        deckButton.SetActive(true);
+        discardButton.SetActive(true);
         InitTurn();
         StartTurn();
     }
