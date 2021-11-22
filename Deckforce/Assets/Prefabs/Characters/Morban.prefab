@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1381373427998857506}
   - component: {fileID: 1381373427998857517}
   - component: {fileID: 7723875999378032874}
+  - component: {fileID: 2027270895916960283}
   m_Layer: 0
   m_Name: Morban
   m_TagString: Untagged
@@ -123,6 +124,7 @@ MonoBehaviour:
   currentActionPoints: 0
   maxActionPoints: 15
   alliedEntities: []
+  battleManager: {fileID: 0}
 --- !u!114 &1381373427998857517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,3 +152,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTile: {fileID: 0}
+--- !u!114 &2027270895916960283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381373427998857511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0580550c4b612e849baf8c0f4061f1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
