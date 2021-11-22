@@ -10,9 +10,12 @@ public class MovePlayer : MonoBehaviour
 
     public bool onMove = false;
     private Pathfinding pathfinding;
+    private Range range;
 
     private List<Tile> move = new List<Tile>();
     private Vector3 nextDest;
+
+    private List<Tile> highlightedRange = new List<Tile>();
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +23,11 @@ public class MovePlayer : MonoBehaviour
         floor = GameObject.FindObjectOfType<SelectCase>();
         character = GetComponent<Character>();
         pathfinding = GetComponent<Pathfinding>();
+        range = GetComponent<Range>();
         nextDest = character.transform.position;
         nextDest.y = 0.5f;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -41,6 +45,13 @@ public class MovePlayer : MonoBehaviour
                 pathfinding.setStartTile(currentSelected);
                 currentSelected.tileEntity = character;
             }
+        }
+
+        if (character.canMove)
+        {
+            range.CancelHighlightRange(highlightedRange);
+            highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.MOVEMENT, character.currentMovePoints, false, true);
+            range.HighlightRange(highlightedRange, OutlineType.MOVE);
         }
 
         if (move.Count != 0 && checkCharacterPositionAtDest(nextDest))
