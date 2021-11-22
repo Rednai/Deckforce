@@ -9,7 +9,8 @@ public class SummoningCard : Card
 
     public override bool Activate(Player currentPlayer, Tile targetTile)
     {
-        if (targetTile.tileEntity == null && currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+        if (targetTile.tileEntity == null && 
+            currentPlayer.selectedCharacter.currentActionPoints >= cost) {
             GameObject entityGO = Instantiate(summoningEntity).gameObject;
             Entity newEntity = entityGO.GetComponent<Entity>();
 

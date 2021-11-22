@@ -6,13 +6,6 @@ public class Pathfinding : MonoBehaviour
 {
     public Tile startTile = null;
 
-    private void GetStartTile()
-    {
-        Vector3 pos = GetComponent<Transform>().position;
-        Debug.Log(pos);
-        startTile = GameObject.Find($"Case x:{pos.z} y:{pos.x}").GetComponent<Tile>();
-    }
-
     public void setStartTile(Tile tile)
     {
         startTile = tile;

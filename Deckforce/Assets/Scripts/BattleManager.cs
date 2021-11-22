@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.SpawnSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,10 @@ public class BattleManager : MonoBehaviour
     Entity currentPlayingEntity;
     BattleTurn battleTurn;
     [Header("Players")]
+    public int expectedPlayerNb;
+    private bool spawningPhase = true;
     List<Player> battlePlayers;
+    public Spawning spawner;
 
     public Text entityNameText;
     [Header("UI Turn")]
@@ -40,29 +44,45 @@ public class BattleManager : MonoBehaviour
     [Header("EndGameDisplay")]
     public EndDisplay endDisplay;
 
+    private Player newPlayer;
+    
     void Start()
     {
         battlePlayers = new List<Player>();
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i != players.Length; i++) {
-            battlePlayers.Add(players[i].GetComponent<Player>());
-        }
-        InitTurn();
-        StartTurn();
     }
 
     void Update()
     {
-        if (!isGameOver) {
+        if (!spawningPhase && !isGameOver) {
             battleTurn.turnTime -= Time.deltaTime;
-        }
-        if (battleTurn.turnTime <= 0) {
-            FinishTurn();
-        }
+            if (battleTurn.turnTime <= 0) {
+                FinishTurn();
+            }
 
-        DisplayStats();
+            DisplayStats();
+        } else {
+            newPlayer = spawner.SpawningPhase();
+            if (newPlayer) {
+                battlePlayers.Add(newPlayer);
+            }
+
+            if (expectedPlayerNb == battlePlayers.Count) {
+                spawningPhase = false;
+                StartGame();
+            }
+        }
     }
 
+    void StartGame()
+    {
+        // GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        // for (int i = 0; i != players.Length; i++) {
+        //     battlePlayers.Add(players[i].GetComponent<Player>());
+        // }
+        InitTurn();
+        StartTurn();
+    }
+    
     void InitTurn()
     {
         battleTurn = new BattleTurn();
@@ -222,17 +242,6 @@ public class BattleManager : MonoBehaviour
             endDisplay.gameObject.SetActive(true);
             endDisplay.DisplayDraw();
         }
-
-        if (battleTurn.turnNb < 10) {
-            battleTurn.turnTime = normalTurnTime;
-        } else {
-            battleTurn.turnTime = overtimeTurnTime;
-        }
-        if (battleTurn.playingEntities.Count == 0) {
-            InitTurn();
-        }
-        currentPlayingEntity = battleTurn.playingEntities[0];
-        StartTurn();
     }
 
     public void RemoveEntity(Entity entity)
