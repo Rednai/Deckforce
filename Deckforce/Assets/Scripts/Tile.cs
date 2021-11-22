@@ -32,13 +32,13 @@ public class Tile : MonoBehaviour
     public void SetOutline(OutlineType outlineType) {
         floorMeshRenderer.material.SetFloat("_Outline", 0.1f);
         switch (outlineType) {
-            case OutlineType.MOVE:
+            case OutlineType.EFFECT:
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.red);
                 break;
             case OutlineType.RANGE:
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.green);
                 break;
-            case OutlineType.EFFECT:
+            case OutlineType.MOVE:
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.blue);
                 break;
         }

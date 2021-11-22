@@ -46,7 +46,7 @@ public class Range : MonoBehaviour
 
             if (!range.Contains(current) & !ignored.Contains(current))
             {
-                if (targetEntity == false | current.tileEntity == null)
+                if ((!targetEntity & current.tileEntity == null) | targetEntity)
                     range.Add(current);
                 else
                     ignored.Add(current);   
