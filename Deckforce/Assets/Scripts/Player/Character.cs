@@ -11,11 +11,10 @@ public class Character : Entity
 
     public List<Entity> alliedEntities;
 
-    BattleManager battleManager;
+    public BattleManager battleManager;
 
     void Start()
     {
-        battleManager = GameObject.FindObjectOfType<BattleManager>();
         Init();
     }
 

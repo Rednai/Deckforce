@@ -33,6 +33,11 @@ public class EndDisplay : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        Player[] players = GameObject.FindObjectsOfType<Player>();
+
+        for (int i = players.Length-1; i != -1; i--) {
+            Destroy(players[i].gameObject);
+        }
         SceneManager.LoadScene("MainMenu");
     }
 }

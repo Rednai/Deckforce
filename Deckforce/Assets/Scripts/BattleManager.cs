@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts.SpawnSystem;
 using UnityEngine;
 using UnityEngine.UI;
+using DrawSystem;
 
 public class BattleManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class BattleManager : MonoBehaviour
     public float overtimeTurnTime;
     bool isGameOver = false;
 
-    Entity currentPlayingEntity;
+    public Entity currentPlayingEntity;
     BattleTurn battleTurn;
     [Header("Players")]
     public int expectedPlayerNb;
@@ -27,13 +28,20 @@ public class BattleManager : MonoBehaviour
     public GameObject deckButton;
     public GameObject discardButton;
     public Text entityNameText;
+
+    [Header("UI Cards")]
+    public Deck deck;
+    public GameObject discardPile;
+    public GameObject hand;
+
     [Header("UI Turn")]
     public Text timeText;
     public Button finishTurnButton;
     public InitiativeDisplay initiativeDisplay;
 
     [Header("UI Stats")]
-    public GameObject statsSlidersDisplay;
+    public StatsSlider statsSlidersDisplay;
+    /*
     public Slider healthSlider;
     public Text healthText;
     public Slider shieldSlider;
@@ -43,6 +51,7 @@ public class BattleManager : MonoBehaviour
 
     public Slider movementSlider;
     public Text movementText;
+    */
 
     [Header("EndGameDisplay")]
     public EndDisplay endDisplay;
@@ -51,6 +60,7 @@ public class BattleManager : MonoBehaviour
     
     void Start()
     {
+        expectedPlayerNb = GameObject.FindObjectsOfType<Player>().Count();
         battlePlayers = new List<Player>();
     }
 
@@ -65,7 +75,8 @@ public class BattleManager : MonoBehaviour
             DisplayStats();
         } else {
             newPlayer = spawner.SpawningPhase();
-            if (newPlayer) {
+            if (newPlayer != null) {
+                Debug.Log("add player");
                 battlePlayers.Add(newPlayer);
             }
 
@@ -78,13 +89,22 @@ public class BattleManager : MonoBehaviour
 
     void StartGame()
     {
-        //Afficher les stats, le text du tour et du temps, la barre d'initiative, et les boutons pour les cartes
-
+        Debug.Log("start game");
         timeText.transform.parent.gameObject.SetActive(true);
         initiativeDisplay.gameObject.SetActive(true);
         statsSlidersDisplay.gameObject.SetActive(true);
         deckButton.SetActive(true);
         discardButton.SetActive(true);
+
+        //Set les valeurs importantes (Deck, DiscardPile, Hand)
+        foreach (Player player in battlePlayers) {
+            Debug.Log($"{player.playerName} setup");
+            player.selectedCharacter.battleManager = this;
+            player.deck = deck;
+            player.discardPile = discardPile;
+            player.hand = hand;
+        }
+
         InitTurn();
         StartTurn();
     }
@@ -116,6 +136,7 @@ public class BattleManager : MonoBehaviour
             return (-E1.initiative.CompareTo(E2.initiative));
         });
         currentPlayingEntity = battleTurn.playingEntities[0];
+        Debug.Log($"Entity {currentPlayingEntity.entityName}");
         initiativeDisplay.DisplayEntitiesInitiatives(battleTurn.playingEntities);
     }
 
@@ -145,34 +166,35 @@ public class BattleManager : MonoBehaviour
 
         Player currentPlayer = CheckIfCurrentEntityIsPlayer();
         if (currentPlayer != null) {
-            healthSlider.gameObject.SetActive(true);
-            healthText.gameObject.SetActive(true);
-            shieldSlider.gameObject.SetActive(true);
-            actionSlider.gameObject.SetActive(true);
-            actionText.gameObject.SetActive(true);
-            movementSlider.gameObject.SetActive(true);
-            movementText.gameObject.SetActive(true);
-            healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
-            healthSlider.value = currentPlayer.selectedCharacter.currentLife;
-            healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
-            shieldSlider.maxValue = currentPlayer.selectedCharacter.maxShield;
-            shieldSlider.value = currentPlayer.selectedCharacter.currentShield;
-
-            actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
-            actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
-            actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
-
-            movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
-            movementSlider.value = currentPlayer.selectedCharacter.currentMovePoints;
-            movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
+            statsSlidersDisplay.gameObject.SetActive(true);
+            //statsSlidersDisplay.healthSlider.gameObject.SetActive(true);
+            //statsSlidersDisplay.healthText.gameObject.SetActive(true);
+            //statsSlidersDisplay.shieldSlider.gameObject.SetActive(true);
+            //statsSlidersDisplay.actionSlider.gameObject.SetActive(true);
+            //statsSlidersDisplay.actionText.gameObject.SetActive(true);
+            //statsSlidersDisplay.movementSlider.gameObject.SetActive(true);
+            //statsSlidersDisplay.movementText.gameObject.SetActive(true);
+            //statsSlidersDisplay.healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
+            //statsSlidersDisplay.healthSlider.value = currentPlayer.selectedCharacter.currentLife;
+            //statsSlidersDisplay.healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
+            //statsSlidersDisplay.shieldSlider.maxValue = currentPlayer.selectedCharacter.maxShield;
+            //statsSlidersDisplay.shieldSlider.value = currentPlayer.selectedCharacter.currentShield;
+            //statsSlidersDisplay.actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
+            //statsSlidersDisplay.actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
+            //statsSlidersDisplay.actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
+            //statsSlidersDisplay.movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
+            //statsSlidersDisplay.movementSlider.value = currentPlayer.selectedCharacter.currentMovePoints;
+            //statsSlidersDisplay.movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
+            statsSlidersDisplay.SetInfos(currentPlayer.selectedCharacter, false);
         } else {
-            healthSlider.gameObject.SetActive(false);
-            healthText.gameObject.SetActive(false);
-            shieldSlider.gameObject.SetActive(false);
-            actionSlider.gameObject.SetActive(false);
-            actionText.gameObject.SetActive(false);
-            movementSlider.gameObject.SetActive(false);
-            movementText.gameObject.SetActive(false);
+            statsSlidersDisplay.gameObject.SetActive(false);
+            //healthSlider.gameObject.SetActive(false);
+            //healthText.gameObject.SetActive(false);
+            //shieldSlider.gameObject.SetActive(false);
+            //actionSlider.gameObject.SetActive(false);
+            //actionText.gameObject.SetActive(false);
+            //movementSlider.gameObject.SetActive(false);
+            //movementText.gameObject.SetActive(false);
         }
 
         if (currentPlayer.deck.isDrawingOver) {

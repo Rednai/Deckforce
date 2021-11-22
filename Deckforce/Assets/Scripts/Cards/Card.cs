@@ -11,7 +11,6 @@ public class Card : ScriptableObject
     public Color color;
     
     public Sprite visual;
-    public Player playerOwner;
 
     public enum AreaTypePattern {
         CIRCULAR, LINEAR, SQUARE, DIAGONAL

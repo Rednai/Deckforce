@@ -13,6 +13,7 @@ public class AggressionCard : Card
     {
         Entity targetEntity = targetTile.tileEntity;
 
+        Debug.Log($"{currentPlayer.playerName} playing character {currentPlayer.selectedCharacter.entityName} targeting {targetEntity.entityName}");
         if (targetEntity && CheckIfAlly(currentPlayer, targetEntity) == false &&
             currentPlayer.selectedCharacter.currentActionPoints >= cost) {
             targetEntity.TakeDamage(damage);

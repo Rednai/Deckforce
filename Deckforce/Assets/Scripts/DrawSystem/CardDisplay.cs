@@ -20,7 +20,6 @@ public class CardDisplay : MonoBehaviour
     public void InitiateCard(Player currentPlayer, Card card)
     {
         ownerPlayer = currentPlayer;
-        card.playerOwner = currentPlayer;
         this.card = card;
 
         visual.sprite = card.visual;

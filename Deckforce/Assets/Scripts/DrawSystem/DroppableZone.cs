@@ -13,9 +13,9 @@ namespace DrawSystem
             if (floor.currentSelected != null)
             {
                 Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
-                Card card = draggable.GetComponent<CardDisplay>().card;
+                CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
 
-                bool isActivated = card.Activate(card.playerOwner, floor.currentSelected);
+                bool isActivated = cardDisplay.card.Activate(cardDisplay.ownerPlayer, floor.currentSelected);
                 if (draggable != null && isActivated == true) {
                     draggable.parentToReturnTo = draggable.discardPile.transform;
                 }
