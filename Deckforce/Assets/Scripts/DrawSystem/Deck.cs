@@ -14,9 +14,13 @@ namespace DrawSystem
         private float duration = 1f;
         GameObject tempCardTarget;
         private int queue = 0;
+
+        public bool isDrawingOver = false;
         
-        IEnumerator Drawing() 
+        IEnumerator Drawing()
         {
+            card.GetComponent<CanvasGroup>().interactable = false;
+            card.GetComponent<CanvasGroup>().blocksRaycasts = false;
             tempCardTarget = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             tempCardTarget.transform.SetParent(hand.transform);
             tempCardTarget.transform.localScale = new Vector3(0f, 0f, 0f);
@@ -31,6 +35,8 @@ namespace DrawSystem
             card.parentToReturnTo = hand.transform.parent;
             Destroy(tempCardTarget);
             card.transform.SetParent(hand.transform);
+            card.GetComponent<CanvasGroup>().interactable = true;
+            card.GetComponent<CanvasGroup>().blocksRaycasts = true;
             isDrawing = false;
         }
 
@@ -38,19 +44,62 @@ namespace DrawSystem
         {
             isDrawing = true;
             queue--;
-            card = this.transform.GetChild(Random.Range(1, this.transform.childCount)).GetComponent<Draggable>();
+            foreach (Transform child in this.transform)
+            {
+                if(child.gameObject.activeSelf)
+                {
+                    card = child.GetComponent<Draggable>();
+                    break;
+                }
+            }
             StartCoroutine(Drawing());
         }
+
+        public void Shuffle()
+        {
+            foreach (Transform child in this.transform)
+            {
+                if(child.gameObject.activeSelf)
+                {
+                    child.SetSiblingIndex(Random.Range(1, this.transform.childCount));
+                }
+            }
+        }
+        
         public void Draw()
         {
-            queue++;
+            int handActiveCount = 0;
+            int deckActiveCount = 0;
+            foreach (Transform child in hand.transform)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    handActiveCount++;
+                }
+            }
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    deckActiveCount++;
+                }
+            }
+            Debug.Log(deckActiveCount);
+            if (handActiveCount < 9 || deckActiveCount != 0)
+            {
+                queue++;
+            }
         }
 
         private void FixedUpdate()
         {
-            if (queue > 0 && !isDrawing)
-            {
-                DrawQueuing();
+            if (!isDrawing) {
+                if (queue > 0) {
+                    isDrawingOver = false;
+                    DrawQueuing();
+                } else if (queue == 0) {
+                    isDrawingOver = true;
+                }
             }
         }
     }
