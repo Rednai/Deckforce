@@ -1,0 +1,144 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using PlayFab;
+using PlayFab.MultiplayerModels;
+
+public class Matchmaking : MonoBehaviour
+{
+    public static Matchmaking instance;
+
+    private string queueName;
+    private string ticketId;
+    private Coroutine pollTicket;
+    private Action<PlayFabError> matchingErrorCallback;
+
+    public enum MatchTypes
+    {
+        OneVsOne
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public void FindMatch(MatchTypes matchType, Action<PlayFabError> errorCallback = null)
+    {
+        this.matchingErrorCallback = errorCallback;
+
+        if (!Authentification.instance.isAuthenticated)
+            return;
+
+        switch (matchType)
+        {
+            case MatchTypes.OneVsOne:
+                FindOneVsOneMatch();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void FindOneVsOneMatch()
+    {
+        Debug.Log("Entering matchmaking.");
+
+        queueName = "OneVsOne";
+
+        PlayFabMultiplayerAPI.CreateMatchmakingTicket(
+            new CreateMatchmakingTicketRequest
+            {
+                Creator = new MatchmakingPlayer
+                {
+                    Entity = new EntityKey
+                    {
+                        Id = Authentification.instance.userInfo.entityId,
+                        Type = "title_player_account"
+                    }
+                },
+                QueueName = queueName,
+                GiveUpAfterSeconds = 60
+            },
+            OnMatchmakingTicketCreated,
+            OnMatchmakingError
+            );
+    }
+
+    private void OnMatchmakingTicketCreated(CreateMatchmakingTicketResult result)
+    {
+        Debug.Log("In matchmaking (ticketId = " + result.TicketId + ").");
+
+        ticketId = result.TicketId;
+        pollTicket = StartCoroutine(PollTicket());
+    }
+
+    private IEnumerator PollTicket()
+    {
+        while (true)
+        {
+            PlayFabMultiplayerAPI.GetMatchmakingTicket(new GetMatchmakingTicketRequest
+            {
+                TicketId = ticketId,
+                QueueName = queueName
+            },
+            OnGetMatchmakingTicket,
+            OnMatchmakingError
+            );
+            yield return new WaitForSeconds(6);
+        }
+    }
+
+    private void OnGetMatchmakingTicket(GetMatchmakingTicketResult result)
+    {
+        switch (result.Status)
+        {
+            case "Matched":
+                StopCoroutine(pollTicket);
+                StartMatch(result.MatchId);
+                break;
+            case "Canceled":
+                StopCoroutine(pollTicket);
+                break;
+            default:
+                Debug.Log(result.Status);
+                break;
+        }
+    }
+
+    private void StartMatch(string matchId)
+    {
+        Debug.Log("Match found.");
+
+        PlayFabMultiplayerAPI.GetMatch(
+            new GetMatchRequest
+            {
+                MatchId = matchId,
+                QueueName = queueName
+            },
+            OnGetMatch,
+            OnMatchmakingError
+            );
+    }
+
+    private void OnGetMatch(GetMatchResult result)
+    {
+        Debug.Log("Connecting to match.");
+
+        GameServer.instance.connect(result.ServerDetails.IPV4Address, result.ServerDetails.Ports[0].Num);
+    }
+
+    private void OnMatchmakingError(PlayFabError error)
+    {
+        Debug.Log("Matchmaking error : " + error.ErrorMessage + ".");
+        foreach (KeyValuePair<string, List<string>> entry in error.ErrorDetails)
+        {
+            Debug.Log(entry.Key);
+            foreach (string message in entry.Value)
+                Debug.Log(message);
+        }
+
+        matchingErrorCallback?.Invoke(error);
+    }
+}
