@@ -28,6 +28,7 @@ public class BattleManager : MonoBehaviour
     [Header("UI Stats")]
     public Slider healthSlider;
     public Text healthText;
+    public Slider shieldSlider;
 
     public Slider actionSlider;
     public Text actionText;
@@ -88,6 +89,8 @@ public class BattleManager : MonoBehaviour
 
     public void StartTurn()
     {
+        //TODO: si première entité du tour, faut afficher le numéro du tour avant le reste
+
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.StartTurn();
@@ -112,6 +115,7 @@ public class BattleManager : MonoBehaviour
         if (currentPlayer != null) {
             healthSlider.gameObject.SetActive(true);
             healthText.gameObject.SetActive(true);
+            shieldSlider.gameObject.SetActive(true);
             actionSlider.gameObject.SetActive(true);
             actionText.gameObject.SetActive(true);
             movementSlider.gameObject.SetActive(true);
@@ -119,6 +123,8 @@ public class BattleManager : MonoBehaviour
             healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
             healthSlider.value = currentPlayer.selectedCharacter.currentLife;
             healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
+            shieldSlider.maxValue = currentPlayer.selectedCharacter.maxShield;
+            shieldSlider.value = currentPlayer.selectedCharacter.currentShield;
 
             actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
             actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
@@ -130,10 +136,17 @@ public class BattleManager : MonoBehaviour
         } else {
             healthSlider.gameObject.SetActive(false);
             healthText.gameObject.SetActive(false);
+            shieldSlider.gameObject.SetActive(false);
             actionSlider.gameObject.SetActive(false);
             actionText.gameObject.SetActive(false);
             movementSlider.gameObject.SetActive(false);
             movementText.gameObject.SetActive(false);
+        }
+
+        if (currentPlayer.deck.isDrawingOver) {
+            finishTurnButton.gameObject.SetActive(true);
+        } else {
+            finishTurnButton.gameObject.SetActive(false);
         }
     }
 
@@ -159,11 +172,49 @@ public class BattleManager : MonoBehaviour
         currentPlayingEntity.canMove = false;
         initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
 
+        if (battleTurn.turnNb < 10) {
+            battleTurn.turnTime = normalTurnTime;
+        } else {
+            battleTurn.turnTime = overtimeTurnTime;
+        }
         battleTurn.playingEntities.RemoveAt(0);
         if (battleTurn.playingEntities.Count == 0) {
             InitTurn();
         }
         currentPlayingEntity = battleTurn.playingEntities[0];
         StartTurn();
+    }
+
+    public void RemovePlayer(Player player)
+    {
+        if (player.selectedCharacter == currentPlayingEntity) {
+            player.EndTurn();
+            currentPlayingEntity.EndTurn();
+        }
+
+        initiativeDisplay.RemoveFromTimeline(player.selectedCharacter);
+        battlePlayers.Remove(player);
+
+        battleTurn.playingEntities.Remove(player.selectedCharacter);
+        foreach (Entity entity in player.selectedCharacter.alliedEntities) {
+            battleTurn.playingEntities.Remove(entity);
+        }
+
+        if (battleTurn.turnNb < 10) {
+            battleTurn.turnTime = normalTurnTime;
+        } else {
+            battleTurn.turnTime = overtimeTurnTime;
+        }
+        if (battleTurn.playingEntities.Count == 0) {
+            InitTurn();
+        }
+        currentPlayingEntity = battleTurn.playingEntities[0];
+        StartTurn();
+    }
+
+    public void RemoveEntity(Entity entity)
+    {
+        initiativeDisplay.RemoveFromTimeline(entity);
+        battleTurn.playingEntities.Remove(entity);
     }
 }

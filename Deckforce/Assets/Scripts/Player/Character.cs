@@ -11,6 +11,14 @@ public class Character : Entity
 
     public List<Entity> alliedEntities;
 
+    BattleManager battleManager;
+
+    void Start()
+    {
+        battleManager = GameObject.FindObjectOfType<BattleManager>();
+        Init();
+    }
+
     public void RightClick()
     {}
 
@@ -24,6 +32,19 @@ public class Character : Entity
         canMove = true;
     }
 
+    public override void TakeDamage(int damageAmount)
+    {
+        base.TakeDamage(damageAmount);
+    }
+
+    public override void Die()
+    {
+        Player characterPlayer = transform.parent.GetComponent<Player>();
+
+        battleManager.RemovePlayer(transform.parent.GetComponent<Player>());
+        base.Die();
+    }
+
     public void AddEntityToAllies(Entity newEntity)
     {
         alliedEntities.Add(newEntity);
@@ -32,5 +53,6 @@ public class Character : Entity
     public void RemoveEntityFromAllies(Entity newEntity)
     {
         alliedEntities.Remove(newEntity);
+        battleManager.RemoveEntity(newEntity);
     }
 }

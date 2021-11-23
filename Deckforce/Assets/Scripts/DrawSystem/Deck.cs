@@ -14,6 +14,8 @@ namespace DrawSystem
         private float duration = 1f;
         GameObject tempCardTarget;
         private int queue = 0;
+
+        public bool isDrawingOver = false;
         
         IEnumerator Drawing()
         {
@@ -91,9 +93,13 @@ namespace DrawSystem
 
         private void FixedUpdate()
         {
-            if (queue > 0 && !isDrawing)
-            {
-                DrawQueuing();
+            if (!isDrawing) {
+                if (queue > 0) {
+                    isDrawingOver = false;
+                    DrawQueuing();
+                } else if (queue == 0) {
+                    isDrawingOver = true;
+                }
             }
         }
     }

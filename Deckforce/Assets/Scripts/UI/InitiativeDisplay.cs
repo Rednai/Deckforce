@@ -24,17 +24,10 @@ public class InitiativeDisplay : MonoBehaviour
         foreach (Entity entity in battleEntities) {
             GameObject newDisplay = Instantiate(entityIconTemplate);
             newDisplay.transform.Find("IconDisplay").GetComponent<Image>().sprite = entity.entityIcon;
+            //TODO: pour l'instant ca fonctionne mais plus tard faudra set une couleur dans l'entité
+            newDisplay.transform.GetComponent<Image>().color = entity.GetComponent<MeshRenderer>().material.color;
             newDisplay.transform.parent = iconsHolder.transform;
-            icons.Add(entity, newDisplay);
-            /*
-            newDisplay.transform.position = new Vector3(
-                initiativeSlider.transform.position.x - 45,
-                initiativeSlider.transform.position.y + (entity.initiative * 18),
-                initiativeSlider.transform.position.z
-            );
-            */
-            //TODO: set la position
-
+            icons.Add(entity, newDisplay);            
         }
     }
 

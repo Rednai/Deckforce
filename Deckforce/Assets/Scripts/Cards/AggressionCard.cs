@@ -9,13 +9,15 @@ public class AggressionCard : Card
     public ExplosionType explosionType;
     public int damage;
 
-    public override void Activate(Player currentPlayer, Tile targetTile)
+    public override bool Activate(Player currentPlayer, Tile targetTile)
     {
         Entity targetEntity = targetTile.tileEntity;
 
-        if (targetEntity) {
-            targetEntity.TakeDamge(damage);
+        if (targetEntity && CheckIfAlly(currentPlayer, targetEntity) == false && currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+            targetEntity.TakeDamage(damage);
+            currentPlayer.selectedCharacter.currentActionPoints -= cost;
+            return (true);
         }
-        currentPlayer.selectedCharacter.currentActionPoints -= cost;
+        return (false);
     }
 }

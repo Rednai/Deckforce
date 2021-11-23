@@ -8,27 +8,57 @@ public class MovePlayer : MonoBehaviour
 
     private Character character;
 
+    public bool onMove = false;
+    private Pathfinding pathfinding;
+
+    private List<Tile> move = new List<Tile>();
+    private Vector3 nextDest;
+
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<Character>();
+        pathfinding = GetComponent<Pathfinding>();
+        nextDest = character.transform.position;
+        nextDest.y = 0.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (floor.currentSelected != null && Input.GetMouseButtonDown(0) && character.canMove) {
-            Vector3 casePos = floor.currentSelected.GetComponentInParent<Transform>().position;
-            int distance = (int)Mathf.Abs((casePos - character.transform.position).magnitude);
-            Debug.Log(casePos);
-            Debug.Log(distance);
-            int movementCost = 1 + distance/2;
+        Tile currentSelected = floor.currentSelected;
+        if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && Input.GetMouseButtonDown(0) && character.canMove) {
+            List<Tile> path = pathfinding.findPathtoCase(currentSelected);
+            Vector3 casePos = currentSelected.GetComponentInParent<Transform>().position;
+            int movementCost = path.Count - 1;
 
-            if (character.currentMovePoints >= movementCost) {
-                casePos.y += 0.5f;
-                character.transform.position = casePos;
+            if (movementCost > 0 && character.currentMovePoints >= movementCost)
+            {
+                move = path;
                 character.currentMovePoints -= movementCost;
+                pathfinding.startTile.tileEntity = null;
+                pathfinding.setStartTile(currentSelected);
+                currentSelected.tileEntity = character;
             }
         }
+
+        if (move.Count != 0 && checkCharacterPositionAtDest(nextDest))
+        {
+            nextDest = move[0].GetComponent<Transform>().position;
+            nextDest.y = 0.5f;
+            move.RemoveAt(0);
+        }
+
+        if (!checkCharacterPositionAtDest(nextDest))
+        {
+            character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.01f);
+        }
+    }
+
+    private bool checkCharacterPositionAtDest(Vector3 dest)
+    {
+        if (character.transform.position.x == dest.x && character.transform.position.z == dest.z)
+            return true;
+        return false;
     }
 }

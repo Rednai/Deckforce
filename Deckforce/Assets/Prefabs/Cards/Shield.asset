@@ -9,21 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c5bc2ddde9f89e4daac669fbe4cee79, type: 3}
-  m_Name: FireRay
+  m_Script: {fileID: 11500000, guid: d89a5637c1f594f48a0ad740c9e2dc45, type: 3}
+  m_Name: Shield
   m_EditorClassIdentifier: 
-  cardName: Fire Ray
-  description: A Ray of fire that targets a single entity to deal a small amount
-    of damage
-  color: {r: 1, g: 0, b: 0, a: 1}
-  visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
+  cardName: Psychic shield
+  description: Generates a small shield purely from the will of the user
+  color: {r: 0.09811318, g: 0.23673135, b: 1, a: 1}
+  visual: {fileID: 21300000, guid: 0f0909662a80d5c44989bc0627e129d0, type: 3}
   playerOwner: {fileID: 0}
-  cost: 3
+  cost: 4
   areaTypePattern: 0
-  playerRange: 3
+  playerRange: 5
   effectRange: 0
   activateClip: {fileID: 0}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
-  explosionType: 0
-  damage: 100
+  shieldAmount: 3

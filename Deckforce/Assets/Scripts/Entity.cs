@@ -7,6 +7,8 @@ public class Entity : MonoBehaviour
     public string entityName;
     public int currentLife;
     public int maxLife;
+    public int currentShield;
+    public int maxShield;
     public Sprite entityIcon;
 
     public int initiative;
@@ -37,9 +39,32 @@ public class Entity : MonoBehaviour
     public virtual void Move(Tile targetTile)
     {}
 
-    public virtual void TakeDamge(int damageAmount)
-    {}
+    public virtual void AddShield(int shieldAmount)
+    {
+        currentShield += shieldAmount;
+        if (currentShield > maxShield) {
+            currentShield = maxShield;
+        }
+        Debug.Log(currentShield + ", " + maxShield);
+    }
+
+    public virtual void TakeDamage(int damageAmount)
+    {
+        if (currentShield >= damageAmount) {
+            currentShield -= damageAmount;
+        } else {
+            damageAmount -= currentShield;
+            currentShield = 0;
+        }
+        currentLife -= damageAmount;
+
+        if (currentLife <= 0) {
+            Die();
+        }
+    }
 
     public virtual void Die()
-    {}
+    {
+        Destroy(gameObject);
+    }
 }

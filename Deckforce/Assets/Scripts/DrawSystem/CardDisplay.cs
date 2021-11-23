@@ -17,9 +17,11 @@ public class CardDisplay : MonoBehaviour
 
     public AudioClip activateClip;
 
-    public void InitiateCard(Player currentPlayer)
+    public void InitiateCard(Player currentPlayer, Card card)
     {
         ownerPlayer = currentPlayer;
+        card.playerOwner = currentPlayer;
+        this.card = card;
 
         visual.sprite = card.visual;
         description.text = card.description;

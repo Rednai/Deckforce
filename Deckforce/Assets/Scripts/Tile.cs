@@ -22,9 +22,10 @@ public class Tile : MonoBehaviour
     }
 
     void Update() {
+        // C'est moche, il faudrait implémenter un pivot
         if (tileEntity != null) {
             Vector3 entityPosition = tileEntity.transform.position;
-            entityPosition.y = tileFloor.position.y;
+            entityPosition.y = tileFloor.position.y + 0.5f;
             tileEntity.transform.position = entityPosition;
         }
     }
