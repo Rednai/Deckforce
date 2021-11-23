@@ -15,7 +15,6 @@ public class Range : MonoBehaviour
     public List<Tile> GetRangeTiles(Tile startTile, RangeType rType, int size, bool targetEntity, bool blockByEntity)
     {
         List<Tile> range = new List<Tile>();
-        Debug.Log(GetNextTile(startTile).Count);
 
         switch (rType)
         {

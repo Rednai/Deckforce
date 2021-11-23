@@ -42,6 +42,8 @@ namespace Assets.Scripts.SpawnSystem
                 newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
                 newPlayer.selectedCharacter.gameObject.SetActive(true);
                 currentSelected.tileEntity = newPlayer.selectedCharacter;
+                if (futurePlayers.Count == 0)
+                    this.GetComponent<SelectCase>().spawningMode = false;
                 return newPlayer;
             }
 
