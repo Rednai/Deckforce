@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Queue
+public class SkipTurn
 {
-    public const string OneVsOne = "OneVsOne";
+    
 }

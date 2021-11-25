@@ -21,6 +21,7 @@ public class Matchmaking : MonoBehaviour
 
     public void FindMatch(string queue, Action<PlayFabError> errorCallback = null)
     {
+        //TODO: appeler cette fonction pour créer/rejoindre la partie
         matchingErrorCallback = errorCallback;
 
         if (!Authentification.instance.isAuthenticated)
