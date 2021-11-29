@@ -49,5 +49,10 @@ namespace Assets.Scripts.SpawnSystem
 
             return null;
         }
+
+        public string GetCurrentPlayersName()
+        {
+            return (futurePlayers[0].playerName);
+        }
     }
 }
