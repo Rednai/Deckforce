@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    public enum EntityType {
+        CHARACTER,
+        MONSTER,
+        PROP
+    };
+    public EntityType entityType;
     public string entityName;
     public int currentLife;
     public int maxLife;
