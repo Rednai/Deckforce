@@ -22,7 +22,9 @@ public class SummoningCard : Card
             );
 
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
-            currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
+            if (newEntity.entityType == Entity.EntityType.MONSTER) {
+                currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
+            }
             return (true);
         }
         return (false);
