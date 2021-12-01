@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
     public MeshRenderer floorMeshRenderer;
     public Vector2 tilePosition;
     private Animator animator;
+    float heightDifference;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,19 @@ public class Tile : MonoBehaviour
         tilePosition = new Vector2(transform.position.x, transform.position.z);
         gameObject.name = $"Case x:{tilePosition.x} y:{tilePosition.y}";
         animator = GetComponent<Animator>();
+    }
+
+    void Update() {
+        // if (tileEntity != null) {
+        //     Vector3 currentPosition = tileEntity.transform.position;
+        //     currentPosition.y = floorMeshRenderer.transform.position.y + heightDifference;
+        //     tileEntity.transform.position = currentPosition;
+        // }
+    }
+
+    public void SetEntity(Entity entity) {
+        tileEntity = entity;
+        heightDifference = entity.transform.position.y - transform.position.y;
     }
 
     public void StartAnimation() {

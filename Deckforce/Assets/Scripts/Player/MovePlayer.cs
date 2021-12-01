@@ -55,7 +55,7 @@ public class MovePlayer : MonoBehaviour
                     character.currentMovePoints -= movementCost;
                     pathfinding.startTile.tileEntity = null;
                     pathfinding.setStartTile(currentSelected);
-                    currentSelected.tileEntity = character;
+                    currentSelected.SetEntity(character);
                     cancelPathAnimation(pathToCurrentSelected);
                     pathToCurrentSelected = new List<Tile>();
                 }

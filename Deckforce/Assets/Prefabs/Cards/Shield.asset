@@ -16,12 +16,11 @@ MonoBehaviour:
   description: Generates a small shield purely from the will of the user
   color: {r: 0.09811318, g: 0.23673135, b: 1, a: 1}
   visual: {fileID: 21300000, guid: 0f0909662a80d5c44989bc0627e129d0, type: 3}
-  playerOwner: {fileID: 0}
   cost: 4
   areaTypePattern: 0
   playerRange: 5
   effectRange: 0
   activateClip: {fileID: 0}
-  userParticle: {fileID: 0}
+  userParticle: {fileID: 1394620298, guid: 31edd4f93146d914fa9aeed6dfd14630, type: 3}
   targetParticle: {fileID: 0}
   shieldAmount: 3

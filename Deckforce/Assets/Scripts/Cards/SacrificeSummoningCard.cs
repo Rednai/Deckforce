@@ -19,7 +19,7 @@ public class SacrificeSummoningCard : SummoningCard
             GameObject entityGO = Instantiate(summoningEntity).gameObject;
             Entity newEntity = entityGO.GetComponent<Entity>();
 
-            targetTile.tileEntity = newEntity;
+            targetTile.SetEntity(newEntity);
             newEntity.transform.position = new Vector3(
                 targetTile.transform.position.x,
                 targetTile.transform.position.y + 0.5f,
@@ -30,10 +30,14 @@ public class SacrificeSummoningCard : SummoningCard
             currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
 
             if (userParticle != null) {
-                Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+                ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+                userPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
+                userPM.targetPosition = targetTile.transform.position;
             }
             if (targetParticle != null) {
-                Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
+                ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
+                targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
+                targetPM.targetPosition = targetTile.transform.position;
             }
             return (true);
         }
