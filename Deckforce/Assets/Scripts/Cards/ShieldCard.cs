@@ -14,6 +14,13 @@ public class ShieldCard : ManipulationCard
             Debug.Log("ally");
             targetTile.tileEntity.AddShield(shieldAmount);
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
+            
+            if (userParticle != null) {
+                Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+            }
+            if (targetParticle != null) {
+                Instantiate(targetParticle, targetEntity.transform.position, Quaternion.identity);
+            }
             return (true);
         }
         return (false);

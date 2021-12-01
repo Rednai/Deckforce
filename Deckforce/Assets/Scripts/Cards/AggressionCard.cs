@@ -16,6 +16,13 @@ public class AggressionCard : Card
         Debug.Log($"{currentPlayer.playerName} playing character {currentPlayer.selectedCharacter.entityName} targeting {targetEntity.entityName}");
         if (targetEntity && CheckIfAlly(currentPlayer, targetEntity) == false &&
             currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+            
+            if (userParticle != null) {
+                Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+            }
+            if (targetParticle != null) {
+                Instantiate(targetParticle, targetEntity.transform.position, Quaternion.identity);
+            }
             targetEntity.TakeDamage(damage);
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             return (true);

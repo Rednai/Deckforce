@@ -25,6 +25,12 @@ public class SummoningCard : Card
             if (newEntity.entityType == Entity.EntityType.MONSTER) {
                 currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
             }
+            if (userParticle != null) {
+                Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+            }
+            if (targetParticle != null) {
+                Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
+            }
             return (true);
         }
         return (false);
