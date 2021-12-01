@@ -21,6 +21,6 @@ MonoBehaviour:
   playerRange: 5
   effectRange: 0
   activateClip: {fileID: 0}
-  userParticle: {fileID: 2541430346607576267, guid: 31edd4f93146d914fa9aeed6dfd14630, type: 3}
+  userParticle: {fileID: 1394620298, guid: 31edd4f93146d914fa9aeed6dfd14630, type: 3}
   targetParticle: {fileID: 0}
   shieldAmount: 3
