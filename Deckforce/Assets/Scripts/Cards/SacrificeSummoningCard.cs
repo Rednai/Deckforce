@@ -28,6 +28,13 @@ public class SacrificeSummoningCard : SummoningCard
 
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
+
+            if (userParticle != null) {
+                Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+            }
+            if (targetParticle != null) {
+                Instantiate(targetParticle, targetEntity.transform.position, Quaternion.identity);
+            }
             return (true);
         }
         return (false);
