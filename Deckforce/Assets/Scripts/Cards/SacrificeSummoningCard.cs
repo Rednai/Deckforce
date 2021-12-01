@@ -33,7 +33,7 @@ public class SacrificeSummoningCard : SummoningCard
                 Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
             }
             if (targetParticle != null) {
-                Instantiate(targetParticle, targetEntity.transform.position, Quaternion.identity);
+                Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
             }
             return (true);
         }
