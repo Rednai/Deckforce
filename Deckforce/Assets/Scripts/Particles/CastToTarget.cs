@@ -16,7 +16,7 @@ public class CastToTarget : MonoBehaviour {
             new Vector2(particleManager.sourcePosition.x, particleManager.sourcePosition.z),
             new Vector2(particleManager.targetPosition.x, particleManager.targetPosition.z)
         );
-        particleManager.particleDuration = time + 3;
+        particleManager.particleDuration = time + 2;
         Debug.Log($"SourcePosition: {particleManager.sourcePosition}, TargetPosition: {particleManager.targetPosition}, Distance: {distance}, Time: {time}");
         transform.LookAt(new Vector3(particleManager.targetPosition.x, particleManager.sourcePosition.y, particleManager.targetPosition.z));
     }
