@@ -7,6 +7,7 @@ using UnityEngine;
 public class Card : ScriptableObject
 {
     public string cardName;
+    public int id;
     public string description;
     public Color color;
     

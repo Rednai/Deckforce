@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour
     };
     public EntityType entityType;
     public string entityName;
+    public int id;
     public int currentLife;
     public int maxLife;
     public int currentShield;
