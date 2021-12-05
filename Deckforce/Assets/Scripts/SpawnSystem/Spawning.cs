@@ -14,6 +14,7 @@ namespace Assets.Scripts.SpawnSystem
 
         void Start()
         {
+            //TODO: récupérer cette liste dans le serveur
             futurePlayers = new List<Player>(GameObject.FindObjectsOfType<Player>());
 
             Debug.Log(futurePlayers.Count);
@@ -32,22 +33,41 @@ namespace Assets.Scripts.SpawnSystem
         {
             currentSelected = this.GetComponent<SelectCase>().currentSelected;
 
+            //TODO: ca doit fonctionner uniquement si c'est notre tour
             if (Input.GetMouseButtonDown(1) && currentSelected != null && futurePlayers.Count > 0 && currentSelected.tileEntity == null) {
-                //newPlayer = Instantiate(futurePlayers[0].gameObject, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Player>();
-                newPlayer = futurePlayers[0];
-                futurePlayers.RemoveAt(0);
-                //newPlayer.selectedCharacter = newPlayer.transform.GetChild(0).GetComponent<Character>();
-
-                newPlayer.selectedCharacter.transform.position = new Vector3(currentSelected.transform.position.x, 0.5f, currentSelected.transform.position.z);
-                newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
-                newPlayer.selectedCharacter.gameObject.SetActive(true);
-                currentSelected.SetEntity(newPlayer.selectedCharacter);
-                if (futurePlayers.Count == 0)
-                    this.GetComponent<SelectCase>().spawningMode = false;
-                return newPlayer;
+                return (SpawnPlayer());
             }
 
             return null;
+        }
+
+        public Player SpawnPlayer()
+        {
+            newPlayer = futurePlayers[0];
+            futurePlayers.RemoveAt(0);
+
+            newPlayer.selectedCharacter.transform.position = new Vector3(currentSelected.transform.position.x, 0.5f, currentSelected.transform.position.z);
+            newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
+            newPlayer.selectedCharacter.gameObject.SetActive(true);
+            currentSelected.SetEntity(newPlayer.selectedCharacter);
+            if (futurePlayers.Count == 0)
+                this.GetComponent<SelectCase>().spawningMode = false;
+            return newPlayer;
+        }
+
+        public Player SpawnOtherPlayer(string playerId, string tileName)
+        {
+            newPlayer = futurePlayers.Find(x => x.id == playerId);
+            futurePlayers.Remove(newPlayer);
+
+            Tile selectedTile = GameObject.Find(tileName).GetComponent<Tile>();
+            newPlayer.selectedCharacter.transform.position = new Vector3(selectedTile.transform.position.x, 0.5f, selectedTile.transform.position.z);
+            newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(selectedTile);
+            newPlayer.selectedCharacter.gameObject.SetActive(true);
+            selectedTile.SetEntity(newPlayer.selectedCharacter);
+            if (futurePlayers.Count == 0)
+                this.GetComponent<SelectCase>().spawningMode = false;
+            return (newPlayer);
         }
 
         public string GetCurrentPlayersName()

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
+[SerializableAttribute]
 public class PlayerSpawn
 {
-    public Character character;
-    public Vector3 spawnPosition;
+    public string playerId;
+    public string tileName;
 }

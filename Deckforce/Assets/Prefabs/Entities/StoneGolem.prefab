@@ -111,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityType: 1
   entityName: Stone Golem
+  id: 5
   currentLife: 0
   maxLife: 12
   currentShield: 0

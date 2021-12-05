@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     public struct BattleTurn {
         public int turnNb;
         public float turnTime;
+        public int playingEntityIndex;
         public List<Entity> playingEntities;
     }
     public float normalTurnTime;
@@ -80,16 +81,20 @@ public class BattleManager : MonoBehaviour
         } else {
             playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
             newPlayer = spawner.SpawningPhase();
+            
             if (newPlayer != null) {
-                Debug.Log("add player");
-                battlePlayers.Add(newPlayer);
+                AddPlayer(newPlayer);
             }
+        }
+    }
 
-            if (expectedPlayerNb == battlePlayers.Count) {
-                spawningPhase = false;
-                spawnDisplay.SetActive(false);
-                StartGame();
-            }
+    public void AddPlayer(Player newPlayer)
+    {
+        battlePlayers.Add(newPlayer);
+        if (expectedPlayerNb == battlePlayers.Count) {
+            spawningPhase = false;
+            spawnDisplay.SetActive(false);
+            StartGame();
         }
     }
 
@@ -120,6 +125,7 @@ public class BattleManager : MonoBehaviour
         battleTurn = new BattleTurn();
 
         battleTurn.turnNb = battleTurn.turnNb + 1;
+        battleTurn.playingEntityIndex = 0;
         if (battleTurn.turnNb < 10) {
             battleTurn.turnTime = normalTurnTime;
         } else {
@@ -142,8 +148,14 @@ public class BattleManager : MonoBehaviour
             return (-E1.initiative.CompareTo(E2.initiative));
         });
         currentPlayingEntity = battleTurn.playingEntities[0];
+        battleTurn.playingEntityIndex++;
         Debug.Log($"Entity {currentPlayingEntity.entityName}");
         initiativeDisplay.DisplayEntitiesInitiatives(battleTurn.playingEntities);
+    }
+
+    public int GetPlayingEntityIndex()
+    {
+        return (battleTurn.playingEntityIndex);
     }
 
     public void StartTurn()
@@ -242,6 +254,7 @@ public class BattleManager : MonoBehaviour
             InitTurn();
         }
         currentPlayingEntity = battleTurn.playingEntities[0];
+        battleTurn.playingEntityIndex++;
         StartTurn();
     }
 

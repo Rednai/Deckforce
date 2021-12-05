@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-//Classe pour quand on déplace un joueur
+[SerializableAttribute]
 public class PlayerMove
 {
-    public Character character;
-    public Vector3 targetPosition;
+    public string playerId;
+    public string tileName;
 }

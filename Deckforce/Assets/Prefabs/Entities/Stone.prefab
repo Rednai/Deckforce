@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityType: 2
   entityName: Stone Pile
+  id: 4
   currentLife: 0
   maxLife: 5
   currentShield: 0

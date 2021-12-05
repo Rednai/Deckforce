@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public string playerName;
+    public string id;
     public Character selectedCharacter;
     [SerializeField]
     public CardDisplay cardPrefab;

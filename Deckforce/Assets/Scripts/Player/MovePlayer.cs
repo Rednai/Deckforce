@@ -9,7 +9,7 @@ public class MovePlayer : MonoBehaviour
     private Character character;
 
     public bool onMove = false;
-    private Pathfinding pathfinding;
+    public Pathfinding pathfinding;
     private Range range;
 
     private List<Tile> pathToCurrentSelected = new List<Tile>();
@@ -44,21 +44,8 @@ public class MovePlayer : MonoBehaviour
                     animatePath(pathToCurrentSelected);
                 }
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 casePos = currentSelected.GetComponentInParent<Transform>().position;
-                int movementCost = path.Count - 1;
-
-                if (movementCost > 0 && character.currentMovePoints >= movementCost)
-                {
-                    move = path;
-                    character.currentMovePoints -= movementCost;
-                    pathfinding.startTile.tileEntity = null;
-                    pathfinding.setStartTile(currentSelected);
-                    currentSelected.SetEntity(character);
-                    cancelPathAnimation(pathToCurrentSelected);
-                    pathToCurrentSelected = new List<Tile>();
-                }
+            if (Input.GetMouseButtonDown(0)) {
+                MoveCharacter(currentSelected, path);
             }   
         }
 
@@ -88,6 +75,22 @@ public class MovePlayer : MonoBehaviour
         {
             character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.01f);
             
+        }
+    }
+
+    public void MoveCharacter(Tile currentSelected, List<Tile> path)
+    {
+        Vector3 casePos = currentSelected.GetComponentInParent<Transform>().position;
+        int movementCost = path.Count - 1;
+
+        if (movementCost > 0 && character.currentMovePoints >= movementCost) {
+            move = path;
+            character.currentMovePoints -= movementCost;
+            pathfinding.startTile.tileEntity = null;
+            pathfinding.setStartTile(currentSelected);
+            currentSelected.SetEntity(character);
+            cancelPathAnimation(pathToCurrentSelected);
+            pathToCurrentSelected = new List<Tile>();
         }
     }
 

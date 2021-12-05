@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828896ce8b7598147b84ed682d5da011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityType: 0
   entityName: Ploby
+  id: 2
   currentLife: 0
   maxLife: 7
   currentShield: 0
@@ -139,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor: {fileID: 0}
   onMove: 0
+  pathfinding: {fileID: 0}
 --- !u!114 &6308969085219790340
 MonoBehaviour:
   m_ObjectHideFlags: 0

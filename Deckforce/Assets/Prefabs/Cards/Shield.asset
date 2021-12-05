@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   cardName: Psychic shield
+  id: 1
   description: Generates a small shield purely from the will of the user
   color: {r: 0.09811318, g: 0.23673135, b: 1, a: 1}
   visual: {fileID: 21300000, guid: 0f0909662a80d5c44989bc0627e129d0, type: 3}
