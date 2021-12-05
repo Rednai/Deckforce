@@ -1,0 +1,4 @@
+FROM ubuntu:18.04
+ADD . .
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+CMD ["/Server/DeckforceServer"]

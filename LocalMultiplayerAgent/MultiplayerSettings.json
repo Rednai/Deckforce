@@ -1,0 +1,37 @@
+{
+  "RunContainer": true,
+  "ForcePullFromAcrOnLinuxContainersOnWindows": false,
+  "OutputFolder": "C:\\output\\DeckForceServer",
+  "NumHeartBeatsForActivateResponse": 10,
+  "NumHeartBeatsForTerminateResponse": 500,
+  "TitleId": "",
+  "BuildId": "00000000-0000-0000-0000-000000000000",
+  "Region": "WestUs",
+  "AgentListeningPort": 56001,
+  "ContainerStartParameters": {
+    "ImageDetails": {
+      "Registry": "customerqizyoedvza336.azurecr.io",
+      "ImageName": "deckforceserver",
+      "ImageTag": "0.1",
+      "Username": "",
+      "Password": ""
+    }
+  },
+  "PortMappingsList": [
+    [
+      {
+        "NodePort": 56100,
+        "GamePort": {
+          "Name": "game_port",
+          "Number": 8080,
+          "Protocol": "TCP"
+        }
+      }
+    ]
+  ],
+  "SessionConfig": {
+    "SessionId": "ba67d671-512a-4e7d-a38c-2329ce181946",
+    "SessionCookie": null,
+    "InitialPlayers": [ "Player1", "Player2" ]
+  }
+}
