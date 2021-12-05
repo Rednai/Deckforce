@@ -18,6 +18,8 @@ public class MovePlayer : MonoBehaviour
 
     private List<Tile> highlightedRange = new List<Tile>();
 
+    private bool moveMode = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,46 +35,59 @@ public class MovePlayer : MonoBehaviour
     void Update()
     {
         Tile currentSelected = floor.currentSelected;
-        if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove) {
-            List<Tile> path = pathfinding.findPathtoCase(currentSelected);
-            if (path != pathToCurrentSelected)
-            {
-                cancelPathAnimation(pathToCurrentSelected);
-                pathToCurrentSelected = path;
-                if (path.Count - 1 <= character.currentMovePoints & path.Count > 1)
-                {
-                    animatePath(pathToCurrentSelected);
-                }
-            }
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 casePos = currentSelected.GetComponentInParent<Transform>().position;
-                int movementCost = path.Count - 1;
-
-                if (movementCost > 0 && character.currentMovePoints >= movementCost)
-                {
-                    move = path;
-                    character.currentMovePoints -= movementCost;
-                    pathfinding.startTile.tileEntity = null;
-                    pathfinding.setStartTile(currentSelected);
-                    currentSelected.tileEntity = character;
-                    cancelPathAnimation(pathToCurrentSelected);
-                    pathToCurrentSelected = new List<Tile>();
-                }
-            }   
+        if (character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0))
+        {
+            cancelAllAnimations();
+            moveMode = !moveMode;
         }
 
-        if (character.canMove)
+        
+        if (moveMode)
         {
-            range.CancelHighlightRange(highlightedRange);
-            highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.MOVEMENT, character.currentMovePoints, false, true);
-            range.HighlightRange(highlightedRange, OutlineType.MOVE);
-        } else if (highlightedRange.Count > 0)
-        {
-            range.CancelHighlightRange(highlightedRange);
-            cancelPathAnimation(pathToCurrentSelected);
-            highlightedRange = new List<Tile>();
-            pathToCurrentSelected = new List<Tile>();
+            if (currentSelected == null)
+            {
+                cancelPathAnimation(pathToCurrentSelected);
+                pathToCurrentSelected = new List<Tile>();
+            }
+            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove)
+            {
+                List<Tile> path = pathfinding.findPathtoCase(currentSelected);
+                if (path != pathToCurrentSelected)
+                {
+                    cancelPathAnimation(pathToCurrentSelected);
+                    pathToCurrentSelected = path;
+                    if (path.Count - 1 <= character.currentMovePoints & path.Count > 1)
+                    {
+                        animatePath(pathToCurrentSelected);
+                    }
+                }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Vector3 casePos = currentSelected.GetComponentInParent<Transform>().position;
+                    int movementCost = path.Count - 1;
+
+                    if (movementCost > 0 && character.currentMovePoints >= movementCost)
+                    {
+                        move = path;
+                        character.currentMovePoints -= movementCost;
+                        pathfinding.startTile.tileEntity = null;
+                        pathfinding.setStartTile(currentSelected);
+                        currentSelected.tileEntity = character;
+                        cancelPathAnimation(pathToCurrentSelected);
+                        pathToCurrentSelected = new List<Tile>();
+                        moveMode = false;
+                    }
+                }
+            }
+
+            if (character.canMove & moveMode)
+            {
+                range.CancelHighlightRange(highlightedRange);
+                highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.MOVEMENT, character.currentMovePoints, false, true);
+                range.HighlightRange(highlightedRange, OutlineType.MOVE);
+            }
+            else if (highlightedRange.Count > 0)
+                cancelAllAnimations();
         }
 
         if (move.Count != 0 && checkCharacterPositionAtDest(nextDest))
@@ -80,7 +95,6 @@ public class MovePlayer : MonoBehaviour
             
             nextDest = move[0].GetComponent<Transform>().position;
             nextDest.y = 0.5f;
-            Debug.Log(character.transform.position + " " + nextDest + " " + checkCharacterPositionAtDest(nextDest));
             move.RemoveAt(0);
         }
 
@@ -89,6 +103,14 @@ public class MovePlayer : MonoBehaviour
             character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.01f);
             
         }
+    }
+
+    private void cancelAllAnimations()
+    {
+        range.CancelHighlightRange(highlightedRange);
+        cancelPathAnimation(pathToCurrentSelected);
+        highlightedRange = new List<Tile>();
+        pathToCurrentSelected = new List<Tile>();
     }
 
     private bool checkCharacterPositionAtDest(Vector3 dest)

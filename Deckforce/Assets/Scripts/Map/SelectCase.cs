@@ -24,7 +24,8 @@ public class SelectCase: MonoBehaviour {
         } else if (currentSelected != null & spawningMode) {
             currentSelected.StopAnimation();
             currentSelected = null;
-        }
+        } else
+            currentSelected = null;
         if (spawn != spawningMode)
             currentSelected.StopAnimation();
         spawn = spawningMode;

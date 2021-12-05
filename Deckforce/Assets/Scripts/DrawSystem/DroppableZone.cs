@@ -8,6 +8,8 @@ namespace DrawSystem
         [SerializeField]
         protected SelectCase floor;
 
+        private Range range;
+
         public void OnDrop(PointerEventData eventData)
         {
             if (floor.currentSelected != null)

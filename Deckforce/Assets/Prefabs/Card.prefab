@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6212260000092096716}
   - component: {fileID: 5572193704736939680}
   - component: {fileID: 923206290895913734}
+  - component: {fileID: 8090722026384149928}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -177,6 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
   discardPile: {fileID: 0}
+  range: {fileID: 8090722026384149928}
+  floor: {fileID: 0}
 --- !u!114 &6212260000092096716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +233,18 @@ MonoBehaviour:
   cardCost: {fileID: 3525506237925274948}
   color: {r: 0.9056604, g: 0, b: 0, a: 1}
   activateClip: {fileID: 0}
+--- !u!114 &8090722026384149928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903762472632428731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0580550c4b612e849baf8c0f4061f1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3903762472778759913
 GameObject:
   m_ObjectHideFlags: 0
