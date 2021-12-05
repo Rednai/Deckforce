@@ -54,11 +54,6 @@ public class MovePlayer : MonoBehaviour
                 List<Tile> path = pathfinding.findPathtoCase(currentSelected);
                 if (path != pathToCurrentSelected)
                 {
-                    move = path;
-                    character.currentMovePoints -= movementCost;
-                    pathfinding.startTile.tileEntity = null;
-                    pathfinding.setStartTile(currentSelected);
-                    currentSelected.SetEntity(character);
                     cancelPathAnimation(pathToCurrentSelected);
                     pathToCurrentSelected = path;
                     if (path.Count - 1 <= character.currentMovePoints & path.Count > 1)
