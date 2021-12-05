@@ -28,8 +28,8 @@ public class Card : ScriptableObject
 
     public AudioClip activateClip;
 
-    public ParticleSystem userParticle;
-    public ParticleSystem targetParticle;
+    public ParticleManager userParticle;
+    public ParticleManager targetParticle;
 
     public virtual void Select()
     {}

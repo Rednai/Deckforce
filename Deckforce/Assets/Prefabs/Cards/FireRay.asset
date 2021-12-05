@@ -22,7 +22,7 @@ MonoBehaviour:
   playerRange: 3
   effectRange: 1
   activateClip: {fileID: 0}
-  userParticle: {fileID: 0}
+  userParticle: {fileID: 4764006847354343063, guid: f10685b1dd3903741980823d5f953eb6, type: 3}
   targetParticle: {fileID: 0}
   explosionType: 0
   damage: 100

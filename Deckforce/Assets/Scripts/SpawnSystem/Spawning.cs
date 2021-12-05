@@ -41,13 +41,18 @@ namespace Assets.Scripts.SpawnSystem
                 newPlayer.selectedCharacter.transform.position = new Vector3(currentSelected.transform.position.x, 0.5f, currentSelected.transform.position.z);
                 newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
                 newPlayer.selectedCharacter.gameObject.SetActive(true);
-                currentSelected.tileEntity = newPlayer.selectedCharacter;
+                currentSelected.SetEntity(newPlayer.selectedCharacter);
                 if (futurePlayers.Count == 0)
                     this.GetComponent<SelectCase>().spawningMode = false;
                 return newPlayer;
             }
 
             return null;
+        }
+
+        public string GetCurrentPlayersName()
+        {
+            return (futurePlayers[0].playerName);
         }
     }
 }

@@ -29,6 +29,10 @@ public class BattleManager : MonoBehaviour
     public GameObject discardButton;
     public Text entityNameText;
 
+    [Header("Spawn Phase")]
+    public GameObject spawnDisplay;
+    public Text playerNameText;
+
     [Header("UI Cards")]
     public Deck deck;
     public GameObject discardPile;
@@ -74,6 +78,7 @@ public class BattleManager : MonoBehaviour
 
             DisplayStats();
         } else {
+            playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
             newPlayer = spawner.SpawningPhase();
             if (newPlayer != null) {
                 Debug.Log("add player");
@@ -82,6 +87,7 @@ public class BattleManager : MonoBehaviour
 
             if (expectedPlayerNb == battlePlayers.Count) {
                 spawningPhase = false;
+                spawnDisplay.SetActive(false);
                 StartGame();
             }
         }
