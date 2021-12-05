@@ -162,7 +162,7 @@ public class Matchmaking : MonoBehaviour
         Debug.Log("Server port count : " + result.ServerDetails.Ports.Count);
         Debug.Log("Server port : " + result.ServerDetails.Ports[0].Num);
 
-        GameServer.instance.connect(result.ServerDetails.IPV4Address, result.ServerDetails.Ports[0].Num);
+        GameServer.instance.Connect(result.ServerDetails.IPV4Address, result.ServerDetails.Ports[0].Num);
     }
 
     private void OnCancelMatchmaking(CancelAllMatchmakingTicketsForPlayerResult result)

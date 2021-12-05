@@ -48,7 +48,10 @@ namespace DeckforceServer
         /// <summary>
         /// Handle function for shutdown calls
         /// </summary>
-        private void OnShutdown() {}
+        private void OnShutdown()
+        {
+            Stop();
+        }
 
         /// <summary>
         /// Update the connected players on the GameServerSDK
@@ -92,7 +95,7 @@ namespace DeckforceServer
         private void HandleConnection(int connectionId)
         {
             string ip = server.GetClientAddress(connectionId);
-            Player player = players.Find(player => player.ip == ip);
+            Player player = players.Find(player => player.connectionId == connectionId); // players.Find(player => player.ip == ip); TODO: remettre avec l'ip en prod !
 
             if (player != null)
             {
@@ -101,12 +104,12 @@ namespace DeckforceServer
                 GameserverSDK.LogMessage("Player reconnected (tag = " + player.tag + ")");
             } else
             {
-                players.Add(new Player
-                {
+                player = new Player {
                     connectionId = connectionId,
                     isConnected = true,
                     ip = ip
-                });
+                };
+                players.Add(player);
                 GameserverSDK.LogMessage("Player connected (tag = " + player.tag + ")");
             }
             UpdateSdkConnectedPlayers();
@@ -120,8 +123,10 @@ namespace DeckforceServer
         {
             Player player = players.Find(player => player.connectionId == connectionId);
             if (player != null)
+            {
                 player.isConnected = false;
-            GameserverSDK.LogMessage("Player disconnected (tag = " + player.tag + ")");
+                GameserverSDK.LogMessage("Player disconnected (tag = " + player.tag + ")");
+            }
         }
 
         /// <summary>
@@ -131,6 +136,7 @@ namespace DeckforceServer
         /// <param name="data">Data received</param>
         private void HandleDataReceived(int connectionId, ArraySegment<Byte> data)
         {
+            GameserverSDK.LogMessage("Data received from : " + connectionId);
             TransmitToOtherPlayers(connectionId, data);
         }
 

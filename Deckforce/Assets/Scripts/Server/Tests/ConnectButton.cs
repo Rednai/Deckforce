@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class ConnectButton : MonoBehaviour
 {
-    public Button disconnectButton;
     public Button connectButton;
+    public Button disconnectButton;
+    public Button sendDataButton;
     public Text text;
 
     public void OnConnect()
     {
-        GameServer.instance.connect("127.0.0.1", 56100, ConnectedToServer);
+        GameServer.instance.Connect("127.0.0.1", 56100, ConnectedToServer);
     }
 
     private void ConnectedToServer()
@@ -19,5 +20,6 @@ public class ConnectButton : MonoBehaviour
         text.text = "Connected to game server";
         connectButton.interactable = false;
         disconnectButton.interactable = true;
+        sendDataButton.interactable = true;
     }
 }
