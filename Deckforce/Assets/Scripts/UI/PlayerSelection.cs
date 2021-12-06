@@ -11,13 +11,16 @@ public class PlayerSelection : MonoBehaviour
     public Character selectedCharacter;
     int characterIndex;
 
-    public InputField playerName;
+    public Text playerName;
+    //public InputField playerName;
 
     [Header("Character Infos")]
     public Text characterName;
     public StatsSlider statsSlider;
     public Image characterIcon;
     public Image characterIconBackground;
+
+    public GameObject selectionObjects;
 
     // Start is called before the first frame update
     void Start()

@@ -44,6 +44,11 @@ public class PlayersSelection : MonoBehaviour
         newPlayerSelection.transform.SetParent(playersParent.transform);
         newPlayerSelection.transform.localScale = new Vector3(1, 1, 1);
 
+        if (newPlayer.isClient) {
+            newPlayerSelection.selectionObjects.SetActive(true);
+        }
+        newPlayerSelection.playerName.text = newPlayer.id;
+
         selectedPlayers.Add(newPlayerSelection, newPlayer);
     }
 
