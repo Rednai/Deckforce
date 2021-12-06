@@ -12,6 +12,7 @@ public class MatchmakingButtons : MonoBehaviour
     public Text findMatchText;
     public Text errorText;
     public GameObject waitingForPlayers;
+    public PlayersSelection playerSelection;
 
     public void OnFindMatch()
     {
@@ -41,19 +42,21 @@ public class MatchmakingButtons : MonoBehaviour
         gameObject.SetActive(false);
         waitingForPlayers.SetActive(true);
 
-        Authentification.instance.userInfo.currentTeam =
-            int.Parse(getMatchResult.Members.Find(member => member.Entity.Id == Authentification.instance.userInfo.entityId).TeamId);
+        Authentification.instance.userInfo.currentTeam = int.Parse(getMatchResult.Members.Find(member => member.Entity.Id == Authentification.instance.userInfo.entityId).TeamId);
         GameServer.instance.Connect(
-            getMatchResult.ServerDetails.IPV4Address,
-            getMatchResult.ServerDetails.Ports[0].Num, () => {
-                GameServer.instance.WaitForOtherPlayers(2, OnAllPlayersConnected); // TODO : Changer le nombre de joueur selon la queue /!\
-            });
+            "127.0.0.1", //getMatchResult.ServerDetails.IPV4Address,
+            56100,       //getMatchResult.ServerDetails.Ports[0].Num,
+            () => { GameServer.instance.WaitForOtherPlayers(2, OnAllPlayersConnected); } // TODO : Changer le nombre de joueur selon la queue /!\
+        );
     }
 
     private void OnAllPlayersConnected(List<PlayerJoin> players)
     {
         waitingForPlayers.SetActive(false);
 
+        playerSelection.gameObject.SetActive(true);
+        foreach (PlayerJoin player in players)
+            playerSelection.AddPlayer(player);
     }
 
     private void OnMatchmakingError(PlayFabError error)

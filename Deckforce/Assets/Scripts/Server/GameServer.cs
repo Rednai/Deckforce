@@ -99,8 +99,8 @@ public class GameServer : MonoBehaviour
         this.OnAllPlayersConnected = OnAllPlayersConnected;
         this.numberOfPlayersToWait = numberOfPlayersToWait;
         PlayerJoin playerJoin = new PlayerJoin() {
-            playFabId = Authentification.instance.userInfo.playFabId,
-            teamId = Authentification.instance.userInfo.currentTeam
+            id = Authentification.instance.userInfo.playFabId,
+            team = Authentification.instance.userInfo.currentTeam
         };
         SendData(playerJoin);
         playerJoin.isClient = true;
@@ -109,15 +109,15 @@ public class GameServer : MonoBehaviour
 
     public void OnPlayerJoin(PlayerJoin playerJoin)
     {
-        PlayerJoin alreadyConnected = connectedPlayers.Find(connectedPlayer => connectedPlayer.playFabId == playerJoin.playFabId);
+        PlayerJoin alreadyConnected = connectedPlayers.Find(connectedPlayer => connectedPlayer.id == playerJoin.id);
 
         if (alreadyConnected != null || !isWaitingForPlayers)
             return;
 
         connectedPlayers.Add(playerJoin);
         SendData(new PlayerJoin() {
-            playFabId = Authentification.instance.userInfo.playFabId,
-            teamId = Authentification.instance.userInfo.currentTeam
+            id = Authentification.instance.userInfo.playFabId,
+            team = Authentification.instance.userInfo.currentTeam
         });
         if (connectedPlayers.Count == numberOfPlayersToWait)
         {

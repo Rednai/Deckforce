@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public string playerName;
     public string id;
     public bool isClient;
+    public int team;
     public Character selectedCharacter;
     [SerializeField]
     public CardDisplay cardPrefab;

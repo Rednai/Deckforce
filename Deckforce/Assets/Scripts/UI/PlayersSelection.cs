@@ -22,13 +22,16 @@ public class PlayersSelection : MonoBehaviour
     }
 
     //TODO: a l'avenir on recevra un joueur ou jsp quoi pour instancier les infos
-    public void AddPlayer()
+    public void AddPlayer(PlayerJoin player)
     {
         if (selectedPlayers.Count == 5) {
             return ;
         }
 
         Player newPlayer = Instantiate(playerTemplate);
+        newPlayer.id = player.id;
+        newPlayer.team = player.team;
+        newPlayer.isClient = player.isClient;
 
         //TODO: set l'id et le isClient du joueur par rapport à un packet recu par le serveur
 

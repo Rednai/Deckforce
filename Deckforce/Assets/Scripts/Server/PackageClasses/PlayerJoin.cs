@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerJoin
 {
-    public string playFabId = "";
-    public int teamId = 0;
+    public string id = "";
+    public int team = 0;
     public bool isClient = false;
 }

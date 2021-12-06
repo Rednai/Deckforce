@@ -545,6 +545,7 @@ MonoBehaviour:
   findMatchText: {fileID: 619039331}
   errorText: {fileID: 1436076749}
   waitingForPlayers: {fileID: 701834463}
+  playerSelection: {fileID: 613247396}
 --- !u!1 &483947541
 GameObject:
   m_ObjectHideFlags: 0
