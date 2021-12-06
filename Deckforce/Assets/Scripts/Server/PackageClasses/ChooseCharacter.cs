@@ -6,6 +6,6 @@ using UnityEngine;
 [SerializableAttribute]
 public class ChooseCharacter
 {
-    string playerId;
-    int characterId;
+    public string playerId;
+    public int characterId;
 }
