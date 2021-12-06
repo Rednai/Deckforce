@@ -49,7 +49,7 @@ public class MovePlayer : MonoBehaviour
                     animatePath(pathToCurrentSelected);
                 }
             }
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0) && player.isClient) {
                 MoveCharacter(currentSelected, path);
                 if (gameServer == null)
                     gameServer = GameObject.FindObjectOfType<GameServer>();
