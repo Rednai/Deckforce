@@ -62,11 +62,14 @@ public class BattleManager : MonoBehaviour
     public EndDisplay endDisplay;
 
     private Player newPlayer;
+
+    GameServer gameServer;
     
     void Start()
     {
         expectedPlayerNb = GameObject.FindObjectsOfType<Player>().Count();
         battlePlayers = new List<Player>();
+        gameServer = GameServer.FindObjectOfType<GameServer>();
     }
 
     void Update()
@@ -75,6 +78,14 @@ public class BattleManager : MonoBehaviour
             battleTurn.turnTime -= Time.deltaTime;
             if (battleTurn.turnTime <= 0) {
                 FinishTurn();
+
+                if (gameServer == null) {
+                    gameServer = GameServer.FindObjectOfType<GameServer>();
+                }
+
+                SkipTurn skipTurn = new SkipTurn();
+                skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex-1;
+                gameServer.SendData(skipTurn);
             }
 
             DisplayStats();
@@ -230,6 +241,18 @@ public class BattleManager : MonoBehaviour
             }
         }
         return (null);
+    }
+
+    public void ClickFinishTurn()
+    {
+        FinishTurn();
+        if (gameServer == null) {
+            gameServer = GameServer.FindObjectOfType<GameServer>();
+        }
+
+        SkipTurn skipTurn = new SkipTurn();
+        skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex-1;
+        gameServer.SendData(skipTurn);
     }
 
     public void FinishTurn()

@@ -7,6 +7,7 @@ public class MovePlayer : MonoBehaviour
     public SelectCase floor;
 
     private Character character;
+    Player player;
 
     public bool onMove = false;
     public Pathfinding pathfinding;
@@ -18,7 +19,8 @@ public class MovePlayer : MonoBehaviour
 
     private List<Tile> highlightedRange = new List<Tile>();
 
-    // Start is called before the first frame update
+    GameServer gameServer;
+
     void Start()
     {
         floor = GameObject.FindObjectOfType<SelectCase>();
@@ -27,6 +29,9 @@ public class MovePlayer : MonoBehaviour
         range = GetComponent<Range>();
         nextDest = character.transform.position;
         nextDest.y = 0.5f;
+
+        player = transform.parent.GetComponent<Player>();
+        gameServer = GameObject.FindObjectOfType<GameServer>();
     }
     
     // Update is called once per frame
@@ -46,6 +51,14 @@ public class MovePlayer : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0)) {
                 MoveCharacter(currentSelected, path);
+                if (gameServer == null)
+                    gameServer = GameObject.FindObjectOfType<GameServer>();
+                if (player == null)
+                    player = transform.parent.GetComponent<Player>();
+                PlayerMove playerMove = new PlayerMove();
+                playerMove.playerId = player.id;
+                playerMove.tileName = currentSelected.transform.name;
+                gameServer.SendData(playerMove);
             }   
         }
 
