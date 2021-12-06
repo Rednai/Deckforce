@@ -64,6 +64,9 @@ public class BattleManager : MonoBehaviour
     private Player newPlayer;
 
     GameServer gameServer;
+
+    //TODO: temporaire
+    public string tileName;
     
     void Start()
     {
@@ -92,7 +95,12 @@ public class BattleManager : MonoBehaviour
         } else {
             playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
             newPlayer = spawner.SpawningPhase();
-            
+
+            PlayerSpawn playerSpawn = new PlayerSpawn();
+            playerSpawn.playerId = newPlayer.id;
+            playerSpawn.tileName = tileName;
+            gameServer.SendData(playerSpawn);
+
             if (newPlayer != null) {
                 AddPlayer(newPlayer);
             }

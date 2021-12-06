@@ -10,6 +10,7 @@ public class PlayersSelection : MonoBehaviour
     public GameObject playersParent;
     public Player playerTemplate;
 
+    //TODO: pour l'instant on check si le character est null, a l'avenir faudra ajouter un bool isReady récupéré depuis le Packet
     public Dictionary<PlayerSelection, Player> selectedPlayers;
     List<string> playersNames;
 
@@ -65,15 +66,6 @@ public class PlayersSelection : MonoBehaviour
 
     public void StartPlaying()
     {
-        foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
-            pair.Value.playerName = pair.Key.playerName.text;
-            Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
-            playerCharacter.transform.SetParent(pair.Value.transform);
-            pair.Value.name = pair.Key.playerName.text;
-            pair.Value.selectedCharacter = playerCharacter;
-            playerCharacter.gameObject.SetActive(false);
-            DontDestroyOnLoad(pair.Value.gameObject);
-        }
         if (gameServer == null) {
             gameServer = GameServer.FindObjectOfType<GameServer>();
         }
@@ -83,6 +75,9 @@ public class PlayersSelection : MonoBehaviour
         chooseCharacter.characterId = player.Key.selectedCharacter.id;
         chooseCharacter.playerId = player.Value.id;
         gameServer.SendData(chooseCharacter);
+        if (CheckIfAllReady()) {
+            SetupCharacters();
+        }
         /*
         if (selectedPlayers.Count < 2) {
             return ;
@@ -112,6 +107,52 @@ public class PlayersSelection : MonoBehaviour
             }
         }
         return (new KeyValuePair<PlayerSelection, Player>());
+    }
+
+    KeyValuePair<PlayerSelection, Player> GetPlayer(string playerId)
+    {
+        foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
+            if (pair.Value.id == playerId) {
+                return (pair);
+            }
+        }
+        return (new KeyValuePair<PlayerSelection, Player>());
+    }
+
+    public void SetPlayerCharacter(ChooseCharacter chooseCharacter)
+    {
+        KeyValuePair<PlayerSelection, Player> pair = GetPlayer(chooseCharacter.playerId);
+        pair.Key.selectedCharacter = GameObject.FindObjectOfType<CharactersManager>().existingCharacters.Find(x => x.id == chooseCharacter.characterId);
+        if (CheckIfAllReady()) {
+            SetupCharacters();
+        }
+    }
+
+    bool CheckIfAllReady()
+    {
+        foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
+            if (pair.Key.selectedCharacter == null) {
+                return (false);
+            }
+        }
+        return (true);
+    }
+
+    void SetupCharacters()
+    {
+        Parser parser = GameObject.FindObjectOfType<Parser>();
+        parser.players = new List<Player>();
+        foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
+            pair.Value.playerName = pair.Key.playerName.text;
+            Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
+            playerCharacter.transform.SetParent(pair.Value.transform);
+            pair.Value.name = pair.Key.playerName.text;
+            pair.Value.selectedCharacter = playerCharacter;
+            parser.players.Add(pair.Value);
+            playerCharacter.gameObject.SetActive(false);
+            DontDestroyOnLoad(pair.Value.gameObject);
+        }
+        SceneManager.LoadScene("BattleScene");
     }
 
     bool AreUsernamesValids()

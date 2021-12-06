@@ -5,6 +5,8 @@ using Assets.Scripts.SpawnSystem;
 
 public class Parser : MonoBehaviour
 {
+    public static Parser instance;
+
     public CardsManager cardsManager;
     public CharactersManager charactersManager;
     public BattleManager battleManager;
@@ -12,7 +14,12 @@ public class Parser : MonoBehaviour
     //TODO: récupérer les joueurs dans la classe du serveur
     public List<Player> players;
 
-    void ParseData(object obj)
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public void ParseData(object obj)
     {
         switch (obj) {
             case ActivateCard cardObj:
@@ -32,15 +39,24 @@ public class Parser : MonoBehaviour
 
                 break;
             case PlayerSpawn spawnObj:
+                if (battleManager == null) {
+                    battleManager = GameObject.FindObjectOfType<BattleManager>();
+                }
                 //fais spawn le joueur a une position
                 battleManager.AddPlayer(spawning.SpawnOtherPlayer(spawnObj.playerId, spawnObj.tileName));
                 break;
             case SkipTurn turnObj:
                 //passe au tour suivant
+                if (battleManager == null) {
+                    battleManager = GameObject.FindObjectOfType<BattleManager>();
+                }
                 if (turnObj.entityPlayingIndex == battleManager.GetPlayingEntityIndex()) {
                     battleManager.FinishTurn();
                 }
                 //TODO: système de vérification si jamais le joueur a du retard sur le tour actuel
+                break;
+            case ChooseCharacter characterObj:
+                GameObject.FindObjectOfType<PlayersSelection>().SetPlayerCharacter(characterObj);
                 break;
             case PlayerJoin playerJoin:
                 GameServer.instance.OnPlayerJoin(playerJoin);
