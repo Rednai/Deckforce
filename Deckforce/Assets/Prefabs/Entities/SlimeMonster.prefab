@@ -111,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityType: 1
   entityName: Slime
+  id: 3
   currentLife: 0
   maxLife: 5
   currentShield: 0

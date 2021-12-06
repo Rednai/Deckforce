@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoneGolemSummon
   m_EditorClassIdentifier: 
   cardName: Stone Golem Summon
+  id: 3
   description: Summons a power stone golem. Requires a stone pile
   color: {r: 0, g: 1, b: 0.049239635, a: 1}
   visual: {fileID: 21300000, guid: 1aaa62da57a0cbf46a7e590136aa7dc8, type: 3}

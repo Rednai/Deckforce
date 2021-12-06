@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StonePileSummon
   m_EditorClassIdentifier: 
   cardName: Stone Pile Summon
+  id: 4
   description: Creates a small pile of stone on an empty tile. The pile can be used
     as cover or to summon stronger monsters
   color: {r: 0.15640283, g: 1, b: 0, a: 1}

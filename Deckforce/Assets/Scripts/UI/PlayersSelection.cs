@@ -30,6 +30,8 @@ public class PlayersSelection : MonoBehaviour
 
         Player newPlayer = Instantiate(playerTemplate);
 
+        //TODO: set l'id et le isClient du joueur par rapport à un packet recu par le serveur
+
         newPlayer.deckCards = new List<Card>();
 
         for (int i = 0; i != 30; i++) {

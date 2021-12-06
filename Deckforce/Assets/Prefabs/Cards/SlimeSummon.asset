@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SlimeSummon
   m_EditorClassIdentifier: 
   cardName: Slime Summon
+  id: 2
   description: Summons a small slime to fight by your side
   color: {r: 0.004480481, g: 1, b: 0, a: 1}
   visual: {fileID: 21300000, guid: d2dfec4ced9ee06488b52ce3042c02eb, type: 3}
-  playerOwner: {fileID: 0}
   cost: 5
   areaTypePattern: 0
   playerRange: 5
