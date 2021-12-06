@@ -96,12 +96,11 @@ public class BattleManager : MonoBehaviour
             playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
             newPlayer = spawner.SpawningPhase();
 
-            PlayerSpawn playerSpawn = new PlayerSpawn();
-            playerSpawn.playerId = newPlayer.id;
-            playerSpawn.tileName = tileName;
-            gameServer.SendData(playerSpawn);
-
             if (newPlayer != null) {
+                PlayerSpawn playerSpawn = new PlayerSpawn();
+                playerSpawn.playerId = newPlayer.id;
+                playerSpawn.tileName = tileName;
+                gameServer.SendData(playerSpawn);
                 AddPlayer(newPlayer);
             }
         }

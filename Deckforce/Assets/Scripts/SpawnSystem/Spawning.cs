@@ -15,9 +15,9 @@ namespace Assets.Scripts.SpawnSystem
         void Start()
         {
             //TODO: récupérer cette liste dans le serveur
-            futurePlayers = new List<Player>(GameObject.FindObjectsOfType<Player>());
+            futurePlayers = Parser.instance.players;
 
-            Debug.Log(futurePlayers.Count);
+            Debug.Log(futurePlayers[0].id);
             //Appelé si la scène est lancée telle quelle. Plus pratique quand il faut tester qqchose sur la scène de combat
             if (futurePlayers.Count == 0) {
                 futurePlayers = new List<Player>();

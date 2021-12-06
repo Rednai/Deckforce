@@ -11,8 +11,8 @@ public class PlayersSelection : MonoBehaviour
     public Player playerTemplate;
 
     //TODO: pour l'instant on check si le character est null, a l'avenir faudra ajouter un bool isReady récupéré depuis le Packet
-    public Dictionary<PlayerSelection, Player> selectedPlayers;
-    List<string> playersNames;
+    public Dictionary<PlayerSelection, Player> selectedPlayers = new Dictionary<PlayerSelection, Player>();
+    List<string> playersNames = new List<string>();
 
     public CardsManager cardsManager;
 
@@ -20,9 +20,6 @@ public class PlayersSelection : MonoBehaviour
 
     void Start()
     {
-        selectedPlayers = new Dictionary<PlayerSelection, Player>();
-        playersNames = new List<string>();
-
         gameServer = GameServer.FindObjectOfType<GameServer>();
     }
 
@@ -74,6 +71,7 @@ public class PlayersSelection : MonoBehaviour
         KeyValuePair<PlayerSelection, Player> player = GetPlayer();
         chooseCharacter.characterId = player.Key.selectedCharacter.id;
         chooseCharacter.playerId = player.Value.id;
+        player.Key.isReady = true;
         gameServer.SendData(chooseCharacter);
         if (CheckIfAllReady()) {
             SetupCharacters();
@@ -123,6 +121,7 @@ public class PlayersSelection : MonoBehaviour
     {
         KeyValuePair<PlayerSelection, Player> pair = GetPlayer(chooseCharacter.playerId);
         pair.Key.selectedCharacter = GameObject.FindObjectOfType<CharactersManager>().existingCharacters.Find(x => x.id == chooseCharacter.characterId);
+        pair.Key.isReady = true;
         if (CheckIfAllReady()) {
             SetupCharacters();
         }
@@ -131,7 +130,7 @@ public class PlayersSelection : MonoBehaviour
     bool CheckIfAllReady()
     {
         foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
-            if (pair.Key.selectedCharacter == null) {
+            if (!pair.Key.isReady) {
                 return (false);
             }
         }

@@ -9,6 +9,7 @@ public class PlayerSelection : MonoBehaviour
     CharactersManager charactersManager;
 
     public Character selectedCharacter;
+    public bool isReady = false;
     int characterIndex;
 
     public Text playerName;
