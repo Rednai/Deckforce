@@ -43,6 +43,9 @@ public class Parser : MonoBehaviour
                     battleManager = GameObject.FindObjectOfType<BattleManager>();
                 }
                 //fais spawn le joueur a une position
+                if (spawning == null) {
+                    spawning = GameObject.FindObjectOfType<Spawning>();
+                }
                 battleManager.AddPlayer(spawning.SpawnOtherPlayer(spawnObj.playerId, spawnObj.tileName));
                 break;
             case SkipTurn turnObj:
