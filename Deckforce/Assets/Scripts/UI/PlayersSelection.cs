@@ -15,10 +15,14 @@ public class PlayersSelection : MonoBehaviour
 
     public CardsManager cardsManager;
 
+    GameServer gameServer;
+
     void Start()
     {
         selectedPlayers = new Dictionary<PlayerSelection, Player>();
         playersNames = new List<string>();
+
+        gameServer = GameServer.FindObjectOfType<GameServer>();
     }
 
     //TODO: a l'avenir on recevra un joueur ou jsp quoi pour instancier les infos
@@ -58,6 +62,25 @@ public class PlayersSelection : MonoBehaviour
 
     public void StartPlaying()
     {
+        foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
+            pair.Value.playerName = pair.Key.playerName.text;
+            Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
+            playerCharacter.transform.SetParent(pair.Value.transform);
+            pair.Value.name = pair.Key.playerName.text;
+            pair.Value.selectedCharacter = playerCharacter;
+            playerCharacter.gameObject.SetActive(false);
+            DontDestroyOnLoad(pair.Value.gameObject);
+        }
+        if (gameServer == null) {
+            gameServer = GameServer.FindObjectOfType<GameServer>();
+        }
+        ChooseCharacter chooseCharacter = new ChooseCharacter();
+        //TODO: faire la recherche plus proprement
+        KeyValuePair<PlayerSelection, Player> player = GetPlayer();
+        chooseCharacter.characterId = player.Key.selectedCharacter.id;
+        chooseCharacter.playerId = player.Value.id;
+        gameServer.SendData(chooseCharacter);
+        /*
         if (selectedPlayers.Count < 2) {
             return ;
         }
@@ -75,6 +98,17 @@ public class PlayersSelection : MonoBehaviour
             }
             SceneManager.LoadScene("BattleScene");
         }
+        */
+    }
+
+    KeyValuePair<PlayerSelection, Player> GetPlayer()
+    {
+        foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
+            if (pair.Value.isClient == true) {
+                return (pair);
+            }
+        }
+        return (new KeyValuePair<PlayerSelection, Player>());
     }
 
     bool AreUsernamesValids()
