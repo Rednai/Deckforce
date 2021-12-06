@@ -70,9 +70,7 @@ public class GameServer : MonoBehaviour
 
         object obj = Deserialize(data);
 
-        // TODO: A supprimer
-        if (obj is SendDataButtonTest.Message)
-            Debug.Log((obj as SendDataButtonTest.Message).text);
+        Parser.instance.ParseData(obj);
     }
 
     private ArraySegment<Byte> Serialize(object anySerializableObject)
