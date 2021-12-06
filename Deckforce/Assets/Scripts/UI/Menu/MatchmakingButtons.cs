@@ -54,9 +54,18 @@ public class MatchmakingButtons : MonoBehaviour
     {
         waitingForPlayers.SetActive(false);
 
-        playerSelection.gameObject.SetActive(true);
+        Debug.Log("ENTERING CHAMP SELECT !");
         foreach (PlayerJoin player in players)
-            playerSelection.AddPlayer(player);
+        {
+            Debug.Log("PLAYER");
+            Debug.Log(player.id);
+            Debug.Log(player.team);
+            Debug.Log(player.isClient);
+        }
+
+        //playerSelection.gameObject.SetActive(true);
+        //foreach (PlayerJoin player in players)
+        //    playerSelection.AddPlayer(player);
     }
 
     private void OnMatchmakingError(PlayFabError error)

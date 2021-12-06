@@ -157,8 +157,8 @@ public class Matchmaking : MonoBehaviour
     private void OnGetMatch(GetMatchResult result)
     {
         // DEBUG
-        Debug.Log("Server ip : " + result.ServerDetails.IPV4Address);
-        Debug.Log("Server port : " + result.ServerDetails.Ports[0].Num);
+        //Debug.Log("Server ip : " + result.ServerDetails.IPV4Address);
+        //Debug.Log("Server port : " + result.ServerDetails.Ports[0].Num);
 
         matchingSuccessCallback?.Invoke(result);
     }
