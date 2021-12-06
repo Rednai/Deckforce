@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using PlayFab;
 using UnityEngine;
 using UnityEngine.UI;
-using PlayFab;
 
 public class LoginButton : MonoBehaviour
 {
-    public Button loginButton;
-    public Button matchButton;
-    public Text text;
+    public Text errorText;
+    public GameObject matchButtons;
 
     public void OnLogin()
     {
@@ -17,13 +16,13 @@ public class LoginButton : MonoBehaviour
 
     private void loginSuccess(PlayFab.ClientModels.LoginResult result)
     {
-        text.text = "Connected to PlayFab";
-        loginButton.interactable = false;
-        matchButton.interactable = true;
+        gameObject.SetActive(false);
+        matchButtons.SetActive(true);
     }
 
     private void loginError(PlayFabError error)
     {
-        Debug.Log(error.ErrorMessage);
+        errorText.text = error.ErrorMessage;
+        errorText.gameObject.SetActive(true);
     }
 }

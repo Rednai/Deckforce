@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SendDataButton : MonoBehaviour
+public class SendDataButtonTest : MonoBehaviour
 {
     [SerializableAttribute]
     public class Message

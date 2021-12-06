@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 using UnityEngine;
 using Telepathy;
 
@@ -11,6 +12,11 @@ public class GameServer : MonoBehaviour
     public bool isConnected { get { return client.Connected; } }
 
     private Client client = new Client(Settings.maxMessageSize);
+
+    private List<PlayerJoin> connectedPlayers = new List<PlayerJoin>();
+    private bool isWaitingForPlayers = false;
+    private Action<List<PlayerJoin>> OnAllPlayersConnected;
+    private int numberOfPlayersToWait;
 
     private void Awake()
     {
@@ -61,8 +67,8 @@ public class GameServer : MonoBehaviour
         object obj = Deserialize(data);
 
         // TODO: A supprimer
-        if (obj is SendDataButton.Message)
-            Debug.Log((obj as SendDataButton.Message).text);
+        if (obj is SendDataButtonTest.Message)
+            Debug.Log((obj as SendDataButtonTest.Message).text);
     }
 
     private ArraySegment<Byte> Serialize(object anySerializableObject)
@@ -80,6 +86,40 @@ public class GameServer : MonoBehaviour
         // TODO: gestion d'erreurs
         using (var memoryStream = new MemoryStream(data.Array))
             return (new BinaryFormatter()).Deserialize(memoryStream);
+    }
+
+    public void WaitForOtherPlayers(int numberOfPlayersToWait, Action<List<PlayerJoin>> OnAllPlayersConnected)
+    {
+        connectedPlayers.Clear();
+        isWaitingForPlayers = true;
+        this.OnAllPlayersConnected = OnAllPlayersConnected;
+        this.numberOfPlayersToWait = numberOfPlayersToWait;
+        PlayerJoin playerJoin = new PlayerJoin() {
+            playFabId = Authentification.instance.userInfo.playFabId,
+            teamId = Authentification.instance.userInfo.currentTeam
+        };
+        SendData(playerJoin);
+        playerJoin.isClient = true;
+        connectedPlayers.Add(playerJoin);
+    }
+
+    public void OnPlayerJoin(PlayerJoin playerJoin)
+    {
+        PlayerJoin alreadyConnected = connectedPlayers.Find(connectedPlayer => connectedPlayer.playFabId == playerJoin.playFabId);
+
+        if (alreadyConnected != null || !isWaitingForPlayers)
+            return;
+
+        connectedPlayers.Add(playerJoin);
+        SendData(new PlayerJoin() {
+            playFabId = Authentification.instance.userInfo.playFabId,
+            teamId = Authentification.instance.userInfo.currentTeam
+        });
+        if (connectedPlayers.Count == numberOfPlayersToWait)
+        {
+            isWaitingForPlayers = false;
+            OnAllPlayersConnected?.Invoke(connectedPlayers);
+        }
     }
 
     private void Update()

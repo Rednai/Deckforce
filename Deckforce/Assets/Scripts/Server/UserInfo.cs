@@ -6,4 +6,5 @@ public struct UserInfo
 {
     public string playFabId;
     public string entityId;
+    public int currentTeam;
 }

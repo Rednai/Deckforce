@@ -12,6 +12,7 @@ public class Matchmaking : MonoBehaviour
     private string queueName;
     private string ticketId;
     private Coroutine pollTicket = null;
+    private Action<GetMatchResult> matchingSuccessCallback;
     private Action<PlayFabError> matchingErrorCallback;
 
     private void Awake()
@@ -19,9 +20,9 @@ public class Matchmaking : MonoBehaviour
         instance = this;
     }
 
-    public void FindMatch(string queue, Action<PlayFabError> errorCallback = null)
+    public void FindMatch(string queue, Action<GetMatchResult> successCallback = null, Action<PlayFabError> errorCallback = null)
     {
-        //TODO: appeler cette fonction pour créer/rejoindre la partie
+        matchingSuccessCallback = successCallback;
         matchingErrorCallback = errorCallback;
 
         if (!Authentification.instance.isAuthenticated)
@@ -156,13 +157,10 @@ public class Matchmaking : MonoBehaviour
     private void OnGetMatch(GetMatchResult result)
     {
         // DEBUG
-        Debug.Log("Connecting to match.");
-
         Debug.Log("Server ip : " + result.ServerDetails.IPV4Address);
-        Debug.Log("Server port count : " + result.ServerDetails.Ports.Count);
         Debug.Log("Server port : " + result.ServerDetails.Ports[0].Num);
 
-        GameServer.instance.Connect(result.ServerDetails.IPV4Address, result.ServerDetails.Ports[0].Num);
+        matchingSuccessCallback?.Invoke(result);
     }
 
     private void OnCancelMatchmaking(CancelAllMatchmakingTicketsForPlayerResult result)

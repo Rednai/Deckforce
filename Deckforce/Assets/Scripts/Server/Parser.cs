@@ -21,6 +21,9 @@ public class Parser : MonoBehaviour
             case SkipTurn turnObj:
                 //TODO: passer au tour suivant
                 break;
+            case PlayerJoin playerJoin:
+                GameServer.instance.OnPlayerJoin(playerJoin);
+                break;
         }
     }
 }

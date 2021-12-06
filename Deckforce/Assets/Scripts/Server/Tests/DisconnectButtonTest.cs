@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisconnectButton : MonoBehaviour
+public class DisconnectButtonTest : MonoBehaviour
 {
     public Button connectButton;
     public Button disconnectButton;
