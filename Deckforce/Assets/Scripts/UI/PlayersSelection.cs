@@ -140,12 +140,15 @@ public class PlayersSelection : MonoBehaviour
 
     void SetupCharacters()
     {
+        Parser parser = GameObject.FindObjectOfType<Parser>();
+        parser.players = new List<Player>();
         foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
             pair.Value.playerName = pair.Key.playerName.text;
             Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
             playerCharacter.transform.SetParent(pair.Value.transform);
             pair.Value.name = pair.Key.playerName.text;
             pair.Value.selectedCharacter = playerCharacter;
+            parser.players.Add(pair.Value);
             playerCharacter.gameObject.SetActive(false);
             DontDestroyOnLoad(pair.Value.gameObject);
         }

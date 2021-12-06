@@ -55,10 +55,6 @@ public class GameServer : MonoBehaviour
 
     public void SendData(object objectToSend)
     {
-        /*
-            TODO: Appeler la fonction quand:
-             - on fait apparaitre notre personnage
-        */
         Debug.Log("Sending data...");
         ArraySegment<byte> data = Serialize(objectToSend);
         client.Send(data);

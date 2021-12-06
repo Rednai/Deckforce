@@ -35,7 +35,8 @@ namespace Assets.Scripts.SpawnSystem
 
             //TODO: ca doit fonctionner uniquement si c'est notre tour
             if (Input.GetMouseButtonDown(1) && currentSelected != null &&
-                futurePlayers.Count > 0 && currentSelected.tileEntity == null
+                futurePlayers.Count > 0 && currentSelected.tileEntity == null &&
+                futurePlayers[0].isClient == true
                 ) {
                 return (SpawnPlayer());
             }
@@ -54,6 +55,7 @@ namespace Assets.Scripts.SpawnSystem
             currentSelected.SetEntity(newPlayer.selectedCharacter);
             if (futurePlayers.Count == 0)
                 this.GetComponent<SelectCase>().spawningMode = false;
+            GameObject.FindObjectOfType<BattleManager>().tileName = currentSelected.transform.name;
             return newPlayer;
         }
 
