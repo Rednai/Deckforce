@@ -3,7 +3,7 @@
   "ForcePullFromAcrOnLinuxContainersOnWindows": false,
   "OutputFolder": "C:\\output\\DeckForceServer",
   "NumHeartBeatsForActivateResponse": 10,
-  "NumHeartBeatsForTerminateResponse": 10000,
+  "NumHeartBeatsForTerminateResponse": 50000,
   "TitleId": "",
   "BuildId": "00000000-0000-0000-0000-000000000000",
   "Region": "WestUs",
