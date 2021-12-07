@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: meilleur nom de classe
 public class MovePlayer : MonoBehaviour
 {
     public SelectCase floor;
@@ -58,8 +59,9 @@ public class MovePlayer : MonoBehaviour
                 PlayerMove playerMove = new PlayerMove();
                 playerMove.playerId = player.id;
                 playerMove.tileName = currentSelected.transform.name;
+                Debug.Log("wow on envoit un packet de déplacement c'est un truc de dingue!");
                 gameServer.SendData(playerMove);
-            }   
+            }
         }
 
         if (character.canMove)

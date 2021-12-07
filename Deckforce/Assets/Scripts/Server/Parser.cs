@@ -31,10 +31,12 @@ public class Parser : MonoBehaviour
                 break;
             case PlayerMove moveObj:
                 //TODO: déplace le joueur a une position choisie
+                Debug.Log("on bouge l'autre joueur incroyable");
                 Character character = players.Find(x => x.id == moveObj.playerId).selectedCharacter;
                 MovePlayer movePlayer = character.GetComponent<MovePlayer>();
                 Tile selectedTile = GameObject.Find(moveObj.tileName).GetComponent<Tile>();
 
+                Debug.Log(character.entityName);
                 movePlayer.MoveCharacter(selectedTile, movePlayer.pathfinding.findPathtoCase(selectedTile));
 
                 break;
@@ -53,7 +55,9 @@ public class Parser : MonoBehaviour
                 if (battleManager == null) {
                     battleManager = GameObject.FindObjectOfType<BattleManager>();
                 }
-                if (turnObj.entityPlayingIndex == battleManager.GetPlayingEntityIndex()) {
+                Debug.Log("turn obj");
+                Debug.Log(turnObj.entityPlayingIndex + ", " + battleManager.GetPlayingEntityIndex());
+                if (turnObj.entityPlayingIndex == battleManager.GetPlayingEntityIndex()-1) {
                     battleManager.FinishTurn();
                 }
                 //TODO: système de vérification si jamais le joueur a du retard sur le tour actuel

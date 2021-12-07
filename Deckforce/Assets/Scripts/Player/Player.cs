@@ -75,10 +75,13 @@ public class Player : MonoBehaviour
         } else {
             deck.Draw();
         }
+        //TODO: trouver une meilleure manière de récupérer ca
+        GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
     }
     
     public void EndTurn()
     {
         ManagingActivation(false);
+        GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
     }
 }

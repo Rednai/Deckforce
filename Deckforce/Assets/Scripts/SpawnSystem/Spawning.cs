@@ -16,8 +16,10 @@ namespace Assets.Scripts.SpawnSystem
         {
             //TODO: récupérer cette liste dans le serveur
             futurePlayers = Parser.instance.players;
+            if (futurePlayers[0].isClient) {
+                GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
+            }
 
-            Debug.Log(futurePlayers[0].id);
             //Appelé si la scène est lancée telle quelle. Plus pratique quand il faut tester qqchose sur la scène de combat
             if (futurePlayers.Count == 0) {
                 futurePlayers = new List<Player>();
@@ -46,15 +48,27 @@ namespace Assets.Scripts.SpawnSystem
 
         public Player SpawnPlayer()
         {
+            Debug.Log("spawn player");
             newPlayer = futurePlayers[0];
+            //TODO: temporaire
+            GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
             futurePlayers.RemoveAt(0);
+            Debug.Log(futurePlayers.Count);
 
             newPlayer.selectedCharacter.transform.position = new Vector3(currentSelected.transform.position.x, 0.5f, currentSelected.transform.position.z);
             newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
             newPlayer.selectedCharacter.gameObject.SetActive(true);
             currentSelected.SetEntity(newPlayer.selectedCharacter);
-            if (futurePlayers.Count == 0)
+            if (futurePlayers.Count == 0) {
                 this.GetComponent<SelectCase>().spawningMode = false;
+            } else {
+                Debug.Log("next client");
+                if (futurePlayers[0].isClient) {
+                    Debug.Log("client is local, allow the mouse");
+                    GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
+                }
+            }
+            //TODO: temporaire
             GameObject.FindObjectOfType<BattleManager>().tileName = currentSelected.transform.name;
             return newPlayer;
         }
@@ -69,8 +83,15 @@ namespace Assets.Scripts.SpawnSystem
             newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(selectedTile);
             newPlayer.selectedCharacter.gameObject.SetActive(true);
             selectedTile.SetEntity(newPlayer.selectedCharacter);
-            if (futurePlayers.Count == 0)
+            if (futurePlayers.Count == 0) {
                 this.GetComponent<SelectCase>().spawningMode = false;
+            } else {
+                Debug.Log("next client");
+                if (futurePlayers[0].isClient) {
+                    Debug.Log("client is local, allow the mouse");
+                    GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
+                }
+            }
             return (newPlayer);
         }
 

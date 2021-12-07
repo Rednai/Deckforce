@@ -7366,7 +7366,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4186927070628551837}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: FinishTurn
+        m_MethodName: ClickFinishTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7736,6 +7736,7 @@ MonoBehaviour:
     m_Bits: 128
   currentSelected: {fileID: 0}
   spawningMode: 1
+  isClientPlaying: 0
 --- !u!483693784 &1958727485
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -8784,6 +8785,7 @@ MonoBehaviour:
   initiativeDisplay: {fileID: 2131037451}
   statsSlidersDisplay: {fileID: 1073196972}
   endDisplay: {fileID: 1860463743}
+  tileName: 
 --- !u!1001 &5584241331381724288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8898,6 +8900,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player2
+  id: 
+  isClient: 0
+  team: 0
   selectedCharacter: {fileID: 1438340464}
   cardPrefab: {fileID: 923206290895913734, guid: 6b31c43bd498baf43b819edf0cc9d811, type: 3}
   deck: {fileID: 1366660250}
@@ -9013,6 +9018,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player1
+  id: 
+  isClient: 0
+  team: 0
   selectedCharacter: {fileID: 7127482487871335244}
   cardPrefab: {fileID: 923206290895913734, guid: 6b31c43bd498baf43b819edf0cc9d811, type: 3}
   deck: {fileID: 1366660250}
@@ -9096,6 +9104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player3
+  id: 
+  isClient: 0
+  team: 0
   selectedCharacter: {fileID: 7127482487818172454}
   cardPrefab: {fileID: 923206290895913734, guid: 6b31c43bd498baf43b819edf0cc9d811, type: 3}
   deck: {fileID: 1366660250}

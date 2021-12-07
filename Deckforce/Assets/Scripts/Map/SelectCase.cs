@@ -7,10 +7,22 @@ using UnityEngine.Tilemaps;
 public class SelectCase: MonoBehaviour {
     public LayerMask floorMask;
     public Tile currentSelected = null;
+    //TODO: meilleur nom pour les 2 bool
     public bool spawningMode = true;
     private bool spawn = true;
 
+    public bool isClientPlaying = false;
+
     void Update() {
+
+        if (!isClientPlaying) {
+            if (currentSelected != null) {
+                currentSelected.StopAnimation();
+                currentSelected = null;
+            }
+            return ;
+        }
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

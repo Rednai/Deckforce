@@ -151,6 +151,9 @@ public class PlayersSelection : MonoBehaviour
             playerCharacter.gameObject.SetActive(false);
             DontDestroyOnLoad(pair.Value.gameObject);
         }
+        parser.players.Sort(delegate(Player player1, Player player2) {
+            return (player1.team.CompareTo(player2.team));
+        });
         SceneManager.LoadScene("BattleScene");
     }
 

@@ -46,17 +46,6 @@ public class BattleManager : MonoBehaviour
 
     [Header("UI Stats")]
     public StatsSlider statsSlidersDisplay;
-    /*
-    public Slider healthSlider;
-    public Text healthText;
-    public Slider shieldSlider;
-
-    public Slider actionSlider;
-    public Text actionText;
-
-    public Slider movementSlider;
-    public Text movementText;
-    */
 
     [Header("EndGameDisplay")]
     public EndDisplay endDisplay;
@@ -88,6 +77,7 @@ public class BattleManager : MonoBehaviour
 
                 SkipTurn skipTurn = new SkipTurn();
                 skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex-1;
+                Debug.Log("sending a skip");
                 gameServer.SendData(skipTurn);
             }
 
@@ -181,7 +171,7 @@ public class BattleManager : MonoBehaviour
         //TODO: si première entité du tour, faut afficher le numéro du tour avant le reste
 
         foreach (Player player in battlePlayers) {
-            if (currentPlayingEntity == player.selectedCharacter) {
+            if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
                 player.StartTurn();
             }
         }
@@ -203,47 +193,22 @@ public class BattleManager : MonoBehaviour
         Player currentPlayer = CheckIfCurrentEntityIsPlayer();
         if (currentPlayer != null) {
             statsSlidersDisplay.gameObject.SetActive(true);
-            //statsSlidersDisplay.healthSlider.gameObject.SetActive(true);
-            //statsSlidersDisplay.healthText.gameObject.SetActive(true);
-            //statsSlidersDisplay.shieldSlider.gameObject.SetActive(true);
-            //statsSlidersDisplay.actionSlider.gameObject.SetActive(true);
-            //statsSlidersDisplay.actionText.gameObject.SetActive(true);
-            //statsSlidersDisplay.movementSlider.gameObject.SetActive(true);
-            //statsSlidersDisplay.movementText.gameObject.SetActive(true);
-            //statsSlidersDisplay.healthSlider.maxValue = currentPlayer.selectedCharacter.maxLife;
-            //statsSlidersDisplay.healthSlider.value = currentPlayer.selectedCharacter.currentLife;
-            //statsSlidersDisplay.healthText.text = $"{currentPlayer.selectedCharacter.currentLife}/{currentPlayer.selectedCharacter.maxLife}";
-            //statsSlidersDisplay.shieldSlider.maxValue = currentPlayer.selectedCharacter.maxShield;
-            //statsSlidersDisplay.shieldSlider.value = currentPlayer.selectedCharacter.currentShield;
-            //statsSlidersDisplay.actionSlider.maxValue = currentPlayer.selectedCharacter.maxActionPoints;
-            //statsSlidersDisplay.actionSlider.value = currentPlayer.selectedCharacter.currentActionPoints;
-            //statsSlidersDisplay.actionText.text = $"{currentPlayer.selectedCharacter.currentActionPoints}/{currentPlayer.selectedCharacter.maxActionPoints}";
-            //statsSlidersDisplay.movementSlider.maxValue = currentPlayer.selectedCharacter.maxMovePoints;
-            //statsSlidersDisplay.movementSlider.value = currentPlayer.selectedCharacter.currentMovePoints;
-            //statsSlidersDisplay.movementText.text = $"{currentPlayer.selectedCharacter.currentMovePoints}/{currentPlayer.selectedCharacter.maxMovePoints}";
             statsSlidersDisplay.SetInfos(currentPlayer.selectedCharacter, false);
+        
+            if (currentPlayer.deck.isDrawingOver) {
+                finishTurnButton.gameObject.SetActive(true);
+            } else {
+                finishTurnButton.gameObject.SetActive(false);
+            }
         } else {
             statsSlidersDisplay.gameObject.SetActive(false);
-            //healthSlider.gameObject.SetActive(false);
-            //healthText.gameObject.SetActive(false);
-            //shieldSlider.gameObject.SetActive(false);
-            //actionSlider.gameObject.SetActive(false);
-            //actionText.gameObject.SetActive(false);
-            //movementSlider.gameObject.SetActive(false);
-            //movementText.gameObject.SetActive(false);
-        }
-
-        if (currentPlayer.deck.isDrawingOver) {
-            finishTurnButton.gameObject.SetActive(true);
-        } else {
-            finishTurnButton.gameObject.SetActive(false);
         }
     }
 
     Player CheckIfCurrentEntityIsPlayer()
     {
         foreach (Player player in battlePlayers) {
-            if (currentPlayingEntity == player.selectedCharacter) {
+            if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
                 return (player);
             }
         }
@@ -259,6 +224,7 @@ public class BattleManager : MonoBehaviour
 
         SkipTurn skipTurn = new SkipTurn();
         skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex-1;
+        Debug.Log("sending a skip");
         gameServer.SendData(skipTurn);
     }
 
