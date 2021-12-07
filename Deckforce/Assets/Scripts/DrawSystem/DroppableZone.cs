@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DrawSystem
 {
@@ -8,15 +10,15 @@ namespace DrawSystem
         [SerializeField]
         protected SelectCase floor;
 
-        private Range range;
+        public Range range;
 
         public void OnDrop(PointerEventData eventData)
         {
-            if (floor.currentSelected != null)
+            Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
+            CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
+            List<Tile> playerRange = range.GetRangeTiles(cardDisplay.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, cardDisplay.card.playerRange, true, false);
+            if (floor.currentSelected != null & playerRange.Contains(floor.currentSelected))
             {
-                Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
-                CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
-
                 bool isActivated = cardDisplay.card.Activate(cardDisplay.ownerPlayer, floor.currentSelected);
                 if (draggable != null && isActivated == true) {
                     draggable.parentToReturnTo = draggable.discardPile.transform;

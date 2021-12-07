@@ -43,7 +43,7 @@ namespace DrawSystem
 
 
             range.CancelHighlightRange(highlightedRange);
-            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, card.card.playerRange, false, true);
+            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, card.card.playerRange, true, false);
             range.HighlightRange(highlightedRange, OutlineType.RANGE);
 
 
