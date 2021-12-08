@@ -101,7 +101,7 @@ public class PlayersSelection : MonoBehaviour
     public void SetPlayerCharacter(ChooseCharacter chooseCharacter)
     {
         KeyValuePair<PlayerSelection, Player> pair = GetPlayer(chooseCharacter.playerId);
-        pair.Key.selectedCharacter = GameObject.FindObjectOfType<CharactersManager>().existingCharacters.Find(x => x.id == chooseCharacter.characterId);
+        pair.Key.selectedCharacter = CharactersManager.instance.existingCharacters.Find(x => x.id == chooseCharacter.characterId);
         pair.Key.isReady = true;
         if (CheckIfAllReady()) {
             SetupCharacters();

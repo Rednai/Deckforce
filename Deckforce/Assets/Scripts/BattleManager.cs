@@ -68,6 +68,7 @@ public class BattleManager : MonoBehaviour
 
     void Update()
     {
+        //TODO: faire un if global avec isGameOver et ensuite check spwaningPhase
         if (!spawningPhase && !isGameOver) {
             battleTurn.turnTime -= Time.deltaTime;
             if (battleTurn.turnTime <= 0) {
@@ -158,7 +159,6 @@ public class BattleManager : MonoBehaviour
         });
         currentPlayingEntity = battleTurn.playingEntities[0];
         battleTurn.playingEntityIndex++;
-        Debug.Log($"Entity {currentPlayingEntity.entityName}");
         initiativeDisplay.DisplayEntitiesInitiatives(battleTurn.playingEntities);
     }
 
@@ -224,7 +224,6 @@ public class BattleManager : MonoBehaviour
 
         SkipTurn skipTurn = new SkipTurn();
         skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
-        Debug.Log("sending a skip " + skipTurn.entityPlayingIndex + ", " + battleTurn.playingEntityIndex);
         gameServer.SendData(skipTurn);
         
         FinishTurn();

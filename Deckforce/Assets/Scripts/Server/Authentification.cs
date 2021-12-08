@@ -17,7 +17,14 @@ public class Authentification : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Login(Action<PlayFab.ClientModels.LoginResult> successCallback = null, Action<PlayFabError> errorCallback = null)

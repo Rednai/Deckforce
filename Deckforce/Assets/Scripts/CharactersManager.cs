@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class CharactersManager : MonoBehaviour
 {
+    public static CharactersManager instance;
+
     public List<Character> existingCharacters;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 }

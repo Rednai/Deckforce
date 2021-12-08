@@ -17,7 +17,14 @@ public class Matchmaking : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void FindMatch(string queue, Action<GetMatchResult> successCallback = null, Action<PlayFabError> errorCallback = null)

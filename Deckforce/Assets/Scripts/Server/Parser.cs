@@ -7,8 +7,6 @@ public class Parser : MonoBehaviour
 {
     public static Parser instance;
 
-    public CardsManager cardsManager;
-    public CharactersManager charactersManager;
     public BattleManager battleManager;
     public Spawning spawning;
     //TODO: récupérer les joueurs dans la classe du serveur
@@ -16,7 +14,14 @@ public class Parser : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void InitValues(Player[] newPlayers)
@@ -31,7 +36,7 @@ public class Parser : MonoBehaviour
         switch (obj) {
             case ActivateCard cardObj:
                 //récupère la carte depuis le CardManager avec l'id et l'active à la position choisie
-                cardsManager.cards.Find(x => x.id == cardObj.cardId).Activate(
+                CardsManager.instance.cards.Find(x => x.id == cardObj.cardId).Activate(
                     players.Find(x => x.id == cardObj.playerId),
                     GameObject.Find(cardObj.tileName).GetComponent<Tile>()
                 );
@@ -52,8 +57,6 @@ public class Parser : MonoBehaviour
                 break;
             case SkipTurn turnObj:
                 //passe au tour suivant
-                Debug.Log(turnObj.entityPlayingIndex + ", " + battleManager.GetPlayingEntityIndex());
-
                 if (battleManager.GetPlayingEntityIndex() == turnObj.entityPlayingIndex) {
                     battleManager.FinishTurn();
                 }

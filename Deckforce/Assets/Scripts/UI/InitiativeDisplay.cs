@@ -26,7 +26,7 @@ public class InitiativeDisplay : MonoBehaviour
             newDisplay.transform.Find("IconDisplay").GetComponent<Image>().sprite = entity.entityIcon;
             //TODO: pour l'instant ca fonctionne mais plus tard faudra set une couleur dans l'entité
             newDisplay.transform.GetComponent<Image>().color = entity.GetComponent<MeshRenderer>().material.color;
-            newDisplay.transform.parent = iconsHolder.transform;
+            newDisplay.transform.SetParent(iconsHolder.transform);
             icons.Add(entity, newDisplay);            
         }
     }
