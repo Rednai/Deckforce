@@ -19,6 +19,13 @@ public class Parser : MonoBehaviour
         instance = this;
     }
 
+    public void InitValues(Player[] newPlayers)
+    {
+        players = new List<Player>(newPlayers);
+        battleManager = GameObject.FindObjectOfType<BattleManager>();
+        spawning = GameObject.FindObjectOfType<Spawning>();
+    }
+
     public void ParseData(object obj)
     {
         switch (obj) {
@@ -41,26 +48,19 @@ public class Parser : MonoBehaviour
 
                 break;
             case PlayerSpawn spawnObj:
-                if (battleManager == null) {
-                    battleManager = GameObject.FindObjectOfType<BattleManager>();
-                }
-                //fais spawn le joueur a une position
-                if (spawning == null) {
-                    spawning = GameObject.FindObjectOfType<Spawning>();
-                }
                 battleManager.AddPlayer(spawning.SpawnOtherPlayer(spawnObj.playerId, spawnObj.tileName));
                 break;
             case SkipTurn turnObj:
                 //passe au tour suivant
-                if (battleManager == null) {
-                    battleManager = GameObject.FindObjectOfType<BattleManager>();
-                }
-                Debug.Log("turn obj");
                 Debug.Log(turnObj.entityPlayingIndex + ", " + battleManager.GetPlayingEntityIndex());
-                if (turnObj.entityPlayingIndex == battleManager.GetPlayingEntityIndex()-1) {
+
+                if (battleManager.GetPlayingEntityIndex() == turnObj.entityPlayingIndex) {
                     battleManager.FinishTurn();
                 }
+
                 //TODO: système de vérification si jamais le joueur a du retard sur le tour actuel
+                //Si par exemple un packet skipturn est recu juste après que le tour soit fini, il y aura peut etre un petit décalage
+                //Peut etre entre chaque tour, mettre un petit délai de 5 secondes pour vérifier que tous les clients sont bien à jour
                 break;
             case ChooseCharacter characterObj:
                 GameObject.FindObjectOfType<PlayersSelection>().SetPlayerCharacter(characterObj);

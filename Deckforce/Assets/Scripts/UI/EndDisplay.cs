@@ -38,6 +38,6 @@ public class EndDisplay : MonoBehaviour
         for (int i = players.Length-1; i != -1; i--) {
             Destroy(players[i].gameObject);
         }
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenuMultiplayer");
     }
 }

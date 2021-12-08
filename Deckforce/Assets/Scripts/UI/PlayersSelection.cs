@@ -76,25 +76,6 @@ public class PlayersSelection : MonoBehaviour
         if (CheckIfAllReady()) {
             SetupCharacters();
         }
-        /*
-        if (selectedPlayers.Count < 2) {
-            return ;
-        }
-
-        //Instancier les characteres et les mettre en enfants du joueur
-        if (AreUsernamesValids()) {
-            foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
-                pair.Value.playerName = pair.Key.playerName.text;
-                Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
-                playerCharacter.transform.SetParent(pair.Value.transform);
-                pair.Value.name = pair.Key.playerName.text;
-                pair.Value.selectedCharacter = playerCharacter;
-                playerCharacter.gameObject.SetActive(false);
-                DontDestroyOnLoad(pair.Value.gameObject);
-            }
-            SceneManager.LoadScene("BattleScene");
-        }
-        */
     }
 
     KeyValuePair<PlayerSelection, Player> GetPlayer()

@@ -59,9 +59,11 @@ public class BattleManager : MonoBehaviour
     
     void Start()
     {
-        expectedPlayerNb = GameObject.FindObjectsOfType<Player>().Count();
+        Player[] players = GameObject.FindObjectsOfType<Player>();
+        expectedPlayerNb = players.Count();
         battlePlayers = new List<Player>();
         gameServer = GameServer.FindObjectOfType<GameServer>();
+        gameServer.GetComponent<Parser>().InitValues(players);
     }
 
     void Update()
@@ -69,16 +71,15 @@ public class BattleManager : MonoBehaviour
         if (!spawningPhase && !isGameOver) {
             battleTurn.turnTime -= Time.deltaTime;
             if (battleTurn.turnTime <= 0) {
-                FinishTurn();
-
                 if (gameServer == null) {
                     gameServer = GameServer.FindObjectOfType<GameServer>();
                 }
 
                 SkipTurn skipTurn = new SkipTurn();
-                skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex-1;
-                Debug.Log("sending a skip");
+                skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
                 gameServer.SendData(skipTurn);
+                
+                FinishTurn();
             }
 
             DisplayStats();
@@ -217,19 +218,21 @@ public class BattleManager : MonoBehaviour
 
     public void ClickFinishTurn()
     {
-        FinishTurn();
         if (gameServer == null) {
             gameServer = GameServer.FindObjectOfType<GameServer>();
         }
 
         SkipTurn skipTurn = new SkipTurn();
-        skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex-1;
-        Debug.Log("sending a skip");
+        skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
+        Debug.Log("sending a skip " + skipTurn.entityPlayingIndex + ", " + battleTurn.playingEntityIndex);
         gameServer.SendData(skipTurn);
+        
+        FinishTurn();
     }
 
     public void FinishTurn()
     {
+        finishTurnButton.gameObject.SetActive(false);
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.EndTurn();

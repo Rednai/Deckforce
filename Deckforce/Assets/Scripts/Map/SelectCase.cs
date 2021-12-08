@@ -40,7 +40,7 @@ public class SelectCase: MonoBehaviour {
             currentSelected.StopAnimation();
             currentSelected = null;
         }
-        if (spawn != spawningMode)
+        if (spawn != spawningMode && currentSelected != null)
             currentSelected.StopAnimation();
         spawn = spawningMode;
     }
