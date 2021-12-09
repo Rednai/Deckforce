@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DrawSystem
 {
@@ -9,6 +11,7 @@ namespace DrawSystem
         protected SelectCase floor;
 
         GameServer gameServer;
+        public Range range;
 
         void Start()
         {
@@ -17,10 +20,11 @@ namespace DrawSystem
 
         public void OnDrop(PointerEventData eventData)
         {
-            if (floor.currentSelected != null)
+            Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
+            CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
+            List<Tile> playerRange = range.GetRangeTiles(cardDisplay.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, cardDisplay.card.playerRange, true, false);
+            if (floor.currentSelected != null & playerRange.Contains(floor.currentSelected))
             {
-                Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
-                CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
 
                 if (!cardDisplay.ownerPlayer.isClient) {
                     return ;

@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace DrawSystem
 {
@@ -11,8 +14,17 @@ namespace DrawSystem
         public GameObject discardPile;
         private Canvas tempCanvas;
         private GraphicRaycaster tempRaycaster;
+        public Range range;
+        private SelectCase floor;
+        private List<Tile> highlightedEffect = new List<Tile>();
+        private List<Tile> highlightedRange = new List<Tile>();
+        private Tile current = null;
+        private CardDisplay card;
+
         public void OnBeginDrag(PointerEventData eventData)
         {
+            floor = FindObjectsOfType<SelectCase>()[0];
+            card = GetComponent<CardDisplay>();
             parentToReturnTo = this.transform.parent;
             discardPile = GameObject.Find("DiscardPile");
             this.transform.SetParent(this.transform.parent.parent);
@@ -28,6 +40,29 @@ namespace DrawSystem
         public void OnDrag(PointerEventData eventData)
         {
             this.transform.position = new Vector2(eventData.position.x + 40, eventData.position.y + 50);
+
+
+            range.CancelHighlightRange(highlightedRange);
+            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, card.card.playerRange, true, false);
+            range.HighlightRange(highlightedRange, OutlineType.RANGE);
+
+
+            if (current != floor.currentSelected | current == null)
+            {
+                cancelZoneAnimation(highlightedEffect);
+                range.CancelHighlightRange(highlightedEffect);
+                highlightedEffect = new List<Tile>();
+            }
+
+            List<Tile> effects = range.GetRangeTiles(floor.currentSelected, RangeType.MOVEMENT, card.card.effectRange, false, true);
+            if (effects != highlightedEffect & highlightedRange.Contains(floor.currentSelected))
+            {
+                cancelZoneAnimation(highlightedEffect);
+                range.CancelHighlightRange(highlightedEffect);
+                highlightedEffect = effects;
+                animateZone(highlightedEffect);
+            }
+            range.HighlightRange(highlightedEffect, OutlineType.EFFECT);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -39,6 +74,11 @@ namespace DrawSystem
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             
             DroppableZone[] dropZones = GameObject.FindObjectsOfType<DroppableZone>();
+            cancelZoneAnimation(highlightedEffect);
+            range.CancelHighlightRange(highlightedEffect);
+            highlightedEffect = new List<Tile>();
+            range.CancelHighlightRange(highlightedRange);
+            highlightedRange = new List<Tile>();
             // TODO: Use these dropzones to make them NOT glow
         }
 
@@ -59,6 +99,22 @@ namespace DrawSystem
             Destroy(tempCanvas);
             
             this.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+
+        private void animateZone(List<Tile> path)
+        {
+            foreach (Tile elem in path)
+            {
+                elem.StartAnimation();
+            }
+        }
+
+        private void cancelZoneAnimation(List<Tile> path)
+        {
+            foreach (Tile elem in path)
+            {
+                elem.StopAnimation();
+            }
         }
     }
 }

@@ -36,12 +36,12 @@ public class SelectCase: MonoBehaviour {
         } else if (currentSelected != null & spawningMode) {
             currentSelected.StopAnimation();
             currentSelected = null;
-        } else if (currentSelected != null) {
-            currentSelected.StopAnimation();
+        } else {
             currentSelected = null;
         }
-        if (spawn != spawningMode && currentSelected != null)
+        if (spawn != spawningMode && currentSelected != null) {
             currentSelected.StopAnimation();
-        spawn = spawningMode;
+            spawn = spawningMode;
+        }
     }
 }

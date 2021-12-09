@@ -84,7 +84,6 @@ namespace DrawSystem
                     deckActiveCount++;
                 }
             }
-            Debug.Log(deckActiveCount);
             if (handActiveCount < 9 || deckActiveCount != 0)
             {
                 queue++;

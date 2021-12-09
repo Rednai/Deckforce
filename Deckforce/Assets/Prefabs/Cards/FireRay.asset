@@ -20,7 +20,7 @@ MonoBehaviour:
   cost: 3
   areaTypePattern: 0
   playerRange: 3
-  effectRange: 0
+  effectRange: 1
   activateClip: {fileID: 0}
   userParticle: {fileID: 4764006847354343063, guid: f10685b1dd3903741980823d5f953eb6, type: 3}
   targetParticle: {fileID: 0}

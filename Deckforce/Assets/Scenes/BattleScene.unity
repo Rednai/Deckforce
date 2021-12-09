@@ -4647,6 +4647,7 @@ GameObject:
   - component: {fileID: 1193188369}
   - component: {fileID: 1193188368}
   - component: {fileID: 1193188367}
+  - component: {fileID: 1193188371}
   m_Layer: 5
   m_Name: WorldDropPanel
   m_TagString: Untagged
@@ -4686,6 +4687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floor: {fileID: 1958727484}
+  range: {fileID: 1193188371}
 --- !u!114 &1193188368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4750,6 +4752,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193188365}
   m_CullTransparentMesh: 0
+--- !u!114 &1193188371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193188365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0580550c4b612e849baf8c0f4061f1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1207399663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8305596100309512774, guid: d7560c23518cf144fbc76ff35af6fbed, type: 3}
