@@ -66,10 +66,14 @@ public class Parser : MonoBehaviour
                 //Peut etre entre chaque tour, mettre un petit délai de 5 secondes pour vérifier que tous les clients sont bien à jour
                 break;
             case ChooseCharacter characterObj:
+                Debug.Log("other player changed his character: " + characterObj.characterId);
                 GameObject.FindObjectOfType<PlayersSelection>().SetPlayerCharacter(characterObj);
                 break;
             case PlayerJoin playerJoin:
                 GameServer.instance.OnPlayerJoin(playerJoin);
+                break;
+            case PlayerReady readyObj:
+                GameObject.FindObjectOfType<PlayersSelection>().SetPlayerReady(readyObj);
                 break;
         }
     }

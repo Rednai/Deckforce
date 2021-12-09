@@ -69,31 +69,33 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         //TODO: faire un if global avec isGameOver et ensuite check spwaningPhase
-        if (!spawningPhase && !isGameOver) {
-            battleTurn.turnTime -= Time.deltaTime;
-            if (battleTurn.turnTime <= 0) {
-                if (gameServer == null) {
-                    gameServer = GameServer.FindObjectOfType<GameServer>();
+        if (!isGameOver) {
+            if (!spawningPhase) {
+                battleTurn.turnTime -= Time.deltaTime;
+                if (battleTurn.turnTime <= 0) {
+                    if (gameServer == null) {
+                        gameServer = GameServer.FindObjectOfType<GameServer>();
+                    }
+
+                    SkipTurn skipTurn = new SkipTurn();
+                    skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
+                    gameServer.SendData(skipTurn);
+                    
+                    FinishTurn();
                 }
 
-                SkipTurn skipTurn = new SkipTurn();
-                skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
-                gameServer.SendData(skipTurn);
-                
-                FinishTurn();
-            }
+                DisplayStats();
+            } else {
+                playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
+                newPlayer = spawner.SpawningPhase();
 
-            DisplayStats();
-        } else {
-            playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
-            newPlayer = spawner.SpawningPhase();
-
-            if (newPlayer != null) {
-                PlayerSpawn playerSpawn = new PlayerSpawn();
-                playerSpawn.playerId = newPlayer.id;
-                playerSpawn.tileName = tileName;
-                gameServer.SendData(playerSpawn);
-                AddPlayer(newPlayer);
+                if (newPlayer != null) {
+                    PlayerSpawn playerSpawn = new PlayerSpawn();
+                    playerSpawn.playerId = newPlayer.id;
+                    playerSpawn.tileName = tileName;
+                    gameServer.SendData(playerSpawn);
+                    AddPlayer(newPlayer);
+                }
             }
         }
     }

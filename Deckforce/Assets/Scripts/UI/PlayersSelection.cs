@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,26 @@ using UnityEngine.UI;
 
 public class PlayersSelection : MonoBehaviour
 {
+    [Header("UI")]
     public PlayerSelection playerSelectionTemplate;
     public GameObject playersParent;
     public Player playerTemplate;
 
-    //TODO: pour l'instant on check si le character est null, a l'avenir faudra ajouter un bool isReady récupéré depuis le Packet
+    [Header("Players")]
     public Dictionary<PlayerSelection, Player> selectedPlayers = new Dictionary<PlayerSelection, Player>();
     List<string> playersNames = new List<string>();
+
+    [Header("Start Battle")]
+    public Button readyButton;
+    public Color unreadyColor;
+    public Color readyColor;
+    public string unreadyText;
+    public string readyText;
 
     public CardsManager cardsManager;
 
     GameServer gameServer;
+
 
     void Start()
     {
@@ -66,13 +76,30 @@ public class PlayersSelection : MonoBehaviour
         if (gameServer == null) {
             gameServer = GameServer.FindObjectOfType<GameServer>();
         }
+        //KeyValuePair<PlayerSelection, Player> player = GetPlayer();
+        KeyValuePair<PlayerSelection, Player> player = selectedPlayers.Single(x => x.Value.isClient == true);
+        
+        if (player.Key.isReady) {
+            readyButton.GetComponent<Image>().color = unreadyColor;
+            readyButton.transform.GetChild(0).GetComponent<Text>().text = unreadyText;
+            player.Key.readyDisplay.SetActive(false);
+        } else {
+            readyButton.GetComponent<Image>().color = readyColor;
+            readyButton.transform.GetChild(0).GetComponent<Text>().text = readyText;
+            player.Key.readyDisplay.SetActive(true);
+        }
+        player.Key.isReady = !player.Key.isReady;
+
+        //Remplacer par un PlayerReady
+        PlayerReady playerReady = new PlayerReady();
+        playerReady.playerId = player.Value.id;
+        /*
         ChooseCharacter chooseCharacter = new ChooseCharacter();
-        //TODO: faire la recherche plus proprement
-        KeyValuePair<PlayerSelection, Player> player = GetPlayer();
         chooseCharacter.characterId = player.Key.selectedCharacter.id;
         chooseCharacter.playerId = player.Value.id;
-        player.Key.isReady = true;
-        gameServer.SendData(chooseCharacter);
+        */
+        //player.Key.isReady = true;
+        gameServer.SendData(playerReady);
         if (CheckIfAllReady()) {
             SetupCharacters();
         }
@@ -100,9 +127,23 @@ public class PlayersSelection : MonoBehaviour
 
     public void SetPlayerCharacter(ChooseCharacter chooseCharacter)
     {
-        KeyValuePair<PlayerSelection, Player> pair = GetPlayer(chooseCharacter.playerId);
+        KeyValuePair<PlayerSelection, Player> pair = selectedPlayers.Single(x => x.Value.id == chooseCharacter.playerId);
+        //KeyValuePair<PlayerSelection, Player> pair = GetPlayer(chooseCharacter.playerId);
         pair.Key.selectedCharacter = CharactersManager.instance.existingCharacters.Find(x => x.id == chooseCharacter.characterId);
-        pair.Key.isReady = true;
+        pair.Key.characterIndex = CharactersManager.instance.existingCharacters.IndexOf(pair.Key.selectedCharacter);
+        pair.Key.SetSelectedCharacter(false);
+    }
+
+    public void SetPlayerReady(PlayerReady readyObj)
+    {
+        KeyValuePair<PlayerSelection, Player> pair = selectedPlayers.Single(x => x.Value.id == readyObj.playerId);
+
+        if (pair.Key.isReady) {
+            pair.Key.readyDisplay.SetActive(false);
+        } else {
+            pair.Key.readyDisplay.SetActive(true);
+        }
+        pair.Key.isReady = !pair.Key.isReady;
         if (CheckIfAllReady()) {
             SetupCharacters();
         }
@@ -136,38 +177,5 @@ public class PlayersSelection : MonoBehaviour
             return (player1.team.CompareTo(player2.team));
         });
         SceneManager.LoadScene("BattleScene");
-    }
-
-    bool AreUsernamesValids()
-    {
-        List<string> playersNames = new List<string>();
-        foreach (KeyValuePair<PlayerSelection, Player> player in selectedPlayers) {
-            //TODO: faudra aussi regarder si la string contient pas que des espaces
-            if (player.Key.playerName.text == "") {
-                return (false);
-            }
-            playersNames.Add(player.Key.playerName.text);
-        }
-        foreach (string playerName in playersNames) {
-            if (!IsNameUsed(playerName)) {
-                return (false);
-            }
-        }
-        return (true);
-    }
-
-    bool IsNameUsed(string name)
-    {
-        int nameCount = 0;
-
-        foreach (string playerName in playersNames) {
-            if (playerName == name) {
-                nameCount++;
-            }
-        }
-        if (nameCount > 1) {
-            return (false);
-        }
-        return (true);
     }
 }

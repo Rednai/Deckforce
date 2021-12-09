@@ -6,6 +6,5 @@ using UnityEngine;
 [SerializableAttribute]
 public class PlayerReady
 {
-    string playerId;
-    bool isReady;
+    public string playerId;
 }

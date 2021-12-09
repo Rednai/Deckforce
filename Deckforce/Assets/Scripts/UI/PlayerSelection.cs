@@ -10,7 +10,8 @@ public class PlayerSelection : MonoBehaviour
 
     public Character selectedCharacter;
     public bool isReady = false;
-    int characterIndex;
+    [HideInInspector]
+    public int characterIndex;
 
     public Text playerName;
     //public InputField playerName;
@@ -23,12 +24,17 @@ public class PlayerSelection : MonoBehaviour
 
     public GameObject selectionObjects;
 
+    public GameObject readyDisplay;
+
+    GameServer gameServer;
+
     // Start is called before the first frame update
     void Start()
     {
         characterIndex = 0;
         charactersManager = GameObject.FindObjectOfType<CharactersManager>();
-        SetSelectedCharacter();
+        SetSelectedCharacter(false);
+        gameServer = GameObject.FindObjectOfType<GameServer>();
     }
 
     public void IncreaseCharacterIndex()
@@ -37,7 +43,7 @@ public class PlayerSelection : MonoBehaviour
         if (characterIndex >= charactersManager.existingCharacters.Count) {
             characterIndex = 0;
         }
-        SetSelectedCharacter();
+        SetSelectedCharacter(true);
     }
 
     public void DecreaseCharacterIndex()
@@ -46,16 +52,27 @@ public class PlayerSelection : MonoBehaviour
         if (characterIndex < 0) {
             characterIndex = charactersManager.existingCharacters.Count-1;
         }
-        SetSelectedCharacter();
+        SetSelectedCharacter(true);
     }
 
-    void SetSelectedCharacter()
+    public void SetSelectedCharacter(bool isPackage)
     {
-        //Changer toutes les infos affichées selon le charactère sélectionné
         selectedCharacter = charactersManager.existingCharacters[characterIndex];
         characterName.text = selectedCharacter.entityName;
         statsSlider.SetInfos(selectedCharacter, true);
         characterIcon.sprite = selectedCharacter.entityIcon;
         characterIconBackground.color = selectedCharacter.GetComponent<MeshRenderer>().sharedMaterial.color;
+
+        if (isPackage) {
+            List<Player> players = new List<Player>(GameObject.FindObjectsOfType<Player>());
+            ChooseCharacter chooseCharacter = new ChooseCharacter();
+
+            chooseCharacter.playerId = players.Find(x => x.isClient == true).id;
+            chooseCharacter.characterId = selectedCharacter.id;
+            if (gameServer == null) {
+                gameServer = GameObject.FindObjectOfType<GameServer>();
+            }
+            gameServer.SendData(chooseCharacter);
+        }
     }
 }
