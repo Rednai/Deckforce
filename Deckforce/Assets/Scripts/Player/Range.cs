@@ -31,7 +31,10 @@ public class Range : MonoBehaviour
         List<Tile> frontier = new List<Tile>();
         frontier.Add(startTile);
         int count = 0;
-        
+
+        if (startTile == null)
+            return new List<Tile>();
+
         while (frontier.Count > 0)
         {
             Tile current = frontier[0];
