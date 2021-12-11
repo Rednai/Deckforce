@@ -16,6 +16,8 @@ public class CardDisplay : MonoBehaviour
     public Color color;
 
     public AudioClip activateClip;
+    public AudioClip selectClip;
+    public AudioClip selectBackClip;
 
     public void InitiateCard(Player currentPlayer, Card card)
     {

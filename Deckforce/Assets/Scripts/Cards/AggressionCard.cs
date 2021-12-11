@@ -28,6 +28,7 @@ public class AggressionCard : Card
             }
             targetEntity.TakeDamage(damage);
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
+            isActivated = true;
             return (true);
         }
         return (false);

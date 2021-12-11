@@ -23,8 +23,7 @@ namespace DrawSystem
             Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
             CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
             List<Tile> playerRange = range.GetRangeTiles(cardDisplay.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, cardDisplay.card.playerRange, true, false);
-            if (floor.currentSelected != null & playerRange.Contains(floor.currentSelected))
-            {
+            if (floor.currentSelected != null & playerRange.Contains(floor.currentSelected)) {
 
                 if (!cardDisplay.ownerPlayer.isClient) {
                     return ;

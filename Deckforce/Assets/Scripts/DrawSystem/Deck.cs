@@ -16,9 +16,12 @@ namespace DrawSystem
         private int queue = 0;
 
         public bool isDrawingOver = false;
+
+        public AudioClip drawCardClip;
         
         IEnumerator Drawing()
         {
+            SoundsManager.instance.PlaySound(drawCardClip);
             card.GetComponent<CanvasGroup>().interactable = false;
             card.GetComponent<CanvasGroup>().blocksRaycasts = false;
             tempCardTarget = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);

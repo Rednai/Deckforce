@@ -35,6 +35,7 @@ public class SummoningCard : Card
                 targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
                 targetPM.targetPosition = targetTile.transform.position;
             }
+            isActivated = true;
             return (true);
         }
         return (false);

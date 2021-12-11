@@ -32,6 +32,8 @@ public class Card : ScriptableObject
     public ParticleManager userParticle;
     public ParticleManager targetParticle;
 
+    public bool isActivated = false;
+
     public virtual void Select()
     {}
 

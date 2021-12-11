@@ -20,6 +20,8 @@ namespace DrawSystem
         private Tile current = null;
         private CardDisplay card;
 
+        public AudioClip cardHoverClip;
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             floor = FindObjectsOfType<SelectCase>()[0];
@@ -34,6 +36,8 @@ namespace DrawSystem
 
             DroppableZone[] dropZones = GameObject.FindObjectsOfType<DroppableZone>();
             // TODO: Use these dropzones to make them glow
+
+            SoundsManager.instance.PlaySound(card.selectClip, 1f);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -79,6 +83,10 @@ namespace DrawSystem
             range.CancelHighlightRange(highlightedRange);
             highlightedRange = new List<Tile>();
             // TODO: Use these dropzones to make them NOT glow
+
+            if (parentToReturnTo == transform.parent && !card.card.isActivated) {
+                SoundsManager.instance.PlaySound(card.selectBackClip, 1f);
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -88,8 +96,8 @@ namespace DrawSystem
             tempCanvas.sortingOrder = 1;
             tempRaycaster = gameObject.AddComponent<GraphicRaycaster>();
             
-            this.transform.localScale = new Vector3(2f, 2f, 2f);
-        
+            transform.localScale = new Vector3(2f, 2f, 2f);
+            SoundsManager.instance.PlaySound(cardHoverClip, 1f);
         }
 
         public void OnPointerExit(PointerEventData eventData)

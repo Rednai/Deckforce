@@ -2983,7 +2983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -50}
+  m_AnchoredPosition: {x: 600, y: -95}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725569428
@@ -5400,6 +5400,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 3903762472632428731, guid: 6b31c43bd498baf43b819edf0cc9d811, type: 3}
   hand: {fileID: 621894339}
   isDrawingOver: 0
+  drawCardClip: {fileID: 8300000, guid: adb8748cea954284ca60318a39d8a4d9, type: 3}
 --- !u!1 &1372152717
 GameObject:
   m_ObjectHideFlags: 0
@@ -6679,10 +6680,10 @@ RectTransform:
   m_Father: {fileID: 1860463740}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -400}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 95}
+  m_SizeDelta: {x: 1200, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717557015
 MonoBehaviour:
@@ -8690,7 +8691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4626040066546815757, guid: 271c85d1030278544912378067883b52, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -120
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 4626040066546815757, guid: 271c85d1030278544912378067883b52, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8714,11 +8715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4626040067513874173, guid: 271c85d1030278544912378067883b52, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4626040067513874173, guid: 271c85d1030278544912378067883b52, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.47
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 271c85d1030278544912378067883b52, type: 3}

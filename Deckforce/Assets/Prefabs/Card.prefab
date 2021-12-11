@@ -179,7 +179,7 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   discardPile: {fileID: 0}
   range: {fileID: 8090722026384149928}
-  floor: {fileID: 0}
+  cardHoverClip: {fileID: 8300000, guid: 3d4a96e123d5f6c43b5ff74cc7d75d57, type: 3}
 --- !u!114 &6212260000092096716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +233,8 @@ MonoBehaviour:
   cardCost: {fileID: 3525506237925274948}
   color: {r: 0.9056604, g: 0, b: 0, a: 1}
   activateClip: {fileID: 0}
+  selectClip: {fileID: 8300000, guid: 7a0b1866600f1f44ca941352b58d5004, type: 3}
+  selectBackClip: {fileID: 8300000, guid: 3ef37cf39f959b045ad0b1d106262647, type: 3}
 --- !u!114 &8090722026384149928
 MonoBehaviour:
   m_ObjectHideFlags: 0

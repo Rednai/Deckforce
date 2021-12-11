@@ -48,7 +48,6 @@ namespace Assets.Scripts.SpawnSystem
 
         public Player SpawnPlayer()
         {
-            Debug.Log("spawn player");
             newPlayer = futurePlayers[0];
             //TODO: temporaire
             GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
@@ -98,6 +97,11 @@ namespace Assets.Scripts.SpawnSystem
         public string GetCurrentPlayersName()
         {
             return (futurePlayers[0].playerName);
+        }
+
+        public Player GetCurrentPlayer()
+        {
+            return (futurePlayers[0]);
         }
     }
 }
