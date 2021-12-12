@@ -60,11 +60,18 @@ public class AIMonster : Entity
         List<Entity> targets = new List<Entity>();
         Entity[] entities = FindObjectsOfType<Entity>();
         foreach (Entity elem in entities)
-            if (elem != this & elem != playerOwner.selectedCharacter & !playerOwner.selectedCharacter.alliedEntities.Contains(elem))
+            if (elem != this & elem != playerOwner.selectedCharacter & !playerOwner.selectedCharacter.alliedEntities.Contains(elem) & elem.entityType != EntityType.PROP & elem.entityType != EntityType.TRAP)
                 targets.Add(elem);
         foreach (Entity elem in targets)
         {
+            Debug.Log(elem.name);
             List<Tile> path = pathfinding.findPathtoCase(elem.GetComponent<Pathfinding>().startTile, true);
+            if (path.Count <= 2)
+            {
+                target = elem;
+                Attack();
+                return;
+            }
             if (pathToTarget == null)
             {
                 target = elem;

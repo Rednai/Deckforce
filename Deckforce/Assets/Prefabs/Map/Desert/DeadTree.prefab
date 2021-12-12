@@ -44,12 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ffd97e73292a94ea96c783f418278e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityType: 2
   entityName: DeadTree
+  id: 0
   currentLife: 1
   maxLife: 1
+  currentShield: 0
+  maxShield: 0
+  currentMovePoints: 0
+  maxMovePoints: 0
   entityIcon: {fileID: 0}
+  spawnSound: {fileID: 0}
+  hurtSound: {fileID: 0}
   initiative: 0
   canMove: 0
+  appliedEffects: []
 --- !u!1 &4732941593515350902
 GameObject:
   m_ObjectHideFlags: 0
