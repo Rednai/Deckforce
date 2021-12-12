@@ -18,6 +18,9 @@ public class Card : ScriptableObject
     public RangeType effectTypePattern;
     public int playerRange;
     public int effectRange;
+    public bool targetEntity;
+    public bool areablockByEntity;
+    public bool effectblockByEntity;
 
     public AudioClip activateClip;
 

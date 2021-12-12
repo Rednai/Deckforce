@@ -46,7 +46,7 @@ namespace DrawSystem
 
 
             range.CancelHighlightRange(highlightedRange);
-            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, card.card.areaTypePattern, card.card.playerRange, true, false);
+            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, card.card.areaTypePattern, card.card.playerRange, card.card.targetEntity, card.card.areablockByEntity);
             range.HighlightRange(highlightedRange, OutlineType.RANGE);
 
 
@@ -57,7 +57,7 @@ namespace DrawSystem
                 highlightedEffect = new List<Tile>();
             }
 
-            List<Tile> effects = range.GetRangeTiles(floor.currentSelected, card.card.effectTypePattern, card.card.effectRange, false, true);
+            List<Tile> effects = range.GetRangeTiles(floor.currentSelected, card.card.effectTypePattern, card.card.effectRange, card.card.targetEntity, card.card.effectblockByEntity);
             if (effects != highlightedEffect & highlightedRange.Contains(floor.currentSelected))
             {
                 cancelZoneAnimation(highlightedEffect);

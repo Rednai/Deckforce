@@ -4,11 +4,12 @@ using UnityEngine;
 
 public enum RangeType
 {
-    CROSS,
     SQUARE,
     CIRCULAR, 
-    LINEAR,
-    SINGLE
+    CROSS,
+    SINGLE,
+    DIAGONAL,
+    CROSS_DIAGONAL
 }
 
 public class Range : MonoBehaviour
@@ -21,18 +22,19 @@ public class Range : MonoBehaviour
         switch (rType)
         {
             case (RangeType.CIRCULAR):
-                range = GetMovementRange(startTile, size, targetEntity, blockByEntity, range);
+                range = GetCircularRange(startTile, size, targetEntity, blockByEntity, range);
                 break;
             case (RangeType.SINGLE):
-                range = new List<Tile>();
-                if (startTile != null)
-                    range.Add(startTile);
+                range = GetSingleRange(startTile, targetEntity, range);
+                break;
+            case (RangeType.CROSS):
+                range = GetCrossRange(startTile, size, targetEntity, blockByEntity, range);
                 break;
         }
         return range;
     }
 
-    private List<Tile> GetMovementRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range)
+    private List<Tile> GetCircularRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range)
     {
         List<Tile> ignored = new List<Tile>();
         List<Tile> frontier = new List<Tile>();
@@ -65,6 +67,46 @@ public class Range : MonoBehaviour
         }
         if (range.Count <= 1)
             return new List<Tile>();
+        return range;
+    }
+
+    private List<Tile> GetSingleRange(Tile startTile, bool targetEntity, List<Tile> range)
+    {
+        if (startTile != null)
+            if ((targetEntity & startTile.tileEntity != null) | (!targetEntity & startTile.tileEntity == null))
+                range.Add(startTile);
+        return range;
+    }
+
+    private List<Tile> GetCrossRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range)
+    {
+        if (startTile == null | size <= 0)
+            return new List<Tile>();
+        range.Add(startTile);
+        List<RelatedPos> cross = new List<RelatedPos> {RelatedPos.UP, RelatedPos.DOWN, RelatedPos.LEFT, RelatedPos.RIGHT};
+
+        foreach (RelatedPos p in cross)
+        {
+            Tile current = startTile;
+            for (int i = 0; i != size - 1; i++)
+            {
+                Tile next = current.GetRelatedPos(p);
+                if (next != null)
+                {
+                    if (!targetEntity & next.tileEntity != null)
+                        current = next;
+                    else if (blockByEntity & next.tileEntity != null)
+                    {
+                        range.Add(next);
+                        break;
+                    } else
+                        range.Add(next);
+                }
+                else
+                    break;
+                current = next;
+            }
+        }
         return range;
     }
 
