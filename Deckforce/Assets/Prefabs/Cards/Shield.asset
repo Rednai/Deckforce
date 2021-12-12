@@ -26,7 +26,9 @@ MonoBehaviour:
   areablockByEntity: 0
   effectblockByEntity: 0
   activateClip: {fileID: 0}
+  cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
   userParticle: {fileID: 1394620298, guid: 31edd4f93146d914fa9aeed6dfd14630, type: 3}
   targetParticle: {fileID: 0}
   isActivated: 0
+  effects: []
   shieldAmount: 3

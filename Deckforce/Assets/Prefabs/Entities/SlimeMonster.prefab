@@ -120,6 +120,8 @@ MonoBehaviour:
   currentMovePoints: 0
   maxMovePoints: 4
   entityIcon: {fileID: 21300000, guid: d2dfec4ced9ee06488b52ce3042c02eb, type: 3}
+  spawnSound: {fileID: 8300000, guid: 474f324bc39cfda4ca70699c1c94633d, type: 3}
+  hurtSound: {fileID: 8300000, guid: 30f2026d75a70914788ce00f6a2478a5, type: 3}
   initiative: 2
   canMove: 0
   playerOwner: {fileID: 0}

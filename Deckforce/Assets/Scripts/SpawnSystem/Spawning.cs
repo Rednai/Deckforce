@@ -9,7 +9,6 @@ namespace Assets.Scripts.SpawnSystem
         private Tile currentSelected = null;
         private Player newPlayer;
         List<Player> futurePlayers;
-        public AudioSource spawnSound;
 
         public List<Player> savePlayers;
 
@@ -65,7 +64,6 @@ namespace Assets.Scripts.SpawnSystem
             }
             //TODO: temporaire
             GameObject.FindObjectOfType<BattleManager>().tileName = currentSelected.transform.name;
-            spawnSound.Play();
             return newPlayer;
         }
 
@@ -86,7 +84,6 @@ namespace Assets.Scripts.SpawnSystem
                     GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
                 }
             }
-            spawnSound.Play();
             return (newPlayer);
         }
 

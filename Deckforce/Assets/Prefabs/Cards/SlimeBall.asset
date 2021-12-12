@@ -9,26 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b0dd64610851a44a8ff54773704b8e, type: 3}
-  m_Name: StoneGolemSummon
+  m_Script: {fileID: 11500000, guid: 4c5bc2ddde9f89e4daac669fbe4cee79, type: 3}
+  m_Name: SlimeBall
   m_EditorClassIdentifier: 
-  cardName: Stone Golem Summon
-  id: 3
-  description: Summons a power stone golem. Requires a stone pile
-  color: {r: 0, g: 1, b: 0.049239635, a: 1}
-  visual: {fileID: 21300000, guid: 1aaa62da57a0cbf46a7e590136aa7dc8, type: 3}
-  cost: 8
+  cardName: Slime Ball
+  id: 6
+  description: A small ball of slime, that slows the target it hits
+  color: {r: 1, g: 0, b: 0, a: 1}
+  visual: {fileID: 21300000, guid: 68264d4e44fb5934baf73ce6b6c95bca, type: 3}
+  cost: 3
   areaTypePattern: 1
   effectTypePattern: 3
   playerRange: 3
-  effectRange: 1
+  effectRange: 0
   targetEntity: 1
   areablockByEntity: 0
-  effectblockByEntity: 0
+  effectblockByEntity: 1
   activateClip: {fileID: 8300000, guid: d4b3b67ea73085c47afed191e4b045ca, type: 3}
   cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
   isActivated: 0
-  summoningEntity: {fileID: 8133256804157130658, guid: 69eb1870cb7024049a5b80998e02ae5b, type: 3}
-  sacrificeType: 2
+  effects:
+  - {fileID: 11400000, guid: a82e64e595f53b3479c678089b041761, type: 2}
+  damage: 1

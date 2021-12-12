@@ -33,8 +33,10 @@ public class AggressionCard : Card
                 }
             }
             ActivateEffects(Effect.TargetType.SELF, currentPlayer.selectedCharacter);
+            SoundsManager.instance.PlaySound(activateClip);
             return (true);
         }
+        SoundsManager.instance.PlaySound(cannotClip);
         return (false);
     }
 }
