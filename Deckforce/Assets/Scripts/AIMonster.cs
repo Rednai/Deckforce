@@ -6,8 +6,11 @@ public class AIMonster : Entity
 {
     public Player playerOwner;
 
+    public int damage;
+
     private Pathfinding pathfinding;
     private Range range;
+    private BattleManager battleManager;
 
     private Entity target;
     private List<Tile> pathToTarget;
@@ -19,6 +22,9 @@ public class AIMonster : Entity
     {
         pathfinding = GetComponent<Pathfinding>();
         range = GetComponent<Range>();
+        battleManager = FindObjectOfType<BattleManager>();
+        nextDest = transform.position;
+        nextDest.y = 0.5f;
     }
 
     private void Update()
@@ -79,7 +85,7 @@ public class AIMonster : Entity
 
     public override void EndTurn()
     {
-        ;
+        battleManager.FinishTurn();
     }
 
     public override void TakeDamage(int damageAmount)
@@ -95,7 +101,9 @@ public class AIMonster : Entity
 
     private void Attack()
     {
-
+        if (pathfinding.findPathtoCase(target.GetComponent<Pathfinding>().startTile, true).Count == 2)
+            target.TakeDamage(damage);
+        EndTurn();
     }
 
     private bool checkCharacterPositionAtDest(Vector3 dest)

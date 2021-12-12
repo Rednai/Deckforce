@@ -251,15 +251,15 @@ public class BattleManager : MonoBehaviour
 
     public void FinishTurn()
     {
-        finishTurnButton.gameObject.SetActive(false);
+        if (finishTurnButton.gameObject.activeInHierarchy)
+            finishTurnButton.gameObject.SetActive(false);
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.EndTurn();
             }
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
-        currentPlayingEntity.EndTurn();
-        currentPlayingEntity.canMove = false;
+        
         initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
 
         if (battleTurn.turnNb < 10) {

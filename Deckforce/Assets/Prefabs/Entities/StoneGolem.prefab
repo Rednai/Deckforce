@@ -123,6 +123,7 @@ MonoBehaviour:
   initiative: 1
   canMove: 0
   playerOwner: {fileID: 0}
+  damage: 5
 --- !u!114 &8206198481657743074
 MonoBehaviour:
   m_ObjectHideFlags: 0
