@@ -20,6 +20,8 @@ public class SacrificeSummoningCard : SummoningCard
                 GameObject entityGO = Instantiate(summoningEntity).gameObject;
                 Entity newEntity = entityGO.GetComponent<Entity>();
 
+                newEntity.GetComponent<Pathfinding>().startTile = targetTile;
+                newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
                 targetTile.SetEntity(newEntity);
                 newEntity.transform.position = new Vector3(
                     targetTile.transform.position.x,
@@ -41,9 +43,11 @@ public class SacrificeSummoningCard : SummoningCard
                     targetPM.targetPosition = targetTile.transform.position;
                 }
                 isActivated = true;
+                SoundsManager.instance.PlaySound(activateClip);
                 return (true);
             }
         }
+        SoundsManager.instance.PlaySound(cannotClip);
         return (false);
     }
 }

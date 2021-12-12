@@ -259,8 +259,7 @@ public class BattleManager : MonoBehaviour
             }
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
-        currentPlayingEntity.EndTurn();
-        currentPlayingEntity.canMove = false;
+        
         initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
 
         if (battleTurn.turnNb < 10) {

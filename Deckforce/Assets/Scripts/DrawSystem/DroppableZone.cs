@@ -13,6 +13,8 @@ namespace DrawSystem
         GameServer gameServer;
         public Range range;
 
+        public AudioClip cannotClip;
+
         void Start()
         {
             gameServer = GameObject.FindObjectOfType<GameServer>();
@@ -41,6 +43,10 @@ namespace DrawSystem
                     gameServer.SendData(activateCard);
                 }
                 Debug.Log(eventData.pointerDrag.name + " was dropped to " + floor.currentSelected.gameObject.name);
+            }
+            else
+            {
+                SoundsManager.instance.PlaySound(cannotClip);
             }
         }
     }
