@@ -120,6 +120,8 @@ MonoBehaviour:
   currentShield: 0
   maxShield: 5
   entityIcon: {fileID: 21300000, guid: 3ed106f36f015674ab525040e117647e, type: 3}
+  spawnSound: {fileID: 8300000, guid: 474f324bc39cfda4ca70699c1c94633d, type: 3}
+  hurtSound: {fileID: 8300000, guid: 30f2026d75a70914788ce00f6a2478a5, type: 3}
   initiative: 9
   canMove: 0
   currentMovePoints: 0

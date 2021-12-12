@@ -28,9 +28,11 @@ public class ShieldCard : ManipulationCard
                     targetPM.targetPosition = targetTile.transform.position;
                 }
                 isActivated = true;
+                SoundsManager.instance.PlaySound(activateClip);
                 return (true);
             }
         }
+        SoundsManager.instance.PlaySound(cannotClip);
         return (false);
     }
 }

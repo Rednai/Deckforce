@@ -23,6 +23,7 @@ public class Card : ScriptableObject
     public bool effectblockByEntity;
 
     public AudioClip activateClip;
+    public AudioClip cannotClip;
 
     public ParticleManager userParticle;
     public ParticleManager targetParticle;

@@ -20,6 +20,8 @@ public class Entity : MonoBehaviour
     public int currentMovePoints;
     public int maxMovePoints;
     public Sprite entityIcon;
+    public AudioClip spawnSound;
+    public AudioClip hurtSound;
 
     public int initiative;
 
@@ -37,6 +39,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Init()
     {
+        SoundsManager.instance.PlaySound(spawnSound);
         currentLife = maxLife;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -70,6 +73,7 @@ public class Entity : MonoBehaviour
             damageAmount -= currentShield;
             currentShield = 0;
         }
+        SoundsManager.instance.PlaySound(hurtSound);
         currentLife -= damageAmount;
 
         if (currentLife <= 0) {
