@@ -39,7 +39,7 @@ public class MovePlayer : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Tile currentSelected = floor.currentSelected;
         if (character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0)) {
@@ -93,7 +93,7 @@ public class MovePlayer : MonoBehaviour
         }
 
         if (!checkCharacterPositionAtDest(nextDest))
-            character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.01f);
+            character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.05f);
     }
 
     public void MoveCharacter(Tile currentSelected, List<Tile> path)
