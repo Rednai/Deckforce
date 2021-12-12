@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
     float heightDifference;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         tilePosition = new Vector2(transform.position.x, transform.position.z);
         gameObject.name = $"Case x:{tilePosition.x} y:{tilePosition.y}";
