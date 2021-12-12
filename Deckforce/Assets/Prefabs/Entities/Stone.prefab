@@ -309,9 +309,14 @@ MonoBehaviour:
   maxLife: 5
   currentShield: 0
   maxShield: 0
+  currentMovePoints: 0
+  maxMovePoints: 0
   entityIcon: {fileID: 21300000, guid: 0b893ac8d9747e740a5623a8c10f2544, type: 3}
+  spawnSound: {fileID: 0}
+  hurtSound: {fileID: 0}
   initiative: 0
   canMove: 0
+  appliedEffects: []
 --- !u!1 &1576012474778250854
 GameObject:
   m_ObjectHideFlags: 0

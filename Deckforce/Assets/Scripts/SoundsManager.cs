@@ -24,6 +24,7 @@ public class SoundsManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip, float volume = 1f)
     {
-        audioSource.PlayOneShot(clip, volume);
+        if (clip != null)
+            audioSource.PlayOneShot(clip, volume);
     }
 }
