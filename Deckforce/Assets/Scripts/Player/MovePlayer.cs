@@ -87,13 +87,13 @@ public class MovePlayer : MonoBehaviour
         if (move.Count != 0 && checkCharacterPositionAtDest(nextDest)) {   
             nextDest = move[0].GetComponent<Transform>().position;
             nextDest.y = 0.5f;
+            if (move[0].tileTrap != null)
+                move[0].tileTrap.Activate(character);
             move.RemoveAt(0);
         }
 
-        if (!checkCharacterPositionAtDest(nextDest)) {
+        if (!checkCharacterPositionAtDest(nextDest))
             character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.01f);
-            
-        }
     }
 
     public void MoveCharacter(Tile currentSelected, List<Tile> path)

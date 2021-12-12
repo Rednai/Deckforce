@@ -8,6 +8,7 @@ public enum OutlineType { MOVE, RANGE, EFFECT };
 public class Tile : MonoBehaviour
 {
     public Entity tileEntity;
+    public Trap tileTrap;
     public MeshRenderer floorMeshRenderer;
     public Vector2 tilePosition;
     private Animator animator;
