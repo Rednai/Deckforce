@@ -29,8 +29,10 @@ public class AggressionCard : Card
 
                 if (targetEntity && !CheckIfAlly(currentPlayer, targetEntity)) {
                     targetEntity.TakeDamage(damage);
+                    ActivateEffects(Effect.TargetType.TARGET, targetEntity);
                 }
             }
+            ActivateEffects(Effect.TargetType.SELF, currentPlayer.selectedCharacter);
             return (true);
         }
         return (false);

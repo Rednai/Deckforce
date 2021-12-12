@@ -28,6 +28,8 @@ public class Entity : MonoBehaviour
 
     public bool canMove = false;
 
+    public List<Effect> appliedEffects;
+
     void Start()
     {
         Init();
@@ -41,7 +43,10 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void StartTurn()
-    {}
+    {
+        currentMovePoints = maxMovePoints;
+        canMove = true;
+    }
 
     public virtual void EndTurn()
     {}
@@ -75,5 +80,16 @@ public class Entity : MonoBehaviour
     public virtual void Die()
     {
         Destroy(gameObject);
+    }
+
+    public virtual void AddEffect(Effect newEffect)
+    {
+        /*
+        if (appliedEffects.Find(x => x.effectType == newEffect.effectType) != null) {
+            appliedEffects.Find(x => x.effectType == newEffect.effectType).remainingTurns++;
+        } else {
+            appliedEffects.Add(newEffect);
+        }
+        */
     }
 }

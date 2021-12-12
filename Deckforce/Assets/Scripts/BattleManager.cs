@@ -280,7 +280,6 @@ public class BattleManager : MonoBehaviour
     {
         if (player.selectedCharacter == currentPlayingEntity) {
             //TODO: quand ca sera multijoueur, ajouter un menu qui permet de continuer à spectate, ou de retourner au menu
-            Debug.Log("mort");
             endDisplay.gameObject.SetActive(true);
             endDisplay.DisplayDefeat(player);
             player.EndTurn();

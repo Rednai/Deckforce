@@ -29,6 +29,8 @@ public class Card : ScriptableObject
 
     public bool isActivated = false;
 
+    public List<Effect> effects;
+
     public virtual void Select()
     {}
 
@@ -43,5 +45,14 @@ public class Card : ScriptableObject
             return (true);
         }
         return (currentPlayer.selectedCharacter.alliedEntities.Contains(targetEntity));
+    }
+
+    protected virtual void ActivateEffects(Effect.TargetType targetType, Entity targetEntity)
+    {
+        foreach (Effect effect in effects) {
+            if (effect.targetType == targetType) {
+                targetEntity.AddEffect(effect);
+            }
+        }
     }
 }

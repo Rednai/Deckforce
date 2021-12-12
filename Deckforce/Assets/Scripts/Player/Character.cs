@@ -24,9 +24,8 @@ public class Character : Entity
 
     public override void StartTurn()
     {
-        currentMovePoints = maxMovePoints;
         currentActionPoints = maxActionPoints;
-        canMove = true;
+        base.StartTurn();
     }
 
     public override void TakeDamage(int damageAmount)
