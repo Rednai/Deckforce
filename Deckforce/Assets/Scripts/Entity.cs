@@ -77,6 +77,15 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public virtual void Heal(int healAmount)
+    {
+        currentLife += healAmount;
+        if (currentLife > maxLife)
+        {
+            currentLife = maxLife;
+        }
+    }
+
     public virtual void TakeDamage(int damageAmount)
     {
         if (currentShield >= damageAmount) {
