@@ -64,16 +64,18 @@ public class Player : MonoBehaviour
     public void StartTurn()
     {
         ManagingActivation(true);
-        if (firstTurn) {
-            InstanciateDeckCards();
-            deck.Shuffle();
-            deck.Draw();
-            deck.Draw();
-            deck.Draw();
-            deck.Draw();
-            firstTurn = false;
-        } else {
-            deck.Draw();
+        if (isClient) {
+            if (firstTurn) {
+                InstanciateDeckCards();
+                deck.Shuffle();
+                deck.Draw();
+                deck.Draw();
+                deck.Draw();
+                deck.Draw();
+                firstTurn = false;
+            } else {
+                deck.Draw();
+            }
         }
         //TODO: trouver une meilleure manière de récupérer ca
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
@@ -82,7 +84,7 @@ public class Player : MonoBehaviour
     public void EndTurn()
     {
         selectedCharacter.GetComponent<MovePlayer>().StopMoveMode();
-        ManagingActivation(false);
+        //ManagingActivation(false);
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
     }
 }
