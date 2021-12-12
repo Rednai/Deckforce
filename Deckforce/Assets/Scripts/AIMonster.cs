@@ -11,7 +11,7 @@ public class AIMonster : Entity
 
     private Entity target;
     private List<Tile> pathToTarget;
-    private bool onTurn = false;
+    private bool onMove = false;
     private Vector3 nextDest;
 
 
@@ -23,16 +23,33 @@ public class AIMonster : Entity
 
     private void Update()
     {
-        
+        if (onMove)
+        {
+            if (pathToTarget.Count != 0 && checkCharacterPositionAtDest(nextDest))
+            {
+                nextDest = pathToTarget[0].GetComponent<Transform>().position;
+                nextDest.y = 0.5f;
+                if (pathToTarget[0].tileTrap != null)
+                    pathToTarget[0].tileTrap.Activate(this);
+                pathToTarget.RemoveAt(0);
+            }
+            else if (pathToTarget.Count == 0 && checkCharacterPositionAtDest(nextDest))
+            {
+                onMove = false;
+                Attack();
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        
+        if (onMove & !checkCharacterPositionAtDest(nextDest))
+            transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.05f);
     }
 
     public override void StartTurn()
     {
+        base.StartTurn();
         pathToTarget = null;
         List<Entity> targets = new List<Entity>();
         Entity[] entities = FindObjectsOfType<Entity>();
@@ -53,6 +70,11 @@ public class AIMonster : Entity
             }
         }
         pathToTarget.RemoveAt(pathToTarget.Count - 1);
+        for (; pathToTarget.Count - 1 > currentMovePoints; pathToTarget.RemoveAt(pathToTarget.Count - 1));
+        pathToTarget[pathToTarget.Count - 1].tileEntity = this;
+        pathfinding.startTile.tileEntity = null;
+        pathfinding.startTile = pathToTarget[pathToTarget.Count - 1];
+        onMove = true;
     }
 
     public override void EndTurn()
@@ -69,5 +91,17 @@ public class AIMonster : Entity
     {
         playerOwner.selectedCharacter.RemoveEntityFromAllies(this);
         base.Die();
+    }
+
+    private void Attack()
+    {
+
+    }
+
+    private bool checkCharacterPositionAtDest(Vector3 dest)
+    {
+        if (transform.position.x == dest.x && transform.position.z == dest.z)
+            return true;
+        return false;
     }
 }

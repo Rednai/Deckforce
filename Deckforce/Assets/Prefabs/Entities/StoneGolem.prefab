@@ -117,12 +117,12 @@ MonoBehaviour:
   maxLife: 12
   currentShield: 0
   maxShield: 0
+  currentMovePoints: 0
+  maxMovePoints: 2
   entityIcon: {fileID: 21300000, guid: 1aaa62da57a0cbf46a7e590136aa7dc8, type: 3}
   initiative: 1
   canMove: 0
   playerOwner: {fileID: 0}
-  targets: []
-  onTurn: 0
 --- !u!114 &8206198481657743074
 MonoBehaviour:
   m_ObjectHideFlags: 0
