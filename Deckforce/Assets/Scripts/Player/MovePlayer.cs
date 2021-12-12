@@ -55,7 +55,7 @@ public class MovePlayer : MonoBehaviour
                 cancelPathAnimation(pathToCurrentSelected);
                 pathToCurrentSelected = new List<Tile>();
             }
-            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove)
+            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove & player.isClient)
             {
                 List<Tile> path = pathfinding.findPathtoCase(currentSelected);
                 if (path != pathToCurrentSelected)
@@ -81,7 +81,7 @@ public class MovePlayer : MonoBehaviour
                 }
             }
 
-            if (character.canMove & moveMode)
+            if (character.canMove & moveMode & player.isClient)
             {
                 range.CancelHighlightRange(highlightedRange);
                 highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.CIRCULAR, character.currentMovePoints, false, true);
@@ -128,6 +128,7 @@ public class MovePlayer : MonoBehaviour
             currentSelected.SetEntity(character);
             cancelPathAnimation(pathToCurrentSelected);
             pathToCurrentSelected = new List<Tile>();
+            moveMode = true;
         }
     }
 
