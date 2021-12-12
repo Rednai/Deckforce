@@ -22,7 +22,7 @@ MonoBehaviour:
   areaTypePattern: 1
   effectTypePattern: 2
   playerRange: 3
-  effectRange: 3
+  effectRange: 2
   targetEntity: 1
   areablockByEntity: 0
   effectblockByEntity: 1

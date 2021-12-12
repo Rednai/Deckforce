@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RelatedPos { UP, DOWN, LEFT, RIGHT };
+public enum RelatedPos { UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 public enum OutlineType { MOVE, RANGE, EFFECT };
 
 public class Tile : MonoBehaviour
@@ -77,6 +77,18 @@ public class Tile : MonoBehaviour
                 break;
             case RelatedPos.RIGHT:
                 foundedObject = GameObject.Find($"Case x:{tilePosition.x - 1} y:{tilePosition.y}");
+                break;
+            case RelatedPos.UP_LEFT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x + 1} y:{tilePosition.y + 1}");
+                break;
+            case RelatedPos.UP_RIGHT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x - 1} y:{tilePosition.y + 1}");
+                break;
+            case RelatedPos.DOWN_LEFT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x + 1} y:{tilePosition.y - 1}");
+                break;
+            case RelatedPos.DOWN_RIGHT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x - 1} y:{tilePosition.y - 1}");
                 break;
         }
         if (foundedObject != null)

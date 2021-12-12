@@ -14,6 +14,9 @@ public enum RangeType
 
 public class Range : MonoBehaviour
 {
+    private List<RelatedPos> cross = new List<RelatedPos> { RelatedPos.UP, RelatedPos.DOWN, RelatedPos.LEFT, RelatedPos.RIGHT };
+    private List<RelatedPos> diagonal = new List<RelatedPos> { RelatedPos.UP_LEFT, RelatedPos.UP_RIGHT, RelatedPos.DOWN_LEFT, RelatedPos.DOWN_RIGHT };
+    private List<RelatedPos> cross_diagonal = new List<RelatedPos> { RelatedPos.UP, RelatedPos.DOWN, RelatedPos.LEFT, RelatedPos.RIGHT, RelatedPos.UP_LEFT, RelatedPos.UP_RIGHT, RelatedPos.DOWN_LEFT, RelatedPos.DOWN_RIGHT };
 
     public List<Tile> GetRangeTiles(Tile startTile, RangeType rType, int size, bool targetEntity, bool blockByEntity)
     {
@@ -28,7 +31,13 @@ public class Range : MonoBehaviour
                 range = GetSingleRange(startTile, targetEntity, range);
                 break;
             case (RangeType.CROSS):
-                range = GetCrossRange(startTile, size, targetEntity, blockByEntity, range);
+                range = GetCrossRange(startTile, size, targetEntity, blockByEntity, range, cross);
+                break;
+            case (RangeType.DIAGONAL):
+                range = GetCrossRange(startTile, size, targetEntity, blockByEntity, range, diagonal);
+                break;
+            case (RangeType.CROSS_DIAGONAL):
+                range = GetCrossRange(startTile, size, targetEntity, blockByEntity, range, cross_diagonal);
                 break;
         }
         return range;
@@ -78,14 +87,13 @@ public class Range : MonoBehaviour
         return range;
     }
 
-    private List<Tile> GetCrossRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range)
+    private List<Tile> GetCrossRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range, List<RelatedPos> listPos)
     {
         if (startTile == null | size <= 0)
             return new List<Tile>();
         range.Add(startTile);
-        List<RelatedPos> cross = new List<RelatedPos> {RelatedPos.UP, RelatedPos.DOWN, RelatedPos.LEFT, RelatedPos.RIGHT};
 
-        foreach (RelatedPos p in cross)
+        foreach (RelatedPos p in listPos)
         {
             Tile current = startTile;
             for (int i = 0; i != size - 1; i++)
