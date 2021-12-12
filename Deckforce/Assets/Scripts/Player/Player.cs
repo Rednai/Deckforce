@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
     
     public void StartTurn()
     {
+        selectedCharacter.transform.GetChild(0).gameObject.SetActive(true);
         ManagingActivation(true);
         if (isClient) {
             if (firstTurn) {
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour
     
     public void EndTurn()
     {
+        selectedCharacter.transform.GetChild(0).gameObject.SetActive(false);
         selectedCharacter.GetComponent<MovePlayer>().StopMoveMode();
         //ManagingActivation(false);
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
