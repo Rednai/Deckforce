@@ -13,17 +13,9 @@ public class Card : ScriptableObject
     
     public Sprite visual;
 
-    public enum AreaTypePattern {
-        CIRCULAR, LINEAR, SQUARE, DIAGONAL
-    };
-    /*
-    public enum EffectPattern {
-        CROSS, SQUARE, DIAGONALS
-    };
-    */
-
     public int cost;
-    public AreaTypePattern areaTypePattern;
+    public RangeType areaTypePattern;
+    public RangeType effectTypePattern;
     public int playerRange;
     public int effectRange;
 

@@ -77,7 +77,7 @@ public class MovePlayer : MonoBehaviour
 
             if (character.canMove & moveMode) {
                 range.CancelHighlightRange(highlightedRange);
-                highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.MOVEMENT, character.currentMovePoints, false, true);
+                highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.CIRCULAR, character.currentMovePoints, false, true);
                 range.HighlightRange(highlightedRange, OutlineType.MOVE);
             }
             else if (highlightedRange.Count > 0)

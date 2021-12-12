@@ -6,7 +6,9 @@ public enum RangeType
 {
     CROSS,
     SQUARE,
-    MOVEMENT
+    CIRCULAR, 
+    LINEAR,
+    SINGLE
 }
 
 public class Range : MonoBehaviour
@@ -18,8 +20,13 @@ public class Range : MonoBehaviour
 
         switch (rType)
         {
-            case (RangeType.MOVEMENT):
+            case (RangeType.CIRCULAR):
                 range = GetMovementRange(startTile, size, targetEntity, blockByEntity, range);
+                break;
+            case (RangeType.SINGLE):
+                range = new List<Tile>();
+                if (startTile != null)
+                    range.Add(startTile);
                 break;
         }
         return range;
