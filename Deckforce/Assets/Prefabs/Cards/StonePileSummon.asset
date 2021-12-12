@@ -20,7 +20,7 @@ MonoBehaviour:
   visual: {fileID: 21300000, guid: 0b893ac8d9747e740a5623a8c10f2544, type: 3}
   cost: 3
   areaTypePattern: 1
-  effectTypePattern: 3
+  effectTypePattern: 0
   playerRange: 3
   effectRange: 1
   targetEntity: 0
