@@ -5,30 +5,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Aggression Card")]
 public class AggressionCard : Card
 {
-    public enum ExplosionType { SINGLETILE, SQUARE, ARC };
-    public ExplosionType explosionType;
     public int damage;
 
-    public override bool Activate(Player currentPlayer, Tile targetTile)
+    public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        Entity targetEntity = targetTile.tileEntity;
-
-        if (targetEntity && CheckIfAlly(currentPlayer, targetEntity) == false &&
-            currentPlayer.selectedCharacter.currentActionPoints >= cost) {
-            
+        if (currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+            currentPlayer.selectedCharacter.currentActionPoints -= cost;
+            isActivated = true;
             if (userParticle != null) {
                 ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
                 userPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                userPM.targetPosition = targetTile.transform.position;
+                userPM.targetPosition = centerTile.transform.position;
             }
-            if (targetParticle != null) {
-                ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
-                targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                targetPM.targetPosition = targetTile.transform.position;
+            //TODO: faire en sorte d'activer les target particles quand le projectile arrive à sa case
+            foreach (Tile targetTile in targetsTiles) {
+                Entity targetEntity = targetTile.tileEntity;
+
+                if (targetParticle != null) {
+                    ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
+                    targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
+                    targetPM.targetPosition = targetTile.transform.position;
+                }
+
+                if (targetEntity && !CheckIfAlly(currentPlayer, targetEntity)) {
+                    targetEntity.TakeDamage(damage);
+                }
             }
-            targetEntity.TakeDamage(damage);
-            currentPlayer.selectedCharacter.currentActionPoints -= cost;
-            isActivated = true;
             return (true);
         }
         return (false);

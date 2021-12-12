@@ -14,7 +14,6 @@ namespace Assets.Scripts.SpawnSystem
 
         void Start()
         {
-            //TODO: récupérer cette liste dans le serveur
             futurePlayers = Parser.instance.players;
             if (futurePlayers[0].isClient) {
                 GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
@@ -27,7 +26,6 @@ namespace Assets.Scripts.SpawnSystem
                     player.gameObject.SetActive(true);
                     futurePlayers.Add(player);
                 }
-                Debug.Log(futurePlayers.Count);
             }
         }
 
@@ -52,7 +50,6 @@ namespace Assets.Scripts.SpawnSystem
             //TODO: temporaire
             GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
             futurePlayers.RemoveAt(0);
-            Debug.Log(futurePlayers.Count);
 
             newPlayer.selectedCharacter.transform.position = new Vector3(currentSelected.transform.position.x, 0.5f, currentSelected.transform.position.z);
             newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
@@ -61,9 +58,7 @@ namespace Assets.Scripts.SpawnSystem
             if (futurePlayers.Count == 0) {
                 this.GetComponent<SelectCase>().spawningMode = false;
             } else {
-                Debug.Log("next client");
                 if (futurePlayers[0].isClient) {
-                    Debug.Log("client is local, allow the mouse");
                     GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
                 }
             }
@@ -85,9 +80,7 @@ namespace Assets.Scripts.SpawnSystem
             if (futurePlayers.Count == 0) {
                 this.GetComponent<SelectCase>().spawningMode = false;
             } else {
-                Debug.Log("next client");
                 if (futurePlayers[0].isClient) {
-                    Debug.Log("client is local, allow the mouse");
                     GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
                 }
             }

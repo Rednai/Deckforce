@@ -52,7 +52,6 @@ public class Entity : MonoBehaviour
         if (currentShield > maxShield) {
             currentShield = maxShield;
         }
-        Debug.Log(currentShield + ", " + maxShield);
     }
 
     public virtual void TakeDamage(int damageAmount)

@@ -28,5 +28,5 @@ MonoBehaviour:
   activateClip: {fileID: 0}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
-  isActivated: 1
+  isActivated: 0
   summoningEntity: {fileID: 684162041105363127, guid: 4300cdd9da4afea43a6ee9580e58ec6e, type: 3}

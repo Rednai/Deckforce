@@ -29,7 +29,9 @@ namespace DrawSystem
                     return ;
                 }
 
-                bool isActivated = cardDisplay.card.Activate(cardDisplay.ownerPlayer, floor.currentSelected);
+                List<Tile> targetsTiles = range.GetRangeTiles(floor.currentSelected, cardDisplay.card.effectTypePattern, cardDisplay.card.effectRange, cardDisplay.card.targetEntity, cardDisplay.card.effectblockByEntity);
+
+                bool isActivated = cardDisplay.card.Activate(cardDisplay.ownerPlayer, targetsTiles, floor.currentSelected);
                 if (draggable != null && isActivated == true) {
                     draggable.parentToReturnTo = draggable.discardPile.transform;
                     ActivateCard activateCard = new ActivateCard();

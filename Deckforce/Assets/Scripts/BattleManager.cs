@@ -103,6 +103,10 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
+    void FixedUpdate()
+    {
+        
+    }
 
     public void AddPlayer(Player newPlayer)
     {

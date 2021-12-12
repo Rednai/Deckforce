@@ -51,7 +51,7 @@ public class PlayersSelection : MonoBehaviour
 
         for (int i = 0; i != 30; i++) {
             //Card newCard = Instantiate(cardsManager.cards[Random.Range(0, cardsManager.cards.Count)]);
-            newPlayer.deckCards.Add(cardsManager.cards[Random.Range(0, cardsManager.cards.Count)]);
+            newPlayer.deckCards.Add(Instantiate(cardsManager.cards[Random.Range(0, cardsManager.cards.Count)]));
         }
 
         PlayerSelection newPlayerSelection = Instantiate(playerSelectionTemplate);

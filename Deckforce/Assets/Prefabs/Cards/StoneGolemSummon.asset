@@ -22,7 +22,7 @@ MonoBehaviour:
   effectTypePattern: 3
   playerRange: 3
   effectRange: 1
-  targetEntity: 0
+  targetEntity: 1
   areablockByEntity: 0
   effectblockByEntity: 0
   activateClip: {fileID: 0}

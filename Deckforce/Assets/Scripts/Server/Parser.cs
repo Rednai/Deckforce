@@ -9,8 +9,9 @@ public class Parser : MonoBehaviour
 
     public BattleManager battleManager;
     public Spawning spawning;
-    //TODO: récupérer les joueurs dans la classe du serveur
     public List<Player> players;
+
+    Range range;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class Parser : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+        range = GetComponent<Range>();
     }
 
     public void InitValues(Player[] newPlayers)
@@ -36,19 +38,18 @@ public class Parser : MonoBehaviour
         switch (obj) {
             case ActivateCard cardObj:
                 //récupère la carte depuis le CardManager avec l'id et l'active à la position choisie
-                CardsManager.instance.cards.Find(x => x.id == cardObj.cardId).Activate(
-                    players.Find(x => x.id == cardObj.playerId),
-                    GameObject.Find(cardObj.tileName).GetComponent<Tile>()
-                );
+                
+                Card activatedCard = Instantiate(CardsManager.instance.cards.Find(x => x.id == cardObj.cardId));
+                Tile centerTile = GameObject.Find(cardObj.tileName).GetComponent<Tile>();
+                List<Tile> targetsTiles = range.GetRangeTiles(centerTile, activatedCard.effectTypePattern, activatedCard.effectRange, activatedCard.targetEntity, activatedCard.effectblockByEntity);
+
+                activatedCard.Activate(players.Find(x => x.id == cardObj.playerId), targetsTiles, centerTile);
                 break;
             case PlayerMove moveObj:
-                //TODO: déplace le joueur a une position choisie
-                Debug.Log("on bouge l'autre joueur incroyable");
                 Character character = players.Find(x => x.id == moveObj.playerId).selectedCharacter;
                 MovePlayer movePlayer = character.GetComponent<MovePlayer>();
                 Tile selectedTile = GameObject.Find(moveObj.tileName).GetComponent<Tile>();
 
-                Debug.Log(character.entityName);
                 movePlayer.MoveCharacter(selectedTile, movePlayer.pathfinding.findPathtoCase(selectedTile));
 
                 break;
@@ -66,7 +67,6 @@ public class Parser : MonoBehaviour
                 //Peut etre entre chaque tour, mettre un petit délai de 5 secondes pour vérifier que tous les clients sont bien à jour
                 break;
             case ChooseCharacter characterObj:
-                Debug.Log("other player changed his character: " + characterObj.characterId);
                 GameObject.FindObjectOfType<PlayersSelection>().SetPlayerCharacter(characterObj);
                 break;
             case PlayerJoin playerJoin:

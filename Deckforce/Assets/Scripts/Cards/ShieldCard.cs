@@ -7,26 +7,29 @@ public class ShieldCard : ManipulationCard
 {
     public int shieldAmount;
 
-    public override bool Activate(Player currentPlayer, Tile targetTile)
+    public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        if (CheckIfAlly(currentPlayer, targetTile.tileEntity) && 
-            currentPlayer.selectedCharacter.currentActionPoints >= cost) {
-            Debug.Log("ally");
-            targetTile.tileEntity.AddShield(shieldAmount);
-            currentPlayer.selectedCharacter.currentActionPoints -= cost;
-            
-            if (userParticle != null) {
-                ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
-                userPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                userPM.targetPosition = targetTile.transform.position;
+        foreach (Tile targetTile in targetsTiles) {
+            Entity targetEntity = targetTile.tileEntity;
+
+            if (targetEntity && CheckIfAlly(currentPlayer, targetTile.tileEntity) && 
+                currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+                targetTile.tileEntity.AddShield(shieldAmount);
+                currentPlayer.selectedCharacter.currentActionPoints -= cost;
+                
+                if (userParticle != null) {
+                    ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
+                    userPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
+                    userPM.targetPosition = targetTile.transform.position;
+                }
+                if (targetParticle != null) {
+                    ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
+                    targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
+                    targetPM.targetPosition = targetTile.transform.position;
+                }
+                isActivated = true;
+                return (true);
             }
-            if (targetParticle != null) {
-                ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
-                targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                targetPM.targetPosition = targetTile.transform.position;
-            }
-            isActivated = true;
-            return (true);
         }
         return (false);
     }
