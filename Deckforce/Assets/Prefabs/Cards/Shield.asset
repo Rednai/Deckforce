@@ -18,7 +18,7 @@ MonoBehaviour:
   color: {r: 0.09811318, g: 0.23673135, b: 1, a: 1}
   visual: {fileID: 21300000, guid: 0f0909662a80d5c44989bc0627e129d0, type: 3}
   cost: 4
-  areaTypePattern: 1
+  areaTypePattern: 0
   effectTypePattern: 3
   playerRange: 5
   effectRange: 0

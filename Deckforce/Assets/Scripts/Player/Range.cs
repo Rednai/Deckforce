@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum RangeType
 {
@@ -25,7 +26,7 @@ public class Range : MonoBehaviour
         switch (rType)
         {
             case (RangeType.CIRCULAR):
-                range = GetCircularRange(startTile, size, targetEntity, blockByEntity, range);
+                range = GetCircularRange(startTile, size, targetEntity, blockByEntity, range, cross);
                 break;
             case (RangeType.SINGLE):
                 range = GetSingleRange(startTile, targetEntity, range);
@@ -39,16 +40,18 @@ public class Range : MonoBehaviour
             case (RangeType.CROSS_DIAGONAL):
                 range = GetCrossRange(startTile, size, targetEntity, blockByEntity, range, cross_diagonal);
                 break;
+            case (RangeType.SQUARE):
+                range = GetCircularRange(startTile, size, targetEntity, blockByEntity, range, cross_diagonal);
+                break;
         }
         return range;
     }
 
-    private List<Tile> GetCircularRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range)
+    private List<Tile> GetCircularRange(Tile startTile, int size, bool targetEntity, bool blockByEntity, List<Tile> range, List<RelatedPos> pos)
     {
         List<Tile> ignored = new List<Tile>();
         List<Tile> frontier = new List<Tile>();
         frontier.Add(startTile);
-        int count = 0;
 
         if (startTile == null)
             return new List<Tile>();
@@ -56,7 +59,7 @@ public class Range : MonoBehaviour
         while (frontier.Count > 0)
         {
             Tile current = frontier[0];
-            List<Tile> neighborgs = GetNextTile(current);
+            List<Tile> neighborgs = GetNextTile(current, pos);
             int rangeSize = GetRangeFromStart(startTile.tilePosition, current.tilePosition);
 
             if (size > rangeSize & (current.tileEntity == null | !blockByEntity | current == startTile))
@@ -72,7 +75,6 @@ public class Range : MonoBehaviour
                     ignored.Add(current);   
             }
             frontier.RemoveAt(0);
-            count += 1;
         }
         if (range.Count <= 1)
             return new List<Tile>();
@@ -123,25 +125,16 @@ public class Range : MonoBehaviour
         return (int) (Mathf.Abs(start.x - target.x) + Mathf.Abs(start.y - target.y));
     }
 
-    private List<Tile> GetNextTile(Tile current)
+    private List<Tile> GetNextTile(Tile current, List<RelatedPos> pos)
     {
         List<Tile> next = new List<Tile>();
 
-        Tile border = current.GetRelatedPos(RelatedPos.UP);
-        if (border != null)
-            next.Add(border);
-
-        border = current.GetRelatedPos(RelatedPos.LEFT);
-        if (border != null)
-            next.Add(border);
-
-        border = current.GetRelatedPos(RelatedPos.DOWN);
-        if (border != null)
-            next.Add(border);
-
-        border = current.GetRelatedPos(RelatedPos.RIGHT);
-        if (border != null)
-            next.Add(border);
+        foreach (RelatedPos p in pos)
+        {
+            Tile border = current.GetRelatedPos(p);
+            if (border != null)
+                next.Add(border);
+        }
         return next;
     }
 
