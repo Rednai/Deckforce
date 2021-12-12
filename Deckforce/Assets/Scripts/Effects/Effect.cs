@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Effect
+[CreateAssetMenu(fileName = "New Effect", menuName = "Effect")]
+public class Effect : ScriptableObject
 {
     public enum ActivationTime { STARTTURN, ENDTURN };
     public ActivationTime activationTime;
@@ -10,24 +11,14 @@ public struct Effect
     public enum TargetType { SELF, TARGET };
     public TargetType targetType;
 
-    public enum EffectType { SLOW, BURN };
-    public EffectType effectType;
-
     public int value;
 
     public int maxTurns;
     public int remainingTurns;
 
-    public void Activate(Entity targetEntity)
+    public virtual void Activate(Entity targetEntity)
     {
-        switch (effectType) {
-            case (EffectType.SLOW):
-                targetEntity.currentMovePoints -= value;
-                break;
-            case (EffectType.BURN):
-                targetEntity.currentLife -= value;
-                break;
-        }
+        Debug.Log("activate effect");
         remainingTurns--;
         if (remainingTurns == 0) {
             targetEntity.appliedEffects.Remove(this);

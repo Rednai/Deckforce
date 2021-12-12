@@ -251,7 +251,8 @@ public class BattleManager : MonoBehaviour
 
     public void FinishTurn()
     {
-        finishTurnButton.gameObject.SetActive(false);
+        if (finishTurnButton.gameObject.activeInHierarchy)
+            finishTurnButton.gameObject.SetActive(false);
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.EndTurn();

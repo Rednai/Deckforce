@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,10 +47,21 @@ public class Entity : MonoBehaviour
     {
         currentMovePoints = maxMovePoints;
         canMove = true;
+        foreach (Effect effect in appliedEffects) {
+            if (effect.activationTime == Effect.ActivationTime.STARTTURN) {
+                effect.Activate(this);
+            }
+        }
     }
 
     public virtual void EndTurn()
-    {}
+    {
+        foreach (Effect effect in appliedEffects) {
+            if (effect.activationTime == Effect.ActivationTime.ENDTURN) {
+                effect.Activate(this);
+            }
+        }
+    }
 
     public virtual void Move(Tile targetTile)
     {}
@@ -84,12 +96,15 @@ public class Entity : MonoBehaviour
 
     public virtual void AddEffect(Effect newEffect)
     {
-        /*
-        if (appliedEffects.Find(x => x.effectType == newEffect.effectType) != null) {
-            appliedEffects.Find(x => x.effectType == newEffect.effectType).remainingTurns++;
-        } else {
-            appliedEffects.Add(newEffect);
+        bool isAdded = false;
+        foreach (Effect effect in appliedEffects) {
+            if (effect.GetType() == newEffect.GetType()) {
+                effect.remainingTurns++;
+                isAdded = true;
+            }
         }
-        */
+        if (isAdded == false) {
+            appliedEffects.Add(Instantiate(newEffect));
+        }
     }
 }
