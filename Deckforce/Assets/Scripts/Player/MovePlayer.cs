@@ -37,32 +37,38 @@ public class MovePlayer : MonoBehaviour
         player = transform.parent.GetComponent<Player>();
         gameServer = GameObject.FindObjectOfType<GameServer>();
     }
-    
-    // Update is called once per frame
-    void FixedUpdate()
+
+    private void Update()
     {
         Tile currentSelected = floor.currentSelected;
-        if (character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0)) {
+        if (character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0))
+        {
             cancelAllAnimations();
             moveMode = !moveMode;
         }
 
-        
-        if (moveMode) {
-            if (currentSelected == null) {
+
+        if (moveMode)
+        {
+            if (currentSelected == null)
+            {
                 cancelPathAnimation(pathToCurrentSelected);
                 pathToCurrentSelected = new List<Tile>();
             }
-            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove) {
+            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove)
+            {
                 List<Tile> path = pathfinding.findPathtoCase(currentSelected);
-                if (path != pathToCurrentSelected) {
+                if (path != pathToCurrentSelected)
+                {
                     cancelPathAnimation(pathToCurrentSelected);
                     pathToCurrentSelected = path;
-                    if (path.Count - 1 <= character.currentMovePoints & path.Count > 1) {
+                    if (path.Count - 1 <= character.currentMovePoints & path.Count > 1)
+                    {
                         animatePath(pathToCurrentSelected);
                     }
                 }
-                if (Input.GetMouseButtonDown(0) && player.isClient) {
+                if (Input.GetMouseButtonDown(0) && player.isClient)
+                {
                     MoveCharacter(currentSelected, path);
                     if (gameServer == null)
                         gameServer = GameObject.FindObjectOfType<GameServer>();
@@ -75,7 +81,8 @@ public class MovePlayer : MonoBehaviour
                 }
             }
 
-            if (character.canMove & moveMode) {
+            if (character.canMove & moveMode)
+            {
                 range.CancelHighlightRange(highlightedRange);
                 highlightedRange = range.GetRangeTiles(pathfinding.startTile, RangeType.CIRCULAR, character.currentMovePoints, false, true);
                 range.HighlightRange(highlightedRange, OutlineType.MOVE);
@@ -84,16 +91,28 @@ public class MovePlayer : MonoBehaviour
                 cancelAllAnimations();
         }
 
-        if (move.Count != 0 && checkCharacterPositionAtDest(nextDest)) {   
+        if (move.Count != 0 && checkCharacterPositionAtDest(nextDest))
+        {
             nextDest = move[0].GetComponent<Transform>().position;
             nextDest.y = 0.5f;
             if (move[0].tileTrap != null)
                 move[0].tileTrap.Activate(character);
             move.RemoveAt(0);
         }
+    }
 
-        if (!checkCharacterPositionAtDest(nextDest))
-            character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.05f);
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (moveMode)
+            if (!checkCharacterPositionAtDest(nextDest))
+                character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.05f);
+    }
+
+    public void StopMoveMode()
+    {
+        moveMode = false;
+        cancelAllAnimations();
     }
 
     public void MoveCharacter(Tile currentSelected, List<Tile> path)
