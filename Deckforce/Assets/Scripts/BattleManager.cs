@@ -71,7 +71,6 @@ public class BattleManager : MonoBehaviour
         //TODO: faire un if global avec isGameOver et ensuite check spwaningPhase
         if (!isGameOver) {
             if (!spawningPhase) {
-                battleTurn.turnTime -= Time.deltaTime;
                 if (battleTurn.turnTime <= 0) {
                     if (gameServer == null) {
                         gameServer = GameServer.FindObjectOfType<GameServer>();
@@ -105,7 +104,9 @@ public class BattleManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
+        if (!isGameOver && !spawningPhase) {
+            battleTurn.turnTime -= Time.deltaTime;
+        }
     }
 
     public void AddPlayer(Player newPlayer)
