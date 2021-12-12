@@ -34,7 +34,7 @@ namespace Assets.Scripts.SpawnSystem
             currentSelected = this.GetComponent<SelectCase>().currentSelected;
 
             //TODO: ca doit fonctionner uniquement si c'est notre tour
-            if (Input.GetMouseButtonDown(1) && currentSelected != null &&
+            if (Input.GetMouseButtonDown(0) && currentSelected != null &&
                 futurePlayers.Count > 0 && currentSelected.tileEntity == null &&
                 futurePlayers[0].isClient == true
                 ) {

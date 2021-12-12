@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
     
     public void EndTurn()
     {
+        selectedCharacter.GetComponent<MovePlayer>().StopMoveMode();
         ManagingActivation(false);
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
     }

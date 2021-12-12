@@ -41,7 +41,7 @@ public class MovePlayer : MonoBehaviour
     private void Update()
     {
         Tile currentSelected = floor.currentSelected;
-        if (character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0))
+        if (player.isClient & character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0))
         {
             cancelAllAnimations();
             moveMode = !moveMode;
