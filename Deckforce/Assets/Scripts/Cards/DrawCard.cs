@@ -11,6 +11,7 @@ public class DrawCard : ManipulationCard
     {
         for (int i = 0; i != drawAmount; i++)
             currentPlayer.deck.Draw();
+        SoundsManager.instance.PlaySound(activateClip);
         return true;
     }
 }
