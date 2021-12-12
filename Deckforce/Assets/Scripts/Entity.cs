@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,8 @@ public class Entity : MonoBehaviour
     public enum EntityType {
         CHARACTER,
         MONSTER,
-        PROP
+        PROP,
+        TRAP
     };
     public EntityType entityType;
     public string entityName;
@@ -16,7 +18,11 @@ public class Entity : MonoBehaviour
     public int maxLife;
     public int currentShield;
     public int maxShield;
+    public int currentMovePoints;
+    public int maxMovePoints;
     public Sprite entityIcon;
+    public AudioClip spawnSound;
+    public AudioClip hurtSound;
 
     public int initiative;
 
@@ -25,6 +31,8 @@ public class Entity : MonoBehaviour
 
     public bool canMove = false;
 
+    public List<Effect> appliedEffects;
+
     void Start()
     {
         Init();
@@ -32,16 +40,31 @@ public class Entity : MonoBehaviour
 
     public virtual void Init()
     {
+        SoundsManager.instance.PlaySound(spawnSound);
         currentLife = maxLife;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
 
     public virtual void StartTurn()
-    {}
+    {
+        currentMovePoints = maxMovePoints;
+        canMove = true;
+        foreach (Effect effect in appliedEffects) {
+            if (effect.activationTime == Effect.ActivationTime.STARTTURN) {
+                effect.Activate(this);
+            }
+        }
+    }
 
     public virtual void EndTurn()
-    {}
+    {
+        foreach (Effect effect in appliedEffects) {
+            if (effect.activationTime == Effect.ActivationTime.ENDTURN) {
+                effect.Activate(this);
+            }
+        }
+    }
 
     public virtual void Move(Tile targetTile)
     {}
@@ -52,7 +75,6 @@ public class Entity : MonoBehaviour
         if (currentShield > maxShield) {
             currentShield = maxShield;
         }
-        Debug.Log(currentShield + ", " + maxShield);
     }
 
     public virtual void TakeDamage(int damageAmount)
@@ -63,6 +85,7 @@ public class Entity : MonoBehaviour
             damageAmount -= currentShield;
             currentShield = 0;
         }
+        SoundsManager.instance.PlaySound(hurtSound);
         currentLife -= damageAmount;
 
         if (currentLife <= 0) {
@@ -73,5 +96,19 @@ public class Entity : MonoBehaviour
     public virtual void Die()
     {
         Destroy(gameObject);
+    }
+
+    public virtual void AddEffect(Effect newEffect)
+    {
+        bool isAdded = false;
+        foreach (Effect effect in appliedEffects) {
+            if (effect.GetType() == newEffect.GetType()) {
+                effect.remainingTurns++;
+                isAdded = true;
+            }
+        }
+        if (isAdded == false) {
+            appliedEffects.Add(Instantiate(newEffect));
+        }
     }
 }

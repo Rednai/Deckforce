@@ -14,7 +14,6 @@ namespace Assets.Scripts.SpawnSystem
 
         void Start()
         {
-            //TODO: récupérer cette liste dans le serveur
             futurePlayers = Parser.instance.players;
             if (futurePlayers[0].isClient) {
                 GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
@@ -27,7 +26,6 @@ namespace Assets.Scripts.SpawnSystem
                     player.gameObject.SetActive(true);
                     futurePlayers.Add(player);
                 }
-                Debug.Log(futurePlayers.Count);
             }
         }
 
@@ -36,7 +34,7 @@ namespace Assets.Scripts.SpawnSystem
             currentSelected = this.GetComponent<SelectCase>().currentSelected;
 
             //TODO: ca doit fonctionner uniquement si c'est notre tour
-            if (Input.GetMouseButtonDown(1) && currentSelected != null &&
+            if (Input.GetMouseButtonDown(0) && currentSelected != null &&
                 futurePlayers.Count > 0 && currentSelected.tileEntity == null &&
                 futurePlayers[0].isClient == true
                 ) {
@@ -48,12 +46,10 @@ namespace Assets.Scripts.SpawnSystem
 
         public Player SpawnPlayer()
         {
-            Debug.Log("spawn player");
             newPlayer = futurePlayers[0];
             //TODO: temporaire
             GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
             futurePlayers.RemoveAt(0);
-            Debug.Log(futurePlayers.Count);
 
             newPlayer.selectedCharacter.transform.position = new Vector3(currentSelected.transform.position.x, 0.5f, currentSelected.transform.position.z);
             newPlayer.selectedCharacter.GetComponent<Pathfinding>().setStartTile(currentSelected);
@@ -62,9 +58,7 @@ namespace Assets.Scripts.SpawnSystem
             if (futurePlayers.Count == 0) {
                 this.GetComponent<SelectCase>().spawningMode = false;
             } else {
-                Debug.Log("next client");
                 if (futurePlayers[0].isClient) {
-                    Debug.Log("client is local, allow the mouse");
                     GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
                 }
             }
@@ -86,9 +80,7 @@ namespace Assets.Scripts.SpawnSystem
             if (futurePlayers.Count == 0) {
                 this.GetComponent<SelectCase>().spawningMode = false;
             } else {
-                Debug.Log("next client");
                 if (futurePlayers[0].isClient) {
-                    Debug.Log("client is local, allow the mouse");
                     GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
                 }
             }
@@ -98,6 +90,11 @@ namespace Assets.Scripts.SpawnSystem
         public string GetCurrentPlayersName()
         {
             return (futurePlayers[0].playerName);
+        }
+
+        public Player GetCurrentPlayer()
+        {
+            return (futurePlayers[0]);
         }
     }
 }

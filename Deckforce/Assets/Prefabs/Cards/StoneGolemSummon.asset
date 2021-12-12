@@ -18,11 +18,17 @@ MonoBehaviour:
   color: {r: 0, g: 1, b: 0.049239635, a: 1}
   visual: {fileID: 21300000, guid: 1aaa62da57a0cbf46a7e590136aa7dc8, type: 3}
   cost: 8
-  areaTypePattern: 0
+  areaTypePattern: 1
+  effectTypePattern: 3
   playerRange: 3
   effectRange: 1
-  activateClip: {fileID: 0}
+  targetEntity: 1
+  areablockByEntity: 0
+  effectblockByEntity: 0
+  activateClip: {fileID: 8300000, guid: d4b3b67ea73085c47afed191e4b045ca, type: 3}
+  cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
+  isActivated: 0
   summoningEntity: {fileID: 8133256804157130658, guid: 69eb1870cb7024049a5b80998e02ae5b, type: 3}
   sacrificeType: 2

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class InitiativeDisplay : MonoBehaviour
 {
-    public Slider initiativeSlider;
-
     public GameObject entityIconTemplate;
     public GameObject iconsHolder;
     [SerializeField]
@@ -14,9 +12,6 @@ public class InitiativeDisplay : MonoBehaviour
 
     public void DisplayEntitiesInitiatives(List<Entity> battleEntities)
     {
-        initiativeSlider.maxValue = 10;
-        initiativeSlider.value = 0;
-
         if (icons == null) {
             icons = new Dictionary<Entity, GameObject>();
         }
@@ -29,11 +24,6 @@ public class InitiativeDisplay : MonoBehaviour
             newDisplay.transform.SetParent(iconsHolder.transform);
             icons.Add(entity, newDisplay);            
         }
-    }
-
-    public void AdvanceInitiative(Entity playingEntity)
-    {
-        initiativeSlider.value = playingEntity.initiative;
     }
 
     public void RemoveFromTimeline(Entity playingEntity)

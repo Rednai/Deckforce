@@ -63,17 +63,20 @@ public class Player : MonoBehaviour
     
     public void StartTurn()
     {
+        selectedCharacter.transform.GetChild(0).gameObject.SetActive(true);
         ManagingActivation(true);
-        if (firstTurn) {
-            InstanciateDeckCards();
-            deck.Shuffle();
-            deck.Draw();
-            deck.Draw();
-            deck.Draw();
-            deck.Draw();
-            firstTurn = false;
-        } else {
-            deck.Draw();
+        if (isClient) {
+            if (firstTurn) {
+                InstanciateDeckCards();
+                deck.Shuffle();
+                deck.Draw();
+                deck.Draw();
+                deck.Draw();
+                deck.Draw();
+                firstTurn = false;
+            } else {
+                deck.Draw();
+            }
         }
         //TODO: trouver une meilleure manière de récupérer ca
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = true;
@@ -81,7 +84,9 @@ public class Player : MonoBehaviour
     
     public void EndTurn()
     {
-        ManagingActivation(false);
+        selectedCharacter.transform.GetChild(0).gameObject.SetActive(false);
+        selectedCharacter.GetComponent<MovePlayer>().StopMoveMode();
+        //ManagingActivation(false);
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
     }
 }

@@ -13,6 +13,8 @@ namespace DrawSystem
         GameServer gameServer;
         public Range range;
 
+        public AudioClip cannotClip;
+
         void Start()
         {
             gameServer = GameObject.FindObjectOfType<GameServer>();
@@ -22,15 +24,16 @@ namespace DrawSystem
         {
             Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
             CardDisplay cardDisplay = draggable.GetComponent<CardDisplay>();
-            List<Tile> playerRange = range.GetRangeTiles(cardDisplay.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, cardDisplay.card.playerRange, true, false);
-            if (floor.currentSelected != null & playerRange.Contains(floor.currentSelected))
-            {
+            List<Tile> playerRange = range.GetRangeTiles(cardDisplay.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, cardDisplay.card.areaTypePattern, cardDisplay.card.playerRange, cardDisplay.card.targetEntity, cardDisplay.card.areablockByEntity);
+            if (floor.currentSelected != null & playerRange.Contains(floor.currentSelected)) {
 
                 if (!cardDisplay.ownerPlayer.isClient) {
                     return ;
                 }
 
-                bool isActivated = cardDisplay.card.Activate(cardDisplay.ownerPlayer, floor.currentSelected);
+                List<Tile> targetsTiles = range.GetRangeTiles(floor.currentSelected, cardDisplay.card.effectTypePattern, cardDisplay.card.effectRange, cardDisplay.card.targetEntity, cardDisplay.card.effectblockByEntity);
+
+                bool isActivated = cardDisplay.card.Activate(cardDisplay.ownerPlayer, targetsTiles, floor.currentSelected);
                 if (draggable != null && isActivated == true) {
                     draggable.parentToReturnTo = draggable.discardPile.transform;
                     ActivateCard activateCard = new ActivateCard();
@@ -40,6 +43,10 @@ namespace DrawSystem
                     gameServer.SendData(activateCard);
                 }
                 Debug.Log(eventData.pointerDrag.name + " was dropped to " + floor.currentSelected.gameObject.name);
+            }
+            else
+            {
+                SoundsManager.instance.PlaySound(cannotClip);
             }
         }
     }

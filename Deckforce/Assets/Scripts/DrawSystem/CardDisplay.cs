@@ -16,6 +16,9 @@ public class CardDisplay : MonoBehaviour
     public Color color;
 
     public AudioClip activateClip;
+    public AudioClip selectClip;
+    public AudioClip selectBackClip;
+    public AudioClip cannotDoClip;
 
     public void InitiateCard(Player currentPlayer, Card card)
     {
@@ -27,6 +30,7 @@ public class CardDisplay : MonoBehaviour
         cardName.text = card.cardName;
         cardCost.text = $"{card.cost}";
         activateClip = card.activateClip;
+        cannotDoClip = card.cannotClip;
         cardLayout.color = card.color;
     }
 }

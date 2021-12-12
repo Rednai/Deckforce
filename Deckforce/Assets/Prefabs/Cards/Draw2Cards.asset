@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe86cee8defa9514c8fa91c8057a9f43, type: 3}
+  m_Name: Draw2Cards
+  m_EditorClassIdentifier: 
+  cardName: Draw
+  id: 7
+  description: Draw 2 cards
+  color: {r: 0, g: 0, b: 1, a: 1}
+  visual: {fileID: 21300000, guid: 1f806a850e4ff264eafc4935f65793b8, type: 3}
+  cost: 4
+  areaTypePattern: 3
+  effectTypePattern: 3
+  playerRange: 1
+  effectRange: 0
+  targetEntity: 1
+  areablockByEntity: 0
+  effectblockByEntity: 0
+  activateClip: {fileID: 8300000, guid: d4b3b67ea73085c47afed191e4b045ca, type: 3}
+  cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
+  userParticle: {fileID: 0}
+  targetParticle: {fileID: 0}
+  isActivated: 0
+  effects: []
+  drawAmount: 2

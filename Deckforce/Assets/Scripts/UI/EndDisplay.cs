@@ -11,12 +11,22 @@ public class EndDisplay : MonoBehaviour
 
     public void DisplayVictory(Player player)
     {
-        endText.text = $"{player.playerName} won!";
+        if (player.isClient) {
+            endText.text = "You won!";
+        } else {
+            endText.text = $"{player.playerName} won!";
+        }
+
+        spectateButton.gameObject.SetActive(false);
     }
 
     public void DisplayDefeat(Player player)
     {
-        endText.text = $"{player.playerName} lost!";
+        if (player.isClient) {
+            endText.text = "You lost!";
+        } else {
+            endText.text = $"{player.playerName} lost!";
+        }
 
         spectateButton.gameObject.SetActive(true);
     }

@@ -20,6 +20,8 @@ namespace DrawSystem
         private Tile current = null;
         private CardDisplay card;
 
+        public AudioClip cardHoverClip;
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             floor = FindObjectsOfType<SelectCase>()[0];
@@ -29,11 +31,14 @@ namespace DrawSystem
             this.transform.SetParent(this.transform.parent.parent);
             this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             this.transform.Rotate(new Vector3(0f, 0f, 40f));
+            card.ownerPlayer.selectedCharacter.GetComponent<MovePlayer>().StopMoveMode();
 
             GetComponent<CanvasGroup>().blocksRaycasts = false;
 
             DroppableZone[] dropZones = GameObject.FindObjectsOfType<DroppableZone>();
             // TODO: Use these dropzones to make them glow
+
+            SoundsManager.instance.PlaySound(card.selectClip, 1f);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -42,7 +47,7 @@ namespace DrawSystem
 
 
             range.CancelHighlightRange(highlightedRange);
-            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, RangeType.MOVEMENT, card.card.playerRange, true, false);
+            highlightedRange = range.GetRangeTiles(card.ownerPlayer.selectedCharacter.GetComponent<Pathfinding>().startTile, card.card.areaTypePattern, card.card.playerRange, card.card.targetEntity, card.card.areablockByEntity);
             range.HighlightRange(highlightedRange, OutlineType.RANGE);
 
 
@@ -53,7 +58,7 @@ namespace DrawSystem
                 highlightedEffect = new List<Tile>();
             }
 
-            List<Tile> effects = range.GetRangeTiles(floor.currentSelected, RangeType.MOVEMENT, card.card.effectRange, false, true);
+            List<Tile> effects = range.GetRangeTiles(floor.currentSelected, card.card.effectTypePattern, card.card.effectRange, card.card.targetEntity, card.card.effectblockByEntity);
             if (effects != highlightedEffect & highlightedRange.Contains(floor.currentSelected))
             {
                 cancelZoneAnimation(highlightedEffect);
@@ -79,6 +84,10 @@ namespace DrawSystem
             range.CancelHighlightRange(highlightedRange);
             highlightedRange = new List<Tile>();
             // TODO: Use these dropzones to make them NOT glow
+
+            if (parentToReturnTo == transform.parent && !card.card.isActivated) {
+                SoundsManager.instance.PlaySound(card.selectBackClip, 1f);
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -88,8 +97,8 @@ namespace DrawSystem
             tempCanvas.sortingOrder = 1;
             tempRaycaster = gameObject.AddComponent<GraphicRaycaster>();
             
-            this.transform.localScale = new Vector3(2f, 2f, 2f);
-        
+            transform.localScale = new Vector3(2f, 2f, 2f);
+            SoundsManager.instance.PlaySound(cardHoverClip, 1f);
         }
 
         public void OnPointerExit(PointerEventData eventData)

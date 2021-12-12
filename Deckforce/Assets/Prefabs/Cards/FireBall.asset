@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c5bc2ddde9f89e4daac669fbe4cee79, type: 3}
+  m_Name: FireBall
+  m_EditorClassIdentifier: 
+  cardName: Fire Ball
+  id: 0
+  description: A fire ball that burns a small area on the map
+  color: {r: 1, g: 0, b: 0, a: 1}
+  visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
+  cost: 3
+  areaTypePattern: 1
+  effectTypePattern: 2
+  playerRange: 3
+  effectRange: 2
+  targetEntity: 1
+  areablockByEntity: 0
+  effectblockByEntity: 1
+  activateClip: {fileID: 8300000, guid: d4b3b67ea73085c47afed191e4b045ca, type: 3}
+  cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
+  userParticle: {fileID: 4764006847354343063, guid: f10685b1dd3903741980823d5f953eb6, type: 3}
+  targetParticle: {fileID: 0}
+  isActivated: 0
+  damage: 2

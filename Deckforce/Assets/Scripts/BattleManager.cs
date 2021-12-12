@@ -71,7 +71,6 @@ public class BattleManager : MonoBehaviour
         //TODO: faire un if global avec isGameOver et ensuite check spwaningPhase
         if (!isGameOver) {
             if (!spawningPhase) {
-                battleTurn.turnTime -= Time.deltaTime;
                 if (battleTurn.turnTime <= 0) {
                     if (gameServer == null) {
                         gameServer = GameServer.FindObjectOfType<GameServer>();
@@ -86,7 +85,11 @@ public class BattleManager : MonoBehaviour
 
                 DisplayStats();
             } else {
-                playerNameText.text = $"It's {spawner.GetCurrentPlayersName()}'s turn to choose a spawn";
+                if (spawner.GetCurrentPlayer().isClient) {
+                    playerNameText.text = $"It's your turn to choose a spawn";
+                } else {
+                    playerNameText.text = $"It's {spawner.GetCurrentPlayer().playerName}'s turn to choose a spawn";
+                }
                 newPlayer = spawner.SpawningPhase();
 
                 if (newPlayer != null) {
@@ -97,6 +100,12 @@ public class BattleManager : MonoBehaviour
                     AddPlayer(newPlayer);
                 }
             }
+        }
+    }
+    void FixedUpdate()
+    {
+        if (!isGameOver && !spawningPhase) {
+            battleTurn.turnTime -= Time.deltaTime;
         }
     }
 
@@ -112,16 +121,13 @@ public class BattleManager : MonoBehaviour
 
     void StartGame()
     {
-        Debug.Log("start game");
         timeText.transform.parent.gameObject.SetActive(true);
         initiativeDisplay.gameObject.SetActive(true);
         statsSlidersDisplay.gameObject.SetActive(true);
         deckButton.SetActive(true);
         discardButton.SetActive(true);
 
-        //Set les valeurs importantes (Deck, DiscardPile, Hand)
         foreach (Player player in battlePlayers) {
-            Debug.Log($"{player.playerName} setup");
             player.selectedCharacter.battleManager = this;
             player.deck = deck;
             player.discardPile = discardPile;
@@ -180,10 +186,22 @@ public class BattleManager : MonoBehaviour
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
         currentPlayingEntity.StartTurn();
-        initiativeDisplay.AdvanceInitiative(currentPlayingEntity);
         
-        entityNameText.text = $"{currentPlayingEntity.entityName}'s turn";
+        //if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
+
+        Player currentPlayer = null;
+        foreach (Player player in battlePlayers) {
+            if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
+                currentPlayer = player;
+            }
+        }
         
+        if (currentPlayer != null) {
+            entityNameText.text = "Your turn";
+        } else {
+            entityNameText.text = $"{currentPlayingEntity.entityName}'s turn";
+        }
+
         DisplayStats();
         //TODO: focus la caméra sur le joueur actuel
     }
@@ -233,15 +251,15 @@ public class BattleManager : MonoBehaviour
 
     public void FinishTurn()
     {
-        finishTurnButton.gameObject.SetActive(false);
+        if (finishTurnButton.gameObject.activeInHierarchy)
+            finishTurnButton.gameObject.SetActive(false);
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.EndTurn();
             }
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
-        currentPlayingEntity.EndTurn();
-        currentPlayingEntity.canMove = false;
+        
         initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
 
         if (battleTurn.turnNb < 10) {

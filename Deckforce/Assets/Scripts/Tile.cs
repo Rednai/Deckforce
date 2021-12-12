@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RelatedPos { UP, DOWN, LEFT, RIGHT };
+public enum RelatedPos { UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
 public enum OutlineType { MOVE, RANGE, EFFECT };
 
 public class Tile : MonoBehaviour
 {
     public Entity tileEntity;
+    public Trap tileTrap;
     public MeshRenderer floorMeshRenderer;
     public Vector2 tilePosition;
     private Animator animator;
     float heightDifference;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         tilePosition = new Vector2(transform.position.x, transform.position.z);
         gameObject.name = $"Case x:{tilePosition.x} y:{tilePosition.y}";
@@ -29,9 +30,15 @@ public class Tile : MonoBehaviour
         // }
     }
 
-    public void SetEntity(Entity entity) {
+    public void SetEntity(Entity entity)
+    {
         tileEntity = entity;
         heightDifference = entity.transform.position.y - transform.position.y;
+    }
+
+    public void SetTrap(Trap entity)
+    {
+        tileTrap = entity;
     }
 
     public void StartAnimation() {
@@ -77,6 +84,18 @@ public class Tile : MonoBehaviour
                 break;
             case RelatedPos.RIGHT:
                 foundedObject = GameObject.Find($"Case x:{tilePosition.x - 1} y:{tilePosition.y}");
+                break;
+            case RelatedPos.UP_LEFT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x + 1} y:{tilePosition.y + 1}");
+                break;
+            case RelatedPos.UP_RIGHT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x - 1} y:{tilePosition.y + 1}");
+                break;
+            case RelatedPos.DOWN_LEFT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x + 1} y:{tilePosition.y - 1}");
+                break;
+            case RelatedPos.DOWN_RIGHT:
+                foundedObject = GameObject.Find($"Case x:{tilePosition.x - 1} y:{tilePosition.y - 1}");
                 break;
         }
         if (foundedObject != null)

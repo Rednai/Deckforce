@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    public int currentMovePoints;
-    public int maxMovePoints;
     public int currentActionPoints;
     public int maxActionPoints;
 
@@ -26,9 +24,8 @@ public class Character : Entity
 
     public override void StartTurn()
     {
-        currentMovePoints = maxMovePoints;
         currentActionPoints = maxActionPoints;
-        canMove = true;
+        base.StartTurn();
     }
 
     public override void TakeDamage(int damageAmount)
