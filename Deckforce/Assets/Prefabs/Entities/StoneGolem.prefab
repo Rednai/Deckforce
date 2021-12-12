@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7187127439040492111}
   - component: {fileID: 8133256804157130658}
   - component: {fileID: 8206198481657743074}
+  - component: {fileID: 4791038294432806095}
   m_Layer: 0
   m_Name: StoneGolem
   m_TagString: Untagged
@@ -120,6 +121,8 @@ MonoBehaviour:
   initiative: 1
   canMove: 0
   playerOwner: {fileID: 0}
+  targets: []
+  onTurn: 0
 --- !u!114 &8206198481657743074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,3 +136,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTile: {fileID: 0}
+--- !u!114 &4791038294432806095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133256804157130661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0580550c4b612e849baf8c0f4061f1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

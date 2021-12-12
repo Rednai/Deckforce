@@ -20,6 +20,8 @@ public class SacrificeSummoningCard : SummoningCard
                 GameObject entityGO = Instantiate(summoningEntity).gameObject;
                 Entity newEntity = entityGO.GetComponent<Entity>();
 
+                newEntity.GetComponent<Pathfinding>().startTile = targetTile;
+                newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
                 targetTile.SetEntity(newEntity);
                 newEntity.transform.position = new Vector3(
                     targetTile.transform.position.x,

@@ -29,6 +29,8 @@ public class SummoningCard : Card
                 currentPlayer.selectedCharacter.currentActionPoints -= cost;
                 if (newEntity.entityType == Entity.EntityType.MONSTER) {
                     currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
+                    newEntity.GetComponent<Pathfinding>().startTile = targetTile;
+                    newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
                 }
                 if (userParticle != null) {
                     ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
