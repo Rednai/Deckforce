@@ -15,7 +15,11 @@ public class SummoningCard : Card
                 GameObject entityGO = Instantiate(summoningEntity).gameObject;
                 Entity newEntity = entityGO.GetComponent<Entity>();
 
-                targetTile.SetEntity(newEntity);
+                if (newEntity.entityType == Entity.EntityType.TRAP) {
+                    targetTile.SetTrap(newEntity.GetComponent<Trap>());
+                } else {
+                    targetTile.SetEntity(newEntity);
+                }
                 newEntity.transform.position = new Vector3(
                     targetTile.transform.position.x,
                     targetTile.transform.position.y + 0.5f,

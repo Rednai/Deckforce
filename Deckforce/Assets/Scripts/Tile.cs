@@ -30,9 +30,15 @@ public class Tile : MonoBehaviour
         // }
     }
 
-    public void SetEntity(Entity entity) {
+    public void SetEntity(Entity entity)
+    {
         tileEntity = entity;
         heightDifference = entity.transform.position.y - transform.position.y;
+    }
+
+    public void SetTrap(Trap entity)
+    {
+        tileTrap = entity;
     }
 
     public void StartAnimation() {

@@ -7,7 +7,8 @@ public class Entity : MonoBehaviour
     public enum EntityType {
         CHARACTER,
         MONSTER,
-        PROP
+        PROP,
+        TRAP
     };
     public EntityType entityType;
     public string entityName;

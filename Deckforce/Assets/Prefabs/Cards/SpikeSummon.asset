@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f14b96cbfd49694680126248caf11eb, type: 3}
+  m_Name: SpikeSummon
+  m_EditorClassIdentifier: 
+  cardName: Spike Summon
+  id: 5
+  description: Creates spikes that damages entities stepping on them
+  color: {r: 0.15640283, g: 1, b: 0, a: 1}
+  visual: {fileID: 21300000, guid: 0dcf311fac8ea3e4c9aae6498743b965, type: 3}
+  cost: 5
+  areaTypePattern: 1
+  effectTypePattern: 3
+  playerRange: 4
+  effectRange: 1
+  targetEntity: 0
+  areablockByEntity: 0
+  effectblockByEntity: 0
+  activateClip: {fileID: 0}
+  userParticle: {fileID: 0}
+  targetParticle: {fileID: 0}
+  isActivated: 0
+  summoningEntity: {fileID: 386291937858388667, guid: 3d63e981a2eb54d4088dd0e94680578b, type: 3}

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class Trap : Entity
 {
-    public int damage = 100;
+    public int damage;
 
     public void Activate(Entity entity)
     {
         entity.TakeDamage(damage);
+        Destroy(gameObject);
     }
 }

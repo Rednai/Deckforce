@@ -46,10 +46,13 @@ public class Parser : MonoBehaviour
                 activatedCard.Activate(players.Find(x => x.id == cardObj.playerId), targetsTiles, centerTile);
                 break;
             case PlayerMove moveObj:
+                Debug.Log("movement");
                 Character character = players.Find(x => x.id == moveObj.playerId).selectedCharacter;
+                Debug.Log(character.entityName);
                 MovePlayer movePlayer = character.GetComponent<MovePlayer>();
                 Tile selectedTile = GameObject.Find(moveObj.tileName).GetComponent<Tile>();
 
+                Debug.Log(selectedTile.name);
                 movePlayer.MoveCharacter(selectedTile, movePlayer.pathfinding.findPathtoCase(selectedTile));
 
                 break;

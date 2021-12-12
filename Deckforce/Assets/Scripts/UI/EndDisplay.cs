@@ -16,6 +16,8 @@ public class EndDisplay : MonoBehaviour
         } else {
             endText.text = $"{player.playerName} won!";
         }
+
+        spectateButton.gameObject.SetActive(false);
     }
 
     public void DisplayDefeat(Player player)
