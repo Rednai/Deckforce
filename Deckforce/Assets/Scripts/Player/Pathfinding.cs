@@ -11,7 +11,7 @@ public class Pathfinding : MonoBehaviour
         startTile = tile;
     }
 
-    public List<Tile> findPathtoCase(Tile goal)
+    public List<Tile> findPathtoCase(Tile goal, bool entity = false)
     {
         List<Tile> path = new List<Tile>();
         List<Tile> frontier = new List<Tile>();
@@ -26,7 +26,7 @@ public class Pathfinding : MonoBehaviour
         {
             Tile current = frontier[0];
             frontier.RemoveAt(0);
-            List<Tile> neighbors = GetFrontierTile(current);
+            List<Tile> neighbors = GetFrontierTile(current, entity);
 
             if (current == goal)
                 break;
@@ -43,7 +43,7 @@ public class Pathfinding : MonoBehaviour
         }
 
         Tile actual = goal;
-
+        
         if (!reached.ContainsKey(actual))
             return path;
 
@@ -58,28 +58,28 @@ public class Pathfinding : MonoBehaviour
         return path;
     }
 
-    private List<Tile> GetFrontierTile(Tile current)
+    private List<Tile> GetFrontierTile(Tile current, bool entity)
     {
         List<Tile> next = new List<Tile>();
 
         Tile border = current.GetRelatedPos(RelatedPos.UP);
         if (border != null)
-            if (border.tileEntity == null)
+            if (border.tileEntity == null | entity)
                 next.Add(border);
 
         border = current.GetRelatedPos(RelatedPos.LEFT);
         if (border != null)
-            if (border.tileEntity == null)
+            if (border.tileEntity == null | entity)
                 next.Add(border);
 
         border = current.GetRelatedPos(RelatedPos.DOWN);
         if (border != null)
-            if (border.tileEntity == null)
+            if (border.tileEntity == null | entity)
                 next.Add(border);
 
         border = current.GetRelatedPos(RelatedPos.RIGHT);
         if (border != null)
-            if (border.tileEntity == null)
+            if (border.tileEntity == null | entity)
                 next.Add(border);
         return next;
     }
