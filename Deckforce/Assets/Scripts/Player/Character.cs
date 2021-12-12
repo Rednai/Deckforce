@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    public int currentMovePoints;
-    public int maxMovePoints;
     public int currentActionPoints;
     public int maxActionPoints;
 

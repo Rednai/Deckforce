@@ -17,6 +17,8 @@ public class Entity : MonoBehaviour
     public int maxLife;
     public int currentShield;
     public int maxShield;
+    public int currentMovePoints;
+    public int maxMovePoints;
     public Sprite entityIcon;
 
     public int initiative;
