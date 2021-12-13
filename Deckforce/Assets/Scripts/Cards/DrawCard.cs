@@ -9,9 +9,12 @@ public class DrawCard : ManipulationCard
 
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        for (int i = 0; i != drawAmount; i++)
-            currentPlayer.deck.Draw();
-        SoundsManager.instance.PlaySound(activateClip);
-        return true;
+        if (currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+            for (int i = 0; i != drawAmount; i++)
+                currentPlayer.deck.Draw();
+            SoundsManager.instance.PlaySound(activateClip);
+            return (true);
+        }
+        return (false);
     }
 }

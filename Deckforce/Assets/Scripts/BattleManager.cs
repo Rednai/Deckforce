@@ -182,11 +182,12 @@ public class BattleManager : MonoBehaviour
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
                 player.StartTurn();
+                statsSlidersDisplay.SetInfos(player.selectedCharacter, false);
             }
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
         currentPlayingEntity.StartTurn();
-        
+
         //if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
 
         Player currentPlayer = null;
@@ -214,7 +215,6 @@ public class BattleManager : MonoBehaviour
         Player currentPlayer = CheckIfCurrentEntityIsPlayer();
         if (currentPlayer != null) {
             statsSlidersDisplay.gameObject.SetActive(true);
-            statsSlidersDisplay.SetInfos(currentPlayer.selectedCharacter, false);
         
             if (currentPlayer.deck.isDrawingOver) {
                 finishTurnButton.gameObject.SetActive(true);
@@ -256,6 +256,7 @@ public class BattleManager : MonoBehaviour
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.EndTurn();
+                statsSlidersDisplay.ResetEffects();
             }
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement

@@ -42,6 +42,7 @@ public class Entity : MonoBehaviour
     {
         SoundsManager.instance.PlaySound(spawnSound);
         currentLife = maxLife;
+        currentMovePoints = maxMovePoints;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -50,18 +51,31 @@ public class Entity : MonoBehaviour
     {
         currentMovePoints = maxMovePoints;
         canMove = true;
-        foreach (Effect effect in appliedEffects) {
-            if (effect.activationTime == Effect.ActivationTime.STARTTURN) {
-                effect.Activate(this);
-            }
-        }
+        ApplyEffects(Effect.ActivationTime.STARTTURN);
     }
 
     public virtual void EndTurn()
     {
+        ApplyEffects(Effect.ActivationTime.ENDTURN);
+    }
+
+    void ApplyEffects(Effect.ActivationTime activationTime)
+    {
         foreach (Effect effect in appliedEffects) {
-            if (effect.activationTime == Effect.ActivationTime.ENDTURN) {
+            if (effect.activationTime == activationTime) {
                 effect.Activate(this);
+            }
+        }
+        ClearEffects();
+    }
+
+    void ClearEffects()
+    {
+        List<Effect> effectsToRemove = appliedEffects.FindAll(x => x.remainingTurns == 0);
+
+        if (effectsToRemove.Count != 0) {
+            foreach (Effect effect in effectsToRemove) {
+                appliedEffects.Remove(effect);
             }
         }
     }

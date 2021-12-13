@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f298c2462b0ed8498be902b3fd92b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initiativeSlider: {fileID: 0}
   entityIconTemplate: {fileID: 6813471773683898280, guid: 70eeaadc92db589409052230e9027e12, type: 3}
   iconsHolder: {fileID: 4626040066546815756}
 --- !u!1 &4626040066546815756
@@ -109,6 +108,6 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 40, y: 40}
-  m_Spacing: {x: 0, y: 5}
+  m_Spacing: {x: 0, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2

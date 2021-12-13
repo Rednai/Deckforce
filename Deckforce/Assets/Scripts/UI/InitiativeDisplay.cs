@@ -30,6 +30,12 @@ public class InitiativeDisplay : MonoBehaviour
     public void RemoveFromTimeline(Entity playingEntity)
     {
         if (icons.ContainsKey(playingEntity)) {
+            
+            //GameObject newDisplay = Instantiate(icons[playingEntity]);
+            //newDisplay.transform.Find("StatsSliders").GetComponent<StatsSlider>().SetInfos(playingEntity, false);
+            //newDisplay.transform.SetParent(iconsHolder.transform);
+            //icons.Add(playingEntity, newDisplay);
+
             Destroy(icons[playingEntity]);
             icons.Remove(playingEntity);
         }
