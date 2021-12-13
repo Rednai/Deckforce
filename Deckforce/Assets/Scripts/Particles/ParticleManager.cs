@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ParticleManager : MonoBehaviour
 {
-    [System.NonSerialized] public Vector3 sourcePosition;
-    [System.NonSerialized] public Vector3 targetPosition;
+    public Vector3 sourcePosition;
+    public Vector3 targetPosition;
     public float particleDuration;
 
     void Update() {
