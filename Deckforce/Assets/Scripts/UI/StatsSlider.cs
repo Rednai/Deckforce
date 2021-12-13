@@ -13,31 +13,38 @@ public class StatsSlider : MonoBehaviour
     public Slider movementSlider;
     public Text movementText;
 
-    public void SetInfos(Character character, bool isSelecting)
+    public void SetInfos(Entity entity, bool isSelecting)
     {
-        healthSlider.maxValue = character.maxLife;
-        shieldSlider.maxValue = character.maxShield;
-        actionSlider.maxValue = character.maxActionPoints;
-        movementSlider.maxValue = character.maxMovePoints;
+        Character character = entity.GetComponent<Character>();
+        healthSlider.maxValue = entity.maxLife;
+        shieldSlider.maxValue = entity.maxShield;
+        if (character != null) {
+            actionSlider.maxValue = character.maxActionPoints;
+        }
+        movementSlider.maxValue = entity.maxMovePoints;
 
         if (isSelecting) {
-            healthText.text = $"{character.maxLife}/{character.maxLife}";
-            healthSlider.value = character.maxLife;
+            healthText.text = $"{entity.maxLife}/{entity.maxLife}";
+            healthSlider.value = entity.maxLife;
             shieldSlider.value = 0;
-            actionText.text = $"{character.maxActionPoints}/{character.maxActionPoints}";
-            actionSlider.value = character.maxActionPoints;
-            movementText.text = $"{character.maxMovePoints}/{character.maxMovePoints}";
-            movementSlider.value = character.maxMovePoints;
+            if (character != null) {
+                actionText.text = $"{character.maxActionPoints}/{character.maxActionPoints}";
+                actionSlider.value = character.maxActionPoints;
+            }
+            movementText.text = $"{entity.maxMovePoints}/{entity.maxMovePoints}";
+            movementSlider.value = entity.maxMovePoints;
         } else {
-            healthText.text = $"{character.currentLife}/{character.maxLife}";
-            healthSlider.value = character.currentLife;
-            shieldSlider.value = character.currentShield;
+            healthText.text = $"{entity.currentLife}/{entity.maxLife}";
+            healthSlider.value = entity.currentLife;
+            shieldSlider.value = entity.currentShield;
 
-            actionText.text = $"{character.currentActionPoints}/{character.maxActionPoints}";
-            actionSlider.value = character.currentActionPoints;
+            if (character != null) {
+                actionText.text = $"{character.currentActionPoints}/{character.maxActionPoints}";
+                actionSlider.value = character.currentActionPoints;
+            }
 
-            movementText.text = $"{character.currentMovePoints}/{character.maxMovePoints}";
-            movementSlider.value = character.currentMovePoints;
+            movementText.text = $"{entity.currentMovePoints}/{entity.maxMovePoints}";
+            movementSlider.value = entity.currentMovePoints;
         }
     }
 }
