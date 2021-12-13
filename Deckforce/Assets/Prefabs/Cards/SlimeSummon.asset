@@ -25,9 +25,10 @@ MonoBehaviour:
   targetEntity: 0
   areablockByEntity: 0
   effectblockByEntity: 0
-  activateClip: {fileID: 8300000, guid: d4b3b67ea73085c47afed191e4b045ca, type: 3}
+  activateClip: {fileID: 8300000, guid: d15441f307a9edc4597ecd8da0fcc481, type: 3}
   cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
   isActivated: 0
+  effects: []
   summoningEntity: {fileID: 684162041105363127, guid: 4300cdd9da4afea43a6ee9580e58ec6e, type: 3}
