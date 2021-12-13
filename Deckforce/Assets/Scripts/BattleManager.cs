@@ -112,7 +112,9 @@ public class BattleManager : MonoBehaviour
     public void AddPlayer(Player newPlayer)
     {
         battlePlayers.Add(newPlayer);
-        if (expectedPlayerNb == battlePlayers.Count) {
+        if (expectedPlayerNb == battlePlayers.Count)
+        {
+            spawner.StopHighlightingSpawnTiles();
             spawningPhase = false;
             spawnDisplay.SetActive(false);
             StartGame();

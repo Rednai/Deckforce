@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum RelatedPos { UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
-public enum OutlineType { MOVE, RANGE, EFFECT };
+public enum OutlineType { MOVE, RANGE, EFFECT, SPAWNING };
 
 public class Tile : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour
     public Vector2 tilePosition;
     private Animator animator;
     float heightDifference;
+    public bool isSpawnable;
 
     // Start is called before the first frame update
     void Awake()
@@ -60,6 +61,9 @@ public class Tile : MonoBehaviour
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.green);
                 break;
             case OutlineType.MOVE:
+                floorMeshRenderer.material.SetColor("_OutlineColor", Color.blue);
+                break;
+            case OutlineType.SPAWNING:
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.blue);
                 break;
         }
