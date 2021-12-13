@@ -40,6 +40,23 @@ public class Card : ScriptableObject
         return (false);
     }
 
+    protected void ActivateParticle(ParticleManager particle, Vector3 initialPosition, Vector3 sourcePosition, Vector3 targetPosition)
+    {
+        if (particle != null) {
+            ParticleManager targetPM = Instantiate(particle, initialPosition, Quaternion.identity);
+            targetPM.sourcePosition = sourcePosition;
+            targetPM.targetPosition = targetPosition;
+        }
+    }
+
+    protected virtual bool CheckIfPossible(Player currentPlayer, List<Tile> selectedTiles = null)
+    {
+        if (currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+            return (true);
+        }
+        return (false);
+    }
+
     protected bool CheckIfAlly(Player currentPlayer, Entity targetEntity)
     {
         if (targetEntity == currentPlayer.selectedCharacter) {
