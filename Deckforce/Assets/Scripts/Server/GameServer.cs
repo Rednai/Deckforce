@@ -55,15 +55,12 @@ public class GameServer : MonoBehaviour
 
     public void SendData(object objectToSend)
     {
-        Debug.Log("Sending data...");
         ArraySegment<byte> data = Serialize(objectToSend);
         client.Send(data);
     }
 
     private void HandleDataReceived(ArraySegment<Byte> data)
     {
-        Debug.Log("Data received !");
-
         object obj = Deserialize(data);
 
         Parser.instance.ParseData(obj);

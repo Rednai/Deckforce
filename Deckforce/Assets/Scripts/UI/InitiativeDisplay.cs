@@ -18,17 +18,24 @@ public class InitiativeDisplay : MonoBehaviour
 
         foreach (Entity entity in battleEntities) {
             GameObject newDisplay = Instantiate(entityIconTemplate);
+            newDisplay.transform.Find("StatsSliders").GetComponent<StatsSlider>().SetInfos(entity, false);
             newDisplay.transform.Find("IconDisplay").GetComponent<Image>().sprite = entity.entityIcon;
             //TODO: pour l'instant ca fonctionne mais plus tard faudra set une couleur dans l'entité
             newDisplay.transform.GetComponent<Image>().color = entity.GetComponent<MeshRenderer>().material.color;
             newDisplay.transform.SetParent(iconsHolder.transform);
-            icons.Add(entity, newDisplay);            
+            icons.Add(entity, newDisplay);
         }
     }
 
     public void RemoveFromTimeline(Entity playingEntity)
     {
         if (icons.ContainsKey(playingEntity)) {
+            
+            //GameObject newDisplay = Instantiate(icons[playingEntity]);
+            //newDisplay.transform.Find("StatsSliders").GetComponent<StatsSlider>().SetInfos(playingEntity, false);
+            //newDisplay.transform.SetParent(iconsHolder.transform);
+            //icons.Add(playingEntity, newDisplay);
+
             Destroy(icons[playingEntity]);
             icons.Remove(playingEntity);
         }

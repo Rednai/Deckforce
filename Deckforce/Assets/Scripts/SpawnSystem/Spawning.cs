@@ -29,14 +29,24 @@ namespace Assets.Scripts.SpawnSystem
             }
         }
 
+        public void StopHighlightingSpawnTiles()
+        {
+            foreach(Transform child in transform) 
+                if (child.GetComponent<Tile>().isSpawnable) 
+                    child.GetComponent<Tile>().StopOutline();
+        }
+        
         public Player SpawningPhase()
         {
             currentSelected = this.GetComponent<SelectCase>().currentSelected;
-
+            
+            foreach(Transform child in transform) 
+                if (child.GetComponent<Tile>().isSpawnable) 
+                    child.GetComponent<Tile>().SetOutline(OutlineType.SPAWNING);
             //TODO: ca doit fonctionner uniquement si c'est notre tour
             if (Input.GetMouseButtonDown(0) && currentSelected != null &&
                 futurePlayers.Count > 0 && currentSelected.tileEntity == null &&
-                futurePlayers[0].isClient == true
+                futurePlayers[0].isClient == true && currentSelected.isSpawnable
                 ) {
                 return (SpawnPlayer());
             }

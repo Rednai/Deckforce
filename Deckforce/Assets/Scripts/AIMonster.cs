@@ -17,14 +17,19 @@ public class AIMonster : Entity
     private bool onMove = false;
     private Vector3 nextDest;
 
+    void Start()
+    {
+        Init();
+    }
 
-    private void Start()
+    public override void Init()
     {
         pathfinding = GetComponent<Pathfinding>();
         range = GetComponent<Range>();
         battleManager = FindObjectOfType<BattleManager>();
         nextDest = transform.position;
         nextDest.y = 0.5f;
+        base.Init();
     }
 
     private void Update()

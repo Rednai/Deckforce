@@ -16,12 +16,10 @@ public class Effect : ScriptableObject
     public int maxTurns;
     public int remainingTurns;
 
+    public Sprite effectIcon;
+
     public virtual void Activate(Entity targetEntity)
     {
-        Debug.Log("activate effect");
         remainingTurns--;
-        if (remainingTurns == 0) {
-            targetEntity.appliedEffects.Remove(this);
-        }
     }
 }

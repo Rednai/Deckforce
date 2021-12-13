@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum RelatedPos { UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT};
-public enum OutlineType { MOVE, RANGE, EFFECT };
+public enum OutlineType { MOVE, RANGE, EFFECT, SPAWNING };
 
 public class Tile : MonoBehaviour
 {
@@ -12,7 +12,9 @@ public class Tile : MonoBehaviour
     public MeshRenderer floorMeshRenderer;
     public Vector2 tilePosition;
     private Animator animator;
-    float heightDifference;
+    float entityHeightDifference;
+    float trapHeightDifference;
+    public bool isSpawnable;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,22 +25,34 @@ public class Tile : MonoBehaviour
     }
 
     void Update() {
-        // if (tileEntity != null) {
-        //     Vector3 currentPosition = tileEntity.transform.position;
-        //     currentPosition.y = floorMeshRenderer.transform.position.y + heightDifference;
-        //     tileEntity.transform.position = currentPosition;
-        // }
+        //TODO: DORIAN CORRIGE CA
+        /*
+        if (tileEntity != null) {
+            if (tileEntity.entityType == Entity.EntityType.CHARACTER) {
+                return;
+            }
+            Vector3 currentPosition = tileEntity.transform.position;
+            currentPosition.y = floorMeshRenderer.transform.position.y + entityHeightDifference;
+            tileEntity.transform.position = currentPosition;
+        }
+        if (tileTrap != null) {
+            Vector3 currentPosition = tileTrap.transform.position;
+            currentPosition.y = floorMeshRenderer.transform.position.y + trapHeightDifference;
+            tileTrap.transform.position = currentPosition;
+        }
+        */
     }
 
     public void SetEntity(Entity entity)
     {
         tileEntity = entity;
-        heightDifference = entity.transform.position.y - transform.position.y;
+        entityHeightDifference = entity.transform.position.y - transform.position.y;
     }
 
     public void SetTrap(Trap entity)
     {
         tileTrap = entity;
+        trapHeightDifference = entity.transform.position.y - transform.position.y;
     }
 
     public void StartAnimation() {
@@ -60,6 +74,9 @@ public class Tile : MonoBehaviour
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.green);
                 break;
             case OutlineType.MOVE:
+                floorMeshRenderer.material.SetColor("_OutlineColor", Color.blue);
+                break;
+            case OutlineType.SPAWNING:
                 floorMeshRenderer.material.SetColor("_OutlineColor", Color.blue);
                 break;
         }

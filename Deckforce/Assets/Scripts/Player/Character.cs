@@ -16,6 +16,12 @@ public class Character : Entity
         Init();
     }
 
+    public override void Init()
+    {
+        currentActionPoints = maxActionPoints;
+        base.Init();
+    }
+
     public void RightClick()
     {}
 

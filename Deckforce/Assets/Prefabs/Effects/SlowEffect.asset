@@ -17,3 +17,4 @@ MonoBehaviour:
   value: 1
   maxTurns: 2
   remainingTurns: 2
+  effectIcon: {fileID: 21300000, guid: 805e65de939be9248a84377be6f4e19e, type: 3}

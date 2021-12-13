@@ -10,31 +10,25 @@ public class HealCard : ManipulationCard
 
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        foreach (Tile targetTile in targetsTiles)
-        {
-            Entity targetEntity = targetTile.tileEntity;
+        if (CheckIfPossible(currentPlayer)) {
 
-            if (targetEntity && CheckIfAlly(currentPlayer, targetTile.tileEntity) &&
-                currentPlayer.selectedCharacter.currentActionPoints >= cost)
-            {
-                targetTile.tileEntity.Heal(healAmount);
-                currentPlayer.selectedCharacter.currentActionPoints -= cost;
+            currentPlayer.selectedCharacter.currentActionPoints -= cost;
 
-                if (userParticle != null)
-                {
-                    ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
-                    userPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                    userPM.targetPosition = targetTile.transform.position;
+            foreach (Tile targetTile in targetsTiles) {
+                Entity targetEntity = targetTile.tileEntity;
+
+                if (targetEntity && CheckIfAlly(currentPlayer, targetTile.tileEntity)) {
+                    targetTile.tileEntity.Heal(healAmount);
+
+                    ActivateParticle(userParticle, currentPlayer.selectedCharacter.transform.position,
+                        currentPlayer.selectedCharacter.transform.position, targetTile.transform.position);
+                    ActivateParticle(targetParticle, targetTile.tileEntity.transform.position,
+                        currentPlayer.selectedCharacter.transform.position, targetTile.transform.position);
+
+                    isActivated = true;
+                    SoundsManager.instance.PlaySound(activateClip);
+                    return (true);
                 }
-                if (targetParticle != null)
-                {
-                    ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
-                    targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                    targetPM.targetPosition = targetTile.transform.position;
-                }
-                isActivated = true;
-                SoundsManager.instance.PlaySound(activateClip);
-                return (true);
             }
         }
         SoundsManager.instance.PlaySound(cannotClip);

@@ -9,23 +9,18 @@ public class AggressionCard : Card
 
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        if (currentPlayer.selectedCharacter.currentActionPoints >= cost) {
+        if (CheckIfPossible(currentPlayer)) {
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             isActivated = true;
-            if (userParticle != null) {
-                ParticleManager userPM = Instantiate(userParticle, currentPlayer.selectedCharacter.transform.position, Quaternion.identity);
-                userPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                userPM.targetPosition = centerTile.transform.position;
-            }
+            ActivateParticle(userParticle, currentPlayer.selectedCharacter.transform.position,
+                currentPlayer.selectedCharacter.transform.position, centerTile.transform.position);
+            
             //TODO: faire en sorte d'activer les target particles quand le projectile arrive à sa case
             foreach (Tile targetTile in targetsTiles) {
                 Entity targetEntity = targetTile.tileEntity;
 
-                if (targetParticle != null) {
-                    ParticleManager targetPM = Instantiate(targetParticle, targetTile.tileEntity.transform.position, Quaternion.identity);
-                    targetPM.sourcePosition = currentPlayer.selectedCharacter.transform.position;
-                    targetPM.targetPosition = targetTile.transform.position;
-                }
+                ActivateParticle(targetParticle, targetTile.tileEntity.transform.position, currentPlayer.selectedCharacter.transform.position,
+                    targetTile.transform.position);
 
                 if (targetEntity && !CheckIfAlly(currentPlayer, targetEntity)) {
                     targetEntity.TakeDamage(damage);
