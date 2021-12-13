@@ -44,6 +44,7 @@ public class PlayersSelection : MonoBehaviour
         newPlayer.id = player.id;
         newPlayer.team = player.team;
         newPlayer.isClient = player.isClient;
+        newPlayer.username = player.username;
 
         //TODO: set l'id et le isClient du joueur par rapport à un packet recu par le serveur
 
