@@ -25,6 +25,8 @@ public class Tile : MonoBehaviour
     }
 
     void Update() {
+        //TODO: DORIAN CORRIGE CA
+        /*
         if (tileEntity != null) {
             if (tileEntity.entityType == Entity.EntityType.CHARACTER) {
                 return;
@@ -38,6 +40,7 @@ public class Tile : MonoBehaviour
             currentPosition.y = floorMeshRenderer.transform.position.y + trapHeightDifference;
             tileTrap.transform.position = currentPosition;
         }
+        */
     }
 
     public void SetEntity(Entity entity)
