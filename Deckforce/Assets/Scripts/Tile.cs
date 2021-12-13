@@ -12,7 +12,8 @@ public class Tile : MonoBehaviour
     public MeshRenderer floorMeshRenderer;
     public Vector2 tilePosition;
     private Animator animator;
-    float heightDifference;
+    float entityHeightDifference;
+    float trapHeightDifference;
     public bool isSpawnable;
 
     // Start is called before the first frame update
@@ -24,22 +25,31 @@ public class Tile : MonoBehaviour
     }
 
     void Update() {
-        // if (tileEntity != null) {
-        //     Vector3 currentPosition = tileEntity.transform.position;
-        //     currentPosition.y = floorMeshRenderer.transform.position.y + heightDifference;
-        //     tileEntity.transform.position = currentPosition;
-        // }
+        if (tileEntity != null) {
+            if (tileEntity.entityType == Entity.EntityType.CHARACTER) {
+                return;
+            }
+            Vector3 currentPosition = tileEntity.transform.position;
+            currentPosition.y = floorMeshRenderer.transform.position.y + entityHeightDifference;
+            tileEntity.transform.position = currentPosition;
+        }
+        if (tileTrap != null) {
+            Vector3 currentPosition = tileTrap.transform.position;
+            currentPosition.y = floorMeshRenderer.transform.position.y + trapHeightDifference;
+            tileTrap.transform.position = currentPosition;
+        }
     }
 
     public void SetEntity(Entity entity)
     {
         tileEntity = entity;
-        heightDifference = entity.transform.position.y - transform.position.y;
+        entityHeightDifference = entity.transform.position.y - transform.position.y;
     }
 
     public void SetTrap(Trap entity)
     {
         tileTrap = entity;
+        trapHeightDifference = entity.transform.position.y - transform.position.y;
     }
 
     public void StartAnimation() {
