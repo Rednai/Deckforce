@@ -317,6 +317,7 @@ public class BattleManager : MonoBehaviour
 
     public void RemoveEntity(Entity entity)
     {
+        entity.EndTurn();
         initiativeDisplay.RemoveFromTimeline(entity);
         battleTurn.playingEntities.Remove(entity);
     }
