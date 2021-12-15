@@ -34,6 +34,11 @@ public class Character : Entity
         base.StartTurn();
     }
 
+    public override void EndTurn()
+    {
+        ApplyEffects(Effect.ActivationTime.ENDTURN);
+    }
+
     public override void TakeDamage(int damageAmount)
     {
         base.TakeDamage(damageAmount);

@@ -169,6 +169,7 @@ public class BattleManager : MonoBehaviour
         });
         currentPlayingEntity = battleTurn.playingEntities[0];
         battleTurn.playingEntityIndex++;
+        initiativeDisplay.ResetDisplay();
         initiativeDisplay.DisplayEntitiesInitiatives(battleTurn.playingEntities);
     }
 
@@ -259,11 +260,13 @@ public class BattleManager : MonoBehaviour
             if (currentPlayingEntity == player.selectedCharacter) {
                 player.EndTurn();
                 statsSlidersDisplay.ResetEffects();
+                player.selectedCharacter.EndTurn();
             }
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
         
-        initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
+        initiativeDisplay.SetBackInTimeline(currentPlayingEntity);
+        //initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
 
         if (battleTurn.turnNb < 10) {
             battleTurn.turnTime = normalTurnTime;

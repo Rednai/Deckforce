@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour
     public EntityType entityType;
     public string entityName;
     public int id;
+    public string playerId;
     public int currentLife;
     public int maxLife;
     public int currentShield;
@@ -23,6 +24,7 @@ public class Entity : MonoBehaviour
     public Sprite entityIcon;
     public AudioClip spawnSound;
     public AudioClip hurtSound;
+    public AudioClip shieldHit;
 
     public int initiative;
 
@@ -59,7 +61,7 @@ public class Entity : MonoBehaviour
         ApplyEffects(Effect.ActivationTime.ENDTURN);
     }
 
-    void ApplyEffects(Effect.ActivationTime activationTime)
+    protected void ApplyEffects(Effect.ActivationTime activationTime)
     {
         foreach (Effect effect in appliedEffects) {
             if (effect.activationTime == activationTime) {
@@ -104,6 +106,8 @@ public class Entity : MonoBehaviour
     {
         if (currentShield >= damageAmount) {
             currentShield -= damageAmount;
+            SoundsManager.instance.PlaySound(shieldHit);
+            return ;
         } else {
             damageAmount -= currentShield;
             currentShield = 0;

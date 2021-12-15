@@ -24,7 +24,7 @@ MonoBehaviour:
   effectRange: 0
   targetEntity: 1
   areablockByEntity: 0
-  effectblockByEntity: 1
+  effectblockByEntity: 0
   activateClip: {fileID: 8300000, guid: d15441f307a9edc4597ecd8da0fcc481, type: 3}
   cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
   userParticle: {fileID: 6862466821515770520, guid: b8d9be969196c08458f6f873251ca54e, type: 3}
@@ -33,4 +33,4 @@ MonoBehaviour:
   effects:
   - {fileID: 11400000, guid: a82e64e595f53b3479c678089b041761, type: 2}
   damage: 1
-  emptyDroppable: 1
+  droppableOnNothing: 0
