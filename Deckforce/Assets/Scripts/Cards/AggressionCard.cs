@@ -6,10 +6,11 @@ using UnityEngine;
 public class AggressionCard : Card
 {
     public int damage;
+    public bool emptyDroppable;
 
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        if (CheckIfPossible(currentPlayer)) {
+        if (CheckIfPossible(currentPlayer, targetsTiles)) {
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             isActivated = true;
             ActivateParticle(userParticle, currentPlayer.selectedCharacter.transform.position,
@@ -33,5 +34,18 @@ public class AggressionCard : Card
         }
         SoundsManager.instance.PlaySound(cannotClip);
         return (false);
+    }
+
+    protected override bool CheckIfPossible(Player currentPlayer, List<Tile> selectedTiles = null)
+    {
+        if (!base.CheckIfPossible(currentPlayer, selectedTiles)) {
+            return (false);            
+        }
+        foreach (Tile tile in selectedTiles) {
+            if (tile.tileEntity == null && !emptyDroppable) {
+                return (false);
+            }
+        }
+        return (true);
     }
 }
