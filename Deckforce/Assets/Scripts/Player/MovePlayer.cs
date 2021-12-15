@@ -104,9 +104,8 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (moveMode)
-            if (!checkCharacterPositionAtDest(nextDest))
-                character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.05f);
+        if (!checkCharacterPositionAtDest(nextDest))
+            character.transform.position = Vector3.MoveTowards(transform.position, nextDest, 0.05f);
     }
 
     public void StopMoveMode()
