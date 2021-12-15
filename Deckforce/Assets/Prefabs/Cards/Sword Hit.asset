@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Sword Hit
   m_EditorClassIdentifier: 
   cardName: Sword
-  id: 10
+  id: 11
   description: Hit with a Sword
   color: {r: 1, g: 0, b: 0, a: 1}
-  visual: {fileID: 0}
+  visual: {fileID: 21300000, guid: 24dab1b2563dc824c87bc61aa8a5412f, type: 3}
   cost: 2
   areaTypePattern: 5
   effectTypePattern: 3
@@ -32,3 +32,4 @@ MonoBehaviour:
   isActivated: 0
   effects: []
   damage: 3
+  droppableOnNothing: 0

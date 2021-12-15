@@ -12,23 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5bc2ddde9f89e4daac669fbe4cee79, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  cardName: 
-  id: 0
-  description: 
-  color: {r: 0, g: 0, b: 0, a: 0}
-  visual: {fileID: 0}
-  cost: 0
-  areaTypePattern: 0
-  effectTypePattern: 0
-  playerRange: 0
-  effectRange: 0
-  targetEntity: 0
+  cardName: Shoot Arrow
+  id: 12
+  description: Shoot an Arrow
+  color: {r: 1, g: 0, b: 0, a: 1}
+  visual: {fileID: 21300000, guid: 9a7093eb157d13b4787d4bb9e1780ac3, type: 3}
+  cost: 1
+  areaTypePattern: 5
+  effectTypePattern: 3
+  playerRange: 5
+  effectRange: 1
+  targetEntity: 1
   areablockByEntity: 0
   effectblockByEntity: 0
-  activateClip: {fileID: 0}
-  cannotClip: {fileID: 0}
+  activateClip: {fileID: 8300000, guid: d15441f307a9edc4597ecd8da0fcc481, type: 3}
+  cannotClip: {fileID: 8300000, guid: 80904b649c043ee44af1f77e479b858e, type: 3}
   userParticle: {fileID: 0}
   targetParticle: {fileID: 0}
   isActivated: 0
   effects: []
-  damage: 0
+  damage: 1
+  droppableOnNothing: 0
