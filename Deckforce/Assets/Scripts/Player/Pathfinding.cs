@@ -26,7 +26,7 @@ public class Pathfinding : MonoBehaviour
         {
             Tile current = frontier[0];
             frontier.RemoveAt(0);
-            List<Tile> neighbors = GetFrontierTile(current, entity);
+            List<Tile> neighbors = GetFrontierTile(current, entity, goal);
 
             if (current == goal)
                 break;
@@ -58,28 +58,28 @@ public class Pathfinding : MonoBehaviour
         return path;
     }
 
-    private List<Tile> GetFrontierTile(Tile current, bool entity)
+    private List<Tile> GetFrontierTile(Tile current, bool entity, Tile goal)
     {
         List<Tile> next = new List<Tile>();
 
         Tile border = current.GetRelatedPos(RelatedPos.UP);
         if (border != null)
-            if (border.tileEntity == null | entity)
+            if (border.tileEntity == null | (entity & border == goal))
                 next.Add(border);
 
         border = current.GetRelatedPos(RelatedPos.LEFT);
         if (border != null)
-            if (border.tileEntity == null | entity)
+            if (border.tileEntity == null | (entity & border == goal))
                 next.Add(border);
 
         border = current.GetRelatedPos(RelatedPos.DOWN);
         if (border != null)
-            if (border.tileEntity == null | entity)
+            if (border.tileEntity == null | (entity & border == goal))
                 next.Add(border);
 
         border = current.GetRelatedPos(RelatedPos.RIGHT);
         if (border != null)
-            if (border.tileEntity == null | entity)
+            if (border.tileEntity == null | (entity & border == goal))
                 next.Add(border);
         return next;
     }

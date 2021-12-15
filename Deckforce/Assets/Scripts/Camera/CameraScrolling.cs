@@ -10,7 +10,6 @@ public class CameraScrolling : MonoBehaviour
     public float minScroll = 10f;
 
     private Camera cam;
-    private float previousScrollState = 0;
 
     // Start is called before the first frame update
     void Start()
