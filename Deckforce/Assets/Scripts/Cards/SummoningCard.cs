@@ -37,7 +37,8 @@ public class SummoningCard : Card
                         currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
                         newEntity.playerId = currentPlayer.id;
                         newEntity.GetComponent<Pathfinding>().startTile = targetTile;
-                        newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
+                        if (newEntity.GetComponent<AIMonster>() != null)
+                            newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
                     }
                     switch (newEntity.entityType) {
                         case (Entity.EntityType.TRAP):
