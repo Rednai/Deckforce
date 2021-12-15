@@ -19,10 +19,9 @@ public class AggressionCard : Card
             foreach (Tile targetTile in targetsTiles) {
                 Entity targetEntity = targetTile.tileEntity;
 
-                ActivateParticle(targetParticle, targetTile.tileEntity.transform.position, currentPlayer.selectedCharacter.transform.position,
-                    targetTile.transform.position);
-
                 if (targetEntity && !CheckIfAlly(currentPlayer, targetEntity)) {
+                    ActivateParticle(targetParticle, targetTile.tileEntity.transform.position, currentPlayer.selectedCharacter.transform.position,
+                    targetTile.transform.position);
                     targetEntity.TakeDamage(damage);
                     ActivateEffects(Effect.TargetType.TARGET, targetEntity);
                 }

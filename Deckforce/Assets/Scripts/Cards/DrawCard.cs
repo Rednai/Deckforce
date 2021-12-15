@@ -9,7 +9,7 @@ public class DrawCard : ManipulationCard
 
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
-        if (CheckIfPossible(currentPlayer)) {
+        if (CheckIfPossible(currentPlayer) & currentPlayer.isClient) {
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             for (int i = 0; i != drawAmount; i++)
                 currentPlayer.deck.Draw();
