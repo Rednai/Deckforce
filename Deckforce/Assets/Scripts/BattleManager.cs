@@ -88,7 +88,7 @@ public class BattleManager : MonoBehaviour
                 if (spawner.GetCurrentPlayer().isClient) {
                     playerNameText.text = $"It's your turn to choose a spawn";
                 } else {
-                    playerNameText.text = $"It's {spawner.GetCurrentPlayer().playerName}'s turn to choose a spawn";
+                    playerNameText.text = $"It's {spawner.GetCurrentPlayer().username}'s turn to choose a spawn";
                 }
                 newPlayer = spawner.SpawningPhase();
 

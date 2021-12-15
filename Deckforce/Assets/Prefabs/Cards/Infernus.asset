@@ -33,4 +33,4 @@ MonoBehaviour:
   effects:
   - {fileID: 11400000, guid: 8b4cfc7b38483f84ba7c270d026557a5, type: 2}
   damage: 2
-  emptyDroppable: 0
+  droppableOnNothing: 1

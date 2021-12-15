@@ -6,7 +6,7 @@ using UnityEngine;
 public class AggressionCard : Card
 {
     public int damage;
-    public bool emptyDroppable;
+    public bool droppableOnNothing;
 
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
@@ -20,7 +20,11 @@ public class AggressionCard : Card
             foreach (Tile targetTile in targetsTiles) {
                 Entity targetEntity = targetTile.tileEntity;
 
-                ActivateParticle(targetParticle, targetTile.tileEntity.transform.position, currentPlayer.selectedCharacter.transform.position,
+                if (targetEntity != null)
+                    ActivateParticle(targetParticle, targetTile.tileEntity.transform.position, currentPlayer.selectedCharacter.transform.position,
+                    targetTile.transform.position);
+                else
+                    ActivateParticle(targetParticle, targetTile.transform.position, currentPlayer.selectedCharacter.transform.position,
                     targetTile.transform.position);
 
                 if (targetEntity && !CheckIfAlly(currentPlayer, targetEntity)) {
@@ -42,7 +46,7 @@ public class AggressionCard : Card
             return (false);            
         }
         foreach (Tile tile in selectedTiles) {
-            if (tile.tileEntity == null && !emptyDroppable) {
+            if (tile.tileEntity == null && !droppableOnNothing) {
                 return (false);
             }
         }

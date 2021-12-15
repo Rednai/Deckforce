@@ -63,7 +63,7 @@ public class PlayersSelection : MonoBehaviour
         if (newPlayer.isClient) {
             newPlayerSelection.selectionObjects.SetActive(true);
         }
-        newPlayerSelection.playerName.text = newPlayer.id;
+        newPlayerSelection.playerName.text = newPlayer.username;
 
         selectedPlayers.Add(newPlayerSelection, newPlayer);
     }
@@ -165,7 +165,7 @@ public class PlayersSelection : MonoBehaviour
         Parser parser = GameObject.FindObjectOfType<Parser>();
         parser.players = new List<Player>();
         foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
-            pair.Value.playerName = pair.Key.playerName.text;
+            pair.Value.username = pair.Key.playerName.text;
             Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
             playerCharacter.transform.SetParent(pair.Value.transform);
             pair.Value.name = pair.Key.playerName.text;

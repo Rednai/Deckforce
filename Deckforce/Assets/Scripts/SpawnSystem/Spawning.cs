@@ -99,7 +99,7 @@ namespace Assets.Scripts.SpawnSystem
 
         public string GetCurrentPlayersName()
         {
-            return (futurePlayers[0].playerName);
+            return (futurePlayers[0].username);
         }
 
         public Player GetCurrentPlayer()

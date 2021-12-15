@@ -119,13 +119,14 @@ MonoBehaviour:
   maxLife: 15
   currentShield: 0
   maxShield: 5
+  currentMovePoints: 0
+  maxMovePoints: 4
   entityIcon: {fileID: 21300000, guid: d0f2fb828476db14fb2ed7733ee668a2, type: 3}
-  spawnSound: {fileID: 8300000, guid: 474f324bc39cfda4ca70699c1c94633d, type: 3}
+  spawnSound: {fileID: 8300000, guid: 0095309bf347f074fb3f7b18294e8ef9, type: 3}
   hurtSound: {fileID: 8300000, guid: 30f2026d75a70914788ce00f6a2478a5, type: 3}
   initiative: 4
   canMove: 0
-  currentMovePoints: 0
-  maxMovePoints: 4
+  appliedEffects: []
   currentActionPoints: 0
   maxActionPoints: 15
   alliedEntities: []

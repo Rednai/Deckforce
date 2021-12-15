@@ -14,7 +14,7 @@ public class EndDisplay : MonoBehaviour
         if (player.isClient) {
             endText.text = "You won!";
         } else {
-            endText.text = $"{player.playerName} won!";
+            endText.text = $"{player.username} won!";
         }
 
         spectateButton.gameObject.SetActive(false);
@@ -25,7 +25,7 @@ public class EndDisplay : MonoBehaviour
         if (player.isClient) {
             endText.text = "You lost!";
         } else {
-            endText.text = $"{player.playerName} lost!";
+            endText.text = $"{player.username} lost!";
         }
 
         spectateButton.gameObject.SetActive(true);
