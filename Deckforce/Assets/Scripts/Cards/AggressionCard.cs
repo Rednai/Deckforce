@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Aggression Card")]
 public class AggressionCard : Card
 {
+    public bool canDamageAllies;
     public int damage;
     public bool droppableOnNothing;
 
@@ -28,9 +29,15 @@ public class AggressionCard : Card
                     ActivateParticle(targetParticle, targetTile.transform.position, currentPlayer.selectedCharacter.transform.position,
                     targetTile.transform.position);
 
-                if (targetEntity && !CheckIfAlly(currentPlayer, targetEntity)) {
-                    targetEntity.TakeDamage(damage);
-                    ActivateEffects(Effect.TargetType.TARGET, targetEntity);
+                if (targetEntity != null) {
+                    if (canDamageAllies) {
+                        targetEntity.TakeDamage(damage);
+                        ActivateEffects(Effect.TargetType.TARGET, targetEntity);
+                        //TODO: voir si ce check if fonctionne
+                    } else if (!CheckIfAlly(currentPlayer, targetEntity)) {
+                        targetEntity.TakeDamage(damage);
+                        ActivateEffects(Effect.TargetType.TARGET, targetEntity);            
+                    }
                 }
             }
             ActivateEffects(Effect.TargetType.SELF, currentPlayer.selectedCharacter);

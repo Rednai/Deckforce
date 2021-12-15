@@ -51,6 +51,7 @@ public class InitiativeDisplay : MonoBehaviour
         if (iconDisplay.iconDisplay != null) {
             iconDisplay.iconDisplay.transform.SetParent(null);
             iconDisplay.iconDisplay.transform.SetParent(iconsHolder.transform);
+            iconDisplay.iconDisplay.transform.Find("EndTurnDisplay").gameObject.SetActive(true);
         }
     }
 
