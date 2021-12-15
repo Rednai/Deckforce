@@ -12,7 +12,6 @@ public class GameServer : MonoBehaviour
     public bool isConnected { get { return client.Connected; } }
 
     private Client client = new Client(Settings.maxMessageSize);
-
     private List<PlayerJoin> connectedPlayers = new List<PlayerJoin>();
     private bool isWaitingForPlayers = false;
     private Action<List<PlayerJoin>> OnAllPlayersConnected;
@@ -62,7 +61,6 @@ public class GameServer : MonoBehaviour
     private void HandleDataReceived(ArraySegment<Byte> data)
     {
         object obj = Deserialize(data);
-
         Parser.instance.ParseData(obj);
     }
 
@@ -117,6 +115,12 @@ public class GameServer : MonoBehaviour
             isWaitingForPlayers = false;
             OnAllPlayersConnected?.Invoke(connectedPlayers);
         }
+    }
+
+    public void StopServer()
+    {
+        client.Send(new ArraySegment<byte>(System.Text.Encoding.UTF8.GetBytes("Stop")));
+        client.Disconnect();
     }
 
     private void Update()

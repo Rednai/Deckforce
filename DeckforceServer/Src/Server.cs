@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Playfab.Gaming.GSDK.CSharp;
+using System.Threading.Tasks;
 
 namespace DeckforceServer
 {
@@ -16,6 +17,10 @@ namespace DeckforceServer
         /// </summary>
         public void Start()
         {
+            Telepathy.Log.Info = GameserverSDK.LogMessage;
+            Telepathy.Log.Warning = GameserverSDK.LogMessage;
+            Telepathy.Log.Error = GameserverSDK.LogMessage;
+
             server.OnConnected = HandleConnection;
             server.OnDisconnected = HandleDisconnection;
             server.OnData = HandleDataReceived;
@@ -71,10 +76,14 @@ namespace DeckforceServer
         /// <summary>
         /// Stop the server
         /// </summary>
-        public void Stop()
+        public async void Stop()
         {
             isRunning = false;
-            server.Stop();
+            // TODO : Trouver mieux (Débugger server.Stop())
+            //server.Stop();
+            GameserverSDK.LogMessage("Server will stop in 5 seconds...");
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            Environment.Exit(0);
         }
 
         /// <summary>
@@ -82,10 +91,7 @@ namespace DeckforceServer
         /// </summary>
         private void Loop()
         {
-            while (isRunning)
-            {
-                server.Tick(Settings.tick);
-            }
+            while (isRunning) server.Tick(Settings.tick);
         }
 
         /// <summary>
@@ -137,6 +143,10 @@ namespace DeckforceServer
         private void HandleDataReceived(int connectionId, ArraySegment<Byte> data)
         {
             GameserverSDK.LogMessage("Data received from : " + connectionId);
+
+            // Check if the game is stopped
+            if (CheckStopRequest(data)) return;
+
             TransmitToOtherPlayers(connectionId, data);
         }
 
@@ -154,6 +164,25 @@ namespace DeckforceServer
                 else if (player.isConnected)
                     server.Send(player.connectionId, data);
             }
+        }
+
+        /// <summary>
+        /// Check if the data received is a stop request
+        /// </summary>
+        /// <param name="data">Received data</param>
+        /// <returns>Return true if the data is a stop request, return false in the opposite case</returns>
+        private bool CheckStopRequest(ArraySegment<Byte> data)
+        {
+            try
+            {
+                if (System.Text.Encoding.UTF8.GetString(data.Array, 0, 4) == "Stop")
+                {
+                    Stop();
+                    return true;
+                }
+            }
+            catch {}
+            return false;
         }
     }
 }

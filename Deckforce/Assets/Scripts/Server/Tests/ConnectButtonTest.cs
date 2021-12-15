@@ -8,6 +8,7 @@ public class ConnectButtonTest : MonoBehaviour
     public Button connectButton;
     public Button disconnectButton;
     public Button sendDataButton;
+    public Button stopServer;
     public Text text;
 
     public void OnConnect()
@@ -21,5 +22,6 @@ public class ConnectButtonTest : MonoBehaviour
         connectButton.interactable = false;
         disconnectButton.interactable = true;
         sendDataButton.interactable = true;
+        stopServer.interactable = true;
     }
 }

@@ -44,12 +44,19 @@ public class EndDisplay : MonoBehaviour
     public void ReturnToMenu()
     {
         Player[] players = GameObject.FindObjectsOfType<Player>();
+        bool clientIsTeamOne = false;
 
         for (int i = players.Length-1; i != -1; i--) {
+            if (players[i].isClient && players[i].team == 1)
+                clientIsTeamOne = true;
             Destroy(players[i].gameObject);
         }
-        //TODO: meilleure manière de stocker
-        GameObject.FindObjectOfType<GameServer>().Disconnect();
+
+        if (clientIsTeamOne)
+            GameServer.instance.StopServer();
+        else
+            GameServer.instance.Disconnect();
+
         SceneManager.LoadScene("MainMenuMultiplayer");
     }
 }

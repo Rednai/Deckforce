@@ -12,7 +12,7 @@
     "ImageDetails": {
       "Registry": "customerqizyoedvza336.azurecr.io",
       "ImageName": "deckforceserver",
-      "ImageTag": "0.1",
+      "ImageTag": "0.3",
       "Username": "",
       "Password": ""
     }

@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisconnectButtonTest : MonoBehaviour
+public class StopServerButtonTest : MonoBehaviour
 {
     public Button connectButton;
     public Button disconnectButton;
     public Button sendDataButton;
     public Button stopServer;
 
-    public void OnDisconnect()
+    public void OnStopServer()
     {
-        GameServer.instance.Disconnect(DisconnectedFromServer);
-    }
+        GameServer.instance.StopServer();
 
-    private void DisconnectedFromServer()
-    {
         connectButton.interactable = true;
         disconnectButton.interactable = false;
         sendDataButton.interactable = false;
