@@ -113,8 +113,9 @@ public class AIMonster : Entity
 
     private void Attack()
     {
-        if (pathfinding.findPathtoCase(target.GetComponent<Pathfinding>().startTile, true).Count == 2)
-            target.TakeDamage(damage);
+        if (target != null)
+            if (pathfinding.findPathtoCase(target.GetComponent<Pathfinding>().startTile, true).Count == 2)
+                target.TakeDamage(damage);
         EndTurn();
     }
 
