@@ -32,3 +32,4 @@ MonoBehaviour:
   isActivated: 0
   effects: []
   damage: 2
+  droppableOnNothing: 1
