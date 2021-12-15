@@ -18,10 +18,14 @@ public class SummoningCard : Card
                     GameObject entityGO = Instantiate(summoningEntity).gameObject;
                     Entity newEntity = entityGO.GetComponent<Entity>();
 
-                    if (newEntity.entityType == Entity.EntityType.TRAP) {
-                        targetTile.SetTrap(newEntity.GetComponent<Trap>());
-                    } else {
-                        targetTile.SetEntity(newEntity);
+                    switch (newEntity.entityType) {
+                        case (Entity.EntityType.TRAP):
+                            targetTile.SetTrap(newEntity.GetComponent<Trap>());
+                            break;
+                        case (Entity.EntityType.MONSTER):
+                        case (Entity.EntityType.PROP):
+                            targetTile.SetEntity(newEntity);
+                            break;
                     }
                     newEntity.transform.position = new Vector3(
                         targetTile.transform.position.x,
@@ -31,12 +35,22 @@ public class SummoningCard : Card
 
                     if (newEntity.entityType == Entity.EntityType.MONSTER) {
                         currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
+                        newEntity.playerId = currentPlayer.id;
                         newEntity.GetComponent<Pathfinding>().startTile = targetTile;
                         newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
                     }
+                    switch (newEntity.entityType) {
+                        case (Entity.EntityType.TRAP):
+                            ActivateParticle(targetParticle, targetTile.tileTrap.transform.position,
+                                currentPlayer.selectedCharacter.transform.position, targetTile.transform.position);
+                            break;
+                        case (Entity.EntityType.MONSTER):
+                        case (Entity.EntityType.PROP):
+                            ActivateParticle(targetParticle, targetTile.tileEntity.transform.position,
+                                currentPlayer.selectedCharacter.transform.position, targetTile.transform.position);
+                            break;
+                    }
                     ActivateParticle(userParticle, currentPlayer.selectedCharacter.transform.position,
-                        currentPlayer.selectedCharacter.transform.position, targetTile.transform.position);
-                    ActivateParticle(targetParticle, targetTile.tileEntity.transform.position,
                         currentPlayer.selectedCharacter.transform.position, targetTile.transform.position);
                     isActivated = true;
                     SoundsManager.instance.PlaySound(activateClip);

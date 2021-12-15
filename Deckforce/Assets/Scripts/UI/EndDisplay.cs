@@ -48,7 +48,6 @@ public class EndDisplay : MonoBehaviour
         for (int i = players.Length-1; i != -1; i--) {
             Destroy(players[i].gameObject);
         }
-        //TODO: meilleure manière de stocker
         GameObject.FindObjectOfType<GameServer>().Disconnect();
         SceneManager.LoadScene("MainMenuMultiplayer");
     }

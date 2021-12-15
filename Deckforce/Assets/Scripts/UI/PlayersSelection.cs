@@ -167,6 +167,7 @@ public class PlayersSelection : MonoBehaviour
         foreach (KeyValuePair<PlayerSelection, Player> pair in selectedPlayers) {
             pair.Value.username = pair.Key.playerName.text;
             Character playerCharacter = Instantiate(pair.Key.selectedCharacter);
+            playerCharacter.playerId = pair.Value.id;
             playerCharacter.transform.SetParent(pair.Value.transform);
             pair.Value.name = pair.Key.playerName.text;
             pair.Value.selectedCharacter = playerCharacter;
