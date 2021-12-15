@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public string playerName;
     public string id;
+    public string username;
     public bool isClient;
     public int team;
     public Character selectedCharacter;
