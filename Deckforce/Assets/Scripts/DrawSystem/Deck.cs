@@ -25,6 +25,10 @@ namespace DrawSystem
             card.GetComponent<CanvasGroup>().interactable = false;
             card.GetComponent<CanvasGroup>().blocksRaycasts = false;
             tempCardTarget = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            
+            RectTransform tempCardRect = tempCardTarget.transform.GetComponent<RectTransform>();
+            tempCardRect.sizeDelta = new Vector2(140, 220);
+            
             tempCardTarget.transform.SetParent(hand.transform);
             tempCardTarget.transform.localScale = new Vector3(0f, 0f, 0f);
             
@@ -35,6 +39,8 @@ namespace DrawSystem
                 yield return null;
             }
             card.transform.localScale = new Vector3(1f, 1f, 1f);
+            RectTransform cardRect = card.transform.GetComponent<RectTransform>();
+            cardRect.sizeDelta = new Vector2(140, 220);
             card.parentToReturnTo = hand.transform.parent;
             Destroy(tempCardTarget);
             card.transform.SetParent(hand.transform);
