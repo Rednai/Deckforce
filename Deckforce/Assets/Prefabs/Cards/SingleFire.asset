@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 15
   description: Shoot a Small Fire Ball at long range
   color: {r: 1, g: 0, b: 0, a: 1}
-  visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
+  visual: {fileID: 21300000, guid: 03259af0089e07542bfe4f4dc9f2589c, type: 3}
   cost: 1
   areaTypePattern: 1
   effectTypePattern: 3

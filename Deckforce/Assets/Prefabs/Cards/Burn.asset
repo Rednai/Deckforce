@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 14
   description: Burn a Single Target
   color: {r: 1, g: 0, b: 0, a: 1}
-  visual: {fileID: 21300000, guid: e8bd33edf1206894ca86837e4dbf2297, type: 3}
+  visual: {fileID: 21300000, guid: 37197bc6e10240941a64078b08f98e6f, type: 3}
   cost: 2
   areaTypePattern: 1
   effectTypePattern: 3
