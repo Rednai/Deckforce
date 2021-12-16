@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour
     public EntityType entityType;
     public string entityName;
     public int id;
+    public int battleId;
     public string playerId;
     public int currentLife;
     public int maxLife;
@@ -87,6 +88,7 @@ public class Entity : MonoBehaviour
 
     public virtual void AddShield(int shieldAmount)
     {
+        Debug.Log("Add shield to entity");
         currentShield += shieldAmount;
         if (currentShield > maxShield) {
             currentShield = maxShield;

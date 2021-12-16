@@ -7,7 +7,6 @@ public class BurnEffect : Effect
 {
     public override void Activate(Entity targetEntity)
     {
-        Debug.Log("activate burn");
         targetEntity.TakeDamage(value);
         base.Activate(targetEntity);
     }

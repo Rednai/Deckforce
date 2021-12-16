@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,18 +8,18 @@ public class InitiativeDisplay : MonoBehaviour
 {
     public GameObject entityIconTemplate;
     public GameObject iconsHolder;
+    [Serializable]
     public struct EntityIconDisplay {
-        public string playerId;
+        public int battleId;
         public Entity entity;
         public GameObject iconDisplay;
     };
+    [SerializeField]
     public List<EntityIconDisplay> iconsDisplays;
 
     public void DisplayEntitiesInitiatives(List<Entity> battleEntities)
     {
-        if (iconsDisplays == null) {
-            iconsDisplays = new List<EntityIconDisplay>();
-        }
+        iconsDisplays = new List<EntityIconDisplay>();
 
         foreach (Entity entity in battleEntities) {
             GameObject newDisplay = Instantiate(entityIconTemplate);
@@ -28,7 +29,7 @@ public class InitiativeDisplay : MonoBehaviour
             newDisplay.transform.GetComponent<Image>().color = entity.GetComponent<MeshRenderer>().material.color;
             newDisplay.transform.SetParent(iconsHolder.transform);
             EntityIconDisplay iconDisplay = new EntityIconDisplay();
-            iconDisplay.playerId = entity.playerId;
+            iconDisplay.battleId = entity.battleId;
             iconDisplay.entity = entity;
             iconDisplay.iconDisplay = newDisplay;
             iconsDisplays.Add(iconDisplay);
@@ -47,7 +48,7 @@ public class InitiativeDisplay : MonoBehaviour
 
     public void SetBackInTimeline(Entity playingEntity)
     {
-        EntityIconDisplay iconDisplay = iconsDisplays.Find(x => x.playerId == playingEntity.playerId);
+        EntityIconDisplay iconDisplay = iconsDisplays.Find(x => x.battleId == playingEntity.battleId);
         if (iconDisplay.iconDisplay != null) {
             iconDisplay.iconDisplay.transform.SetParent(null);
             iconDisplay.iconDisplay.transform.SetParent(iconsHolder.transform);
@@ -57,11 +58,12 @@ public class InitiativeDisplay : MonoBehaviour
 
     public void RemoveFromTimeline(Entity playingEntity)
     {
-        EntityIconDisplay iconDisplay = iconsDisplays.Find(x => x.playerId == playingEntity.playerId);
+        EntityIconDisplay iconDisplay = iconsDisplays.Find(x => x.battleId == playingEntity.battleId);
 
         if (iconDisplay.iconDisplay != null) {
             iconsDisplays.Remove(iconDisplay);
             Destroy(iconDisplay.iconDisplay);
         }
+        iconsDisplays.Clear();
     }
 }

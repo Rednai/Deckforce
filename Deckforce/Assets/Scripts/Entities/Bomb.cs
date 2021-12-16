@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bomb : Entity
 {
+    public Player playerOwner;
+
     public int damage;
     public int sizeEffectRange;
     public RangeType effectRange;
@@ -42,6 +44,7 @@ public class Bomb : Entity
 
     public override void Die()
     {
+        playerOwner.selectedCharacter.RemoveEntityFromAllies(this);
         base.Die();
     }
 }

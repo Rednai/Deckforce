@@ -115,6 +115,7 @@ MonoBehaviour:
   entityType: 0
   entityName: Azoph
   id: 0
+  battleId: 0
   playerId: 
   currentLife: 0
   maxLife: 12
@@ -130,7 +131,7 @@ MonoBehaviour:
   canMove: 0
   appliedEffects: []
   currentActionPoints: 0
-  maxActionPoints: 8
+  maxActionPoints: 12
   alliedEntities: []
   battleManager: {fileID: 0}
 --- !u!114 &6395879793751727600

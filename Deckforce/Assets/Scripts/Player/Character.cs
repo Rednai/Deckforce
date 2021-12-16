@@ -54,6 +54,8 @@ public class Character : Entity
 
     public void AddEntityToAllies(Entity newEntity)
     {
+        newEntity.battleId = battleManager.battleId;
+        battleManager.battleId++;
         alliedEntities.Add(newEntity);
     }
 

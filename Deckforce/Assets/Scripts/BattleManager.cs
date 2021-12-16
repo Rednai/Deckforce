@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour
     bool isGameOver = false;
 
     public Entity currentPlayingEntity;
+    public int battleId;
     BattleTurn battleTurn;
     [Header("Players")]
     public int expectedPlayerNb;
@@ -64,6 +65,8 @@ public class BattleManager : MonoBehaviour
         battlePlayers = new List<Player>();
         gameServer = GameServer.FindObjectOfType<GameServer>();
         gameServer.GetComponent<Parser>().InitValues(players);
+
+        battleId = 0;
     }
 
     void Update()
@@ -131,6 +134,8 @@ public class BattleManager : MonoBehaviour
 
         foreach (Player player in battlePlayers) {
             player.selectedCharacter.battleManager = this;
+            player.selectedCharacter.battleId = battleId;
+            battleId++;
             player.deck = deck;
             player.discardPile = discardPile;
             player.hand = hand;
@@ -165,7 +170,11 @@ public class BattleManager : MonoBehaviour
             }
         }
         battleTurn.playingEntities.Sort(delegate(Entity E1, Entity E2) {
-            return (-E1.initiative.CompareTo(E2.initiative));
+            if (E1.initiative == E2.initiative) {
+                return (E1.battleId.CompareTo(E2.battleId));
+            } else {
+                return (-E1.initiative.CompareTo(E2.initiative));
+            }
         });
         currentPlayingEntity = battleTurn.playingEntities[0];
         battleTurn.playingEntityIndex++;
@@ -182,29 +191,67 @@ public class BattleManager : MonoBehaviour
     {
         //TODO: si première entité du tour, faut afficher le numéro du tour avant le reste
 
-        foreach (Player player in battlePlayers) {
-            if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
-                player.StartTurn();
-                statsSlidersDisplay.SetInfos(player.selectedCharacter, false);
+        Player currentPlayer = null;
+        foreach (Player battlePlayer in battlePlayers) {
+            if (battlePlayer.id == currentPlayingEntity.playerId) {
+                currentPlayer = battlePlayer;
             }
         }
-        //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
+
+        if (currentPlayer.isClient) {
+            //TODO: a voir si faut pas utiliser le battleId plutot
+            if (currentPlayer.selectedCharacter == currentPlayingEntity) {
+                entityNameText.text = "Your turn";
+                currentPlayer.StartTurn();
+                statsSlidersDisplay.SetInfos(currentPlayer.selectedCharacter, false);
+            } else {
+                entityNameText.text = "Your ally's turn";
+            }
+        } else {
+            if (currentPlayer.selectedCharacter == currentPlayingEntity) {
+                entityNameText.text = $"{currentPlayer.username}'s turn";
+            } else {
+                entityNameText.text = $"{currentPlayer.username}'s ally turn";
+            }
+        }
         currentPlayingEntity.StartTurn();
 
-        //if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
-
-        Player currentPlayer = null;
-        foreach (Player player in battlePlayers) {
-            if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
-                currentPlayer = player;
-            }
-        }
-        
-        if (currentPlayer != null) {
+        /*
+        Player player = CheckIfCurrentEntityIsPlayer();
+        if (player != null) {
+            player.StartTurn();
+            statsSlidersDisplay.SetInfos(player.selectedCharacter, false);
             entityNameText.text = "Your turn";
         } else {
-            entityNameText.text = $"{currentPlayingEntity.entityName}'s turn";
+            //1 pas le charactère de notre joueur mais un de ses alliés
+
+            //2 le charactère d'un autre joueur
+            //3 un des alliés du charactère d'un autre joueur
         }
+        currentPlayingEntity.StartTurn();
+
+        if (currentPlayer != null) {
+            
+        } else {
+            //TODO: ca marchera pas, player sera vide
+            if (player.selectedCharacter.alliedEntities.Contains(currentPlayingEntity)) {
+                entityNameText.text = $"{player.username}'s monster turn";
+            } else {
+                Player otherPlayer = null;
+                foreach (Player p in battlePlayers) {
+                    if () {
+                        otherPlayer = p;
+                    }
+                }
+                if () {
+
+                } else {
+
+                }
+                entityNameText.text = $"{currentPlayingEntity.entityName}'s turn";
+            }
+        }
+        */
 
         DisplayStats();
         //TODO: focus la caméra sur le joueur actuel
@@ -232,7 +279,8 @@ public class BattleManager : MonoBehaviour
     Player CheckIfCurrentEntityIsPlayer()
     {
         foreach (Player player in battlePlayers) {
-            if (currentPlayingEntity == player.selectedCharacter && player.isClient) {
+            if (currentPlayingEntity == player.selectedCharacter && player.isClient && player.id == currentPlayingEntity.playerId) {
+                Debug.Log("player id: " + player.id + ", character id: " + currentPlayingEntity.playerId);
                 return (player);
             }
         }
@@ -256,12 +304,11 @@ public class BattleManager : MonoBehaviour
     {
         if (finishTurnButton.gameObject.activeInHierarchy)
             finishTurnButton.gameObject.SetActive(false);
-        foreach (Player player in battlePlayers) {
-            if (currentPlayingEntity == player.selectedCharacter) {
-                player.EndTurn();
-                statsSlidersDisplay.ResetEffects();
-                player.selectedCharacter.EndTurn();
-            }
+        Player player = CheckIfCurrentEntityIsPlayer();
+        if (player != null) {
+            player.EndTurn();
+            statsSlidersDisplay.ResetEffects();
+            player.selectedCharacter.EndTurn();
         }
         //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
         

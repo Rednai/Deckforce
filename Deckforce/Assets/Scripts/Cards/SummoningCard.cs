@@ -39,6 +39,9 @@ public class SummoningCard : Card
                         newEntity.GetComponent<Pathfinding>().startTile = targetTile;
                         if (newEntity.GetComponent<AIMonster>() != null)
                             newEntity.GetComponent<AIMonster>().playerOwner = currentPlayer;
+                            //TODO: mettre playerowner qqpart accessible par les 2 classes
+                        if (newEntity.GetComponent<Bomb>() != null)
+                            newEntity.GetComponent<Bomb>().playerOwner = currentPlayer;
                     }
                     switch (newEntity.entityType) {
                         case (Entity.EntityType.TRAP):

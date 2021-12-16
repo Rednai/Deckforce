@@ -29,6 +29,7 @@ public class SacrificeSummoningCard : SummoningCard
                         targetTile.transform.position.y + 0.5f,
                         targetTile.transform.position.z
                     );
+                    newEntity.playerId = currentPlayer.id;
                     currentPlayer.selectedCharacter.alliedEntities.Add(newEntity);
 
                     ActivateParticle(userParticle, currentPlayer.selectedCharacter.transform.position,
