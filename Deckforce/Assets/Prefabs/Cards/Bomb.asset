@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Bomb
   id: 13
-  description: 
+  description: Place a bomb which explode at the end of the next turn
   color: {r: 0, g: 1, b: 0, a: 1}
   visual: {fileID: 21300000, guid: 7a7c887f130fe5640abbdd491a718415, type: 3}
   cost: 3

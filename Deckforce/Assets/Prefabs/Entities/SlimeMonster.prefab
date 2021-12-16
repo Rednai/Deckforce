@@ -115,7 +115,7 @@ MonoBehaviour:
   id: 3
   playerId: 
   currentLife: 0
-  maxLife: 5
+  maxLife: 3
   currentShield: 0
   maxShield: 0
   currentMovePoints: 0
