@@ -118,7 +118,7 @@ MonoBehaviour:
   battleId: 0
   playerId: 
   currentLife: 0
-  maxLife: 7
+  maxLife: 18
   currentShield: 0
   maxShield: 5
   currentMovePoints: 0
