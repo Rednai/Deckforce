@@ -87,6 +87,8 @@ public class AIMonster : Entity
                 pathToTarget = path;
             }
         }
+        if (pathToTarget.Count == 0)
+            EndTurn();
         pathToTarget.RemoveAt(pathToTarget.Count - 1);
         for (; pathToTarget.Count - 1 > currentMovePoints; pathToTarget.RemoveAt(pathToTarget.Count - 1));
         pathToTarget[pathToTarget.Count - 1].tileEntity = this;
