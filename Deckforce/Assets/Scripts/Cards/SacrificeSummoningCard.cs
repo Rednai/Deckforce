@@ -10,6 +10,8 @@ public class SacrificeSummoningCard : SummoningCard
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
         if (CheckIfPossible(currentPlayer, targetsTiles)) {
+
+            currentPlayer.selectedCharacter.currentActionPoints -= cost;
             foreach (Tile targetTile in targetsTiles) {
                 if (targetTile.tileEntity != null &&
                     targetTile.tileEntity.entityType == sacrificeType) {

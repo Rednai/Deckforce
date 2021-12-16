@@ -280,7 +280,6 @@ public class BattleManager : MonoBehaviour
     {
         foreach (Player player in battlePlayers) {
             if (currentPlayingEntity == player.selectedCharacter && player.isClient && player.id == currentPlayingEntity.playerId) {
-                Debug.Log("player id: " + player.id + ", character id: " + currentPlayingEntity.playerId);
                 return (player);
             }
         }
@@ -300,6 +299,20 @@ public class BattleManager : MonoBehaviour
         FinishTurn();
     }
 
+    public void FinishOtherPlayerTurn()
+    {
+        if (battlePlayers == null || isGameOver) {
+            return ;
+        }
+        foreach (Player player in battlePlayers) {
+            if (player.selectedCharacter == currentPlayingEntity && currentPlayingEntity.playerId == player.id) {
+                player.EndTurn();
+                player.selectedCharacter.EndTurn();
+            }
+        }
+        FinishTurn();
+    }
+
     public void FinishTurn()
     {
         if (finishTurnButton.gameObject.activeInHierarchy)
@@ -310,7 +323,6 @@ public class BattleManager : MonoBehaviour
             statsSlidersDisplay.ResetEffects();
             player.selectedCharacter.EndTurn();
         }
-        //TODO: faire en sorte que pour les IA ca finisse le Tour automatiquement
         
         initiativeDisplay.SetBackInTimeline(currentPlayingEntity);
         //initiativeDisplay.RemoveFromTimeline(currentPlayingEntity);
@@ -331,34 +343,41 @@ public class BattleManager : MonoBehaviour
 
     public void RemovePlayer(Player player)
     {
-        if (player.selectedCharacter == currentPlayingEntity) {
-            //TODO: quand ca sera multijoueur, ajouter un menu qui permet de continuer à spectate, ou de retourner au menu
-            endDisplay.gameObject.SetActive(true);
-            endDisplay.DisplayDefeat(player);
-            player.EndTurn();
-            currentPlayingEntity.EndTurn();
-        }
-
-        initiativeDisplay.RemoveFromTimeline(player.selectedCharacter);
-        battlePlayers.Remove(player);
-
-        battleTurn.playingEntities.Remove(player.selectedCharacter);
-        foreach (Entity entity in player.selectedCharacter.alliedEntities) {
-            battleTurn.playingEntities.Remove(entity);
-        }
-
-        if (battlePlayers.Count == 1) {
-            isGameOver = true;
-            battlePlayers[0].selectedCharacter.canMove = false;
+        if (battlePlayers.Count == 2) {
             //TODO: empecher au joueur de poser des cartes
             //TODO: passer la souris sur la map ne doit plus rien faire
+            battlePlayers.Remove(player);
+            isGameOver = true;
+            battlePlayers[0].selectedCharacter.canMove = false;
             endDisplay.gameObject.SetActive(true);
             endDisplay.DisplayVictory(battlePlayers[0]);
-
-            return ;
-        } else if (battlePlayers.Count == 0) {
+        } else if (battlePlayers.Count == 1) {
+            battlePlayers.Remove(player);
+            isGameOver = true;
             endDisplay.gameObject.SetActive(true);
             endDisplay.DisplayDraw();
+        } else {
+            if (player.isClient) {
+            //if (player.selectedCharacter == currentPlayingEntity) {
+                //TODO: quand ca sera multijoueur, ajouter un menu qui permet de continuer à spectate, ou de retourner au menu
+                endDisplay.gameObject.SetActive(true);
+                endDisplay.DisplayDefeat(player);
+                player.EndTurn();
+                currentPlayingEntity.EndTurn();
+            } else {
+                foreach (Player otherPlayer in battlePlayers) {
+                    if (otherPlayer.selectedCharacter == currentPlayingEntity && currentPlayingEntity.playerId == otherPlayer.id) {
+                        otherPlayer.EndTurn();
+                        currentPlayingEntity.EndTurn();
+                    }
+                }
+            }
+            initiativeDisplay.RemoveFromTimeline(player.selectedCharacter);
+
+            battleTurn.playingEntities.Remove(player.selectedCharacter);
+            foreach (Entity entity in player.selectedCharacter.alliedEntities) {
+                battleTurn.playingEntities.Remove(entity);
+            }
         }
     }
 

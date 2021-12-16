@@ -62,7 +62,8 @@ public class Parser : MonoBehaviour
             case SkipTurn turnObj:
                 //passe au tour suivant
                 if (battleManager.GetPlayingEntityIndex() == turnObj.entityPlayingIndex) {
-                    battleManager.FinishTurn();
+                    battleManager.FinishOtherPlayerTurn();
+                    //battleManager.FinishTurn();
                 }
 
                 //TODO: système de vérification si jamais le joueur a du retard sur le tour actuel

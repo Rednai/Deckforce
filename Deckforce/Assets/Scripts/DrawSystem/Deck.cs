@@ -26,6 +26,7 @@ namespace DrawSystem
             card.GetComponent<CanvasGroup>().blocksRaycasts = false;
             tempCardTarget = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             
+            //TODO: pour une raison qui m'échappe, la taille des cartes sur le terrain n'est pas influencée par celle de la prefab
             RectTransform tempCardRect = tempCardTarget.transform.GetComponent<RectTransform>();
             tempCardRect.sizeDelta = new Vector2(140, 220);
             

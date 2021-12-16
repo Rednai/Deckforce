@@ -46,8 +46,6 @@ public class Character : Entity
 
     public override void Die()
     {
-        Player characterPlayer = transform.parent.GetComponent<Player>();
-
         battleManager.RemovePlayer(transform.parent.GetComponent<Player>());
         base.Die();
     }
