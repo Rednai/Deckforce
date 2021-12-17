@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.Generic;
 using Microsoft.Playfab.Gaming.GSDK.CSharp;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace DeckforceServer
         private bool isRunning = false;
         private List<Player> players = new List<Player>();
         private List<ConnectedPlayer> connectedPlayers = new List<ConnectedPlayer>();
+        private bool firstTimeoutCheck = false;
 
         /// <summary>
         /// Start the server
@@ -91,7 +93,36 @@ namespace DeckforceServer
         /// </summary>
         private void Loop()
         {
+            // We stop the server if no one is connected after 30 seconds
+            Timer timer = new Timer(20000);
+            timer.Elapsed += CheckTimeout;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+
             while (isRunning) server.Tick(Settings.tick);
+        }
+
+        /// <summary>
+        /// Check if the server timeout
+        /// </summary>
+        void CheckTimeout(Object source, ElapsedEventArgs e) {
+            GameserverSDK.LogMessage("Timeout check, player connected count : " + connectedPlayers.Count);
+
+            if (connectedPlayers.Count == 0)
+            {
+                if (firstTimeoutCheck)
+                {
+                    GameserverSDK.LogMessage("Second timeout check passed.");
+                    Stop();
+                }
+                else
+                {
+                    GameserverSDK.LogMessage("First timeout check passed.");
+                    firstTimeoutCheck = true;
+                }
+                return;
+            }
+            firstTimeoutCheck = false;
         }
 
         /// <summary>
@@ -133,6 +164,7 @@ namespace DeckforceServer
                 player.isConnected = false;
                 GameserverSDK.LogMessage("Player disconnected (tag = " + player.tag + ")");
             }
+            UpdateSdkConnectedPlayers();
         }
 
         /// <summary>
