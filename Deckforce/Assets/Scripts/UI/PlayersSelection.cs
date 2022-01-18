@@ -14,7 +14,12 @@ public class PlayersSelection : MonoBehaviour
 
     [Header("Players")]
     public Dictionary<PlayerSelection, Player> selectedPlayers = new Dictionary<PlayerSelection, Player>();
-    List<string> playersNames = new List<string>();
+
+    [Header("Offline")]
+    public GameObject addPlayerButton;
+    Dictionary<int, string> playerNames = new Dictionary<int, string>();
+    Dictionary<int, string> namesCopy;
+    public int playerIndex = 0;
 
     [Header("Start Battle")]
     public Button readyButton;
@@ -25,12 +30,62 @@ public class PlayersSelection : MonoBehaviour
 
     public CardsManager cardsManager;
 
-    GameServer gameServer;
-
+    public MatchmakingButtons matchmakingButtons;
 
     void Start()
     {
-        gameServer = GameServer.FindObjectOfType<GameServer>();
+        playerNames.Add(0, "Strider");
+        playerNames.Add(1, "Reaver");
+        playerNames.Add(2, "Warlock");
+        playerNames.Add(3, "Floral Wisp");
+        playerNames.Add(4, "LeapFrog");
+        namesCopy = new Dictionary<int, string>(playerNames);
+    }
+
+    public void AddOfflinePlayer()
+    {
+        if (selectedPlayers.Count == 5) {
+            return ;
+        }
+
+        Player newPlayer = Instantiate(playerTemplate);
+        newPlayer.id = CreateRandomId();
+        newPlayer.team = namesCopy.First().Key;
+        newPlayer.isClient = true;
+        newPlayer.username = namesCopy.First().Value;
+        namesCopy.Remove(namesCopy.First().Key);
+
+        newPlayer.deckCards = new List<Card>();
+        for (int i = 0; i != 30; i++) {
+            newPlayer.deckCards.Add(Instantiate(cardsManager.cards[Random.Range(0, cardsManager.cards.Count)]));
+        }
+
+        PlayerSelection newPlayerSelection = Instantiate(playerSelectionTemplate);
+        newPlayerSelection.transform.SetParent(playersParent.transform);
+        newPlayerSelection.transform.localScale = new Vector3(1, 1, 1);
+        newPlayerSelection.playersSelection = this;
+        newPlayerSelection.removePlayerButton.gameObject.SetActive(true);
+        GameServer.instance.isOffline = true;
+
+        newPlayerSelection.selectionObjects.SetActive(true);
+        newPlayerSelection.playerName.text = newPlayer.username;
+
+        selectedPlayers.Add(newPlayerSelection, newPlayer);
+
+        if (selectedPlayers.Count >= 2) {
+            readyButton.gameObject.SetActive(true);
+        }
+    }
+
+    string CreateRandomId()
+    {
+        char[] characters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+        string newId = "";
+
+        for (int i = 0; i != 10; i++) {
+            newId += characters[Random.Range(0, characters.Length-1)];
+        }
+        return (newId);
     }
 
     //TODO: a l'avenir on recevra un joueur ou jsp quoi pour instancier les infos
@@ -70,38 +125,51 @@ public class PlayersSelection : MonoBehaviour
 
     public void RemovePlayer(PlayerSelection playerSelection)
     {
+        Player playerToRemove = selectedPlayers[playerSelection];
+        selectedPlayers.Remove(playerSelection);
+
+        namesCopy.Add(playerToRemove.team, playerNames[playerToRemove.team]);
+        Destroy(playerToRemove.gameObject);
+        Destroy(playerSelection.gameObject);
+        if (selectedPlayers.Count < 2) {
+            readyButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void GoBackToMenu()
+    {
+        matchmakingButtons.gameObject.SetActive(true);
+        while (selectedPlayers.Count > 0) {
+            RemovePlayer(selectedPlayers.First().Key);
+        }
+        gameObject.SetActive(false);
     }
 
     public void StartPlaying()
     {
-        if (gameServer == null) {
-            gameServer = GameServer.FindObjectOfType<GameServer>();
-        }
-        //KeyValuePair<PlayerSelection, Player> player = GetPlayer();
-        KeyValuePair<PlayerSelection, Player> player = selectedPlayers.Single(x => x.Value.isClient == true);
+        if (!GameServer.instance.isOffline) {
+            KeyValuePair<PlayerSelection, Player> player = selectedPlayers.Single(x => x.Value.isClient == true);
         
-        if (player.Key.isReady) {
-            readyButton.GetComponent<Image>().color = unreadyColor;
-            readyButton.transform.GetChild(0).GetComponent<Text>().text = unreadyText;
-            player.Key.readyDisplay.SetActive(false);
-        } else {
-            readyButton.GetComponent<Image>().color = readyColor;
-            readyButton.transform.GetChild(0).GetComponent<Text>().text = readyText;
-            player.Key.readyDisplay.SetActive(true);
-        }
-        player.Key.isReady = !player.Key.isReady;
+            if (player.Key.isReady) {
+                readyButton.GetComponent<Image>().color = unreadyColor;
+                readyButton.transform.GetChild(0).GetComponent<Text>().text = unreadyText;
+                player.Key.readyDisplay.SetActive(false);
+            } else {
+                readyButton.GetComponent<Image>().color = readyColor;
+                readyButton.transform.GetChild(0).GetComponent<Text>().text = readyText;
+                player.Key.readyDisplay.SetActive(true);
+            }
+            player.Key.isReady = !player.Key.isReady;
 
-        //Remplacer par un PlayerReady
-        PlayerReady playerReady = new PlayerReady();
-        playerReady.playerId = player.Value.id;
-        /*
-        ChooseCharacter chooseCharacter = new ChooseCharacter();
-        chooseCharacter.characterId = player.Key.selectedCharacter.id;
-        chooseCharacter.playerId = player.Value.id;
-        */
-        //player.Key.isReady = true;
-        gameServer.SendData(playerReady);
-        if (CheckIfAllReady()) {
+            if (!GameServer.instance.isOffline) {
+                PlayerReady playerReady = new PlayerReady();
+                playerReady.playerId = player.Value.id;
+                GameServer.instance.SendData(playerReady);
+            }
+            if (CheckIfAllReady()) {
+                SetupCharacters();
+            }
+        } else {
             SetupCharacters();
         }
     }

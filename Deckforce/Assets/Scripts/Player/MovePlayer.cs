@@ -20,8 +20,6 @@ public class MovePlayer : MonoBehaviour
 
     private List<Tile> highlightedRange = new List<Tile>();
 
-    GameServer gameServer;
-
     private bool moveMode = false;
 
     // Start is called before the first frame update
@@ -35,13 +33,12 @@ public class MovePlayer : MonoBehaviour
         nextDest.y = 0.5f;
 
         player = transform.parent.GetComponent<Player>();
-        gameServer = GameObject.FindObjectOfType<GameServer>();
     }
 
     private void Update()
     {
         Tile currentSelected = floor.currentSelected;
-        if (player.isClient & character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0))
+        if ((player.isClient || GameServer.instance.isOffline) & character.canMove & currentSelected == pathfinding.startTile & Input.GetMouseButtonDown(0))
         {
             cancelAllAnimations();
             moveMode = !moveMode;
@@ -55,7 +52,7 @@ public class MovePlayer : MonoBehaviour
                 cancelPathAnimation(pathToCurrentSelected);
                 pathToCurrentSelected = new List<Tile>();
             }
-            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove & player.isClient)
+            if (move.Count == 0 && currentSelected != null && currentSelected.tileEntity == null && character.canMove & (player.isClient || GameServer.instance.isOffline))
             {
                 List<Tile> path = pathfinding.findPathtoCase(currentSelected);
                 if (path != pathToCurrentSelected)
@@ -67,17 +64,17 @@ public class MovePlayer : MonoBehaviour
                         animatePath(pathToCurrentSelected);
                     }
                 }
-                if (Input.GetMouseButtonDown(0) && player.isClient)
+                if (Input.GetMouseButtonDown(0) && (player.isClient || GameServer.instance.isOffline))
                 {
                     MoveCharacter(currentSelected, path);
-                    if (gameServer == null)
-                        gameServer = GameObject.FindObjectOfType<GameServer>();
                     if (player == null)
                         player = transform.parent.GetComponent<Player>();
-                    PlayerMove playerMove = new PlayerMove();
-                    playerMove.playerId = player.id;
-                    playerMove.tileName = currentSelected.transform.name;
-                    gameServer.SendData(playerMove);
+                    if (!GameServer.instance.isOffline) {
+                        PlayerMove playerMove = new PlayerMove();
+                        playerMove.playerId = player.id;
+                        playerMove.tileName = currentSelected.transform.name;
+                        GameServer.instance.SendData(playerMove);
+                    }
                 }
             }
 

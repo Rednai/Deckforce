@@ -53,8 +53,6 @@ public class BattleManager : MonoBehaviour
 
     private Player newPlayer;
 
-    GameServer gameServer;
-
     //TODO: temporaire
     public string tileName;
     
@@ -63,8 +61,7 @@ public class BattleManager : MonoBehaviour
         Player[] players = GameObject.FindObjectsOfType<Player>();
         expectedPlayerNb = players.Count();
         battlePlayers = new List<Player>();
-        gameServer = GameServer.FindObjectOfType<GameServer>();
-        gameServer.GetComponent<Parser>().InitValues(players);
+        GameServer.instance.GetComponent<Parser>().InitValues(players);
 
         battleId = 0;
     }
@@ -75,20 +72,19 @@ public class BattleManager : MonoBehaviour
         if (!isGameOver) {
             if (!spawningPhase) {
                 if (battleTurn.turnTime <= 0) {
-                    if (gameServer == null) {
-                        gameServer = GameServer.FindObjectOfType<GameServer>();
+                    
+                    if (!GameServer.instance.isOffline) {
+                        SkipTurn skipTurn = new SkipTurn();
+                        skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
+                        GameServer.instance.SendData(skipTurn);
                     }
-
-                    SkipTurn skipTurn = new SkipTurn();
-                    skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
-                    gameServer.SendData(skipTurn);
                     
                     FinishTurn();
                 }
 
                 DisplayStats();
             } else {
-                if (spawner.GetCurrentPlayer().isClient) {
+                if (spawner.GetCurrentPlayer().isClient && !GameServer.instance.isOffline) {
                     playerNameText.text = $"It's your turn to choose a spawn";
                 } else {
                     playerNameText.text = $"It's {spawner.GetCurrentPlayer().username}'s turn to choose a spawn";
@@ -96,10 +92,12 @@ public class BattleManager : MonoBehaviour
                 newPlayer = spawner.SpawningPhase();
 
                 if (newPlayer != null) {
-                    PlayerSpawn playerSpawn = new PlayerSpawn();
-                    playerSpawn.playerId = newPlayer.id;
-                    playerSpawn.tileName = tileName;
-                    gameServer.SendData(playerSpawn);
+                    if (!GameServer.instance.isOffline) {
+                        PlayerSpawn playerSpawn = new PlayerSpawn();
+                        playerSpawn.playerId = newPlayer.id;
+                        playerSpawn.tileName = tileName;
+                        GameServer.instance.SendData(playerSpawn);
+                    }
                     AddPlayer(newPlayer);
                 }
             }
@@ -198,20 +196,30 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (currentPlayer.isClient) {
-            //TODO: a voir si faut pas utiliser le battleId plutot
+        if (GameServer.instance.isOffline) {
             if (currentPlayer.selectedCharacter == currentPlayingEntity) {
-                entityNameText.text = "Your turn";
+                entityNameText.text = $"{currentPlayer.username}'s turn";
                 currentPlayer.StartTurn();
                 statsSlidersDisplay.SetInfos(currentPlayer.selectedCharacter, false);
             } else {
-                entityNameText.text = "Your ally's turn";
+                entityNameText.text = $"{currentPlayer.username}'s ally turn";
             }
         } else {
-            if (currentPlayer.selectedCharacter == currentPlayingEntity) {
-                entityNameText.text = $"{currentPlayer.username}'s turn";
+            if (currentPlayer.isClient) {
+                //TODO: a voir si faut pas utiliser le battleId plutot
+                if (currentPlayer.selectedCharacter == currentPlayingEntity) {
+                    entityNameText.text = "Your turn";
+                    currentPlayer.StartTurn();
+                    statsSlidersDisplay.SetInfos(currentPlayer.selectedCharacter, false);
+                } else {
+                    entityNameText.text = "Your ally's turn";
+                }
             } else {
-                entityNameText.text = $"{currentPlayer.username}'s ally turn";
+                if (currentPlayer.selectedCharacter == currentPlayingEntity) {
+                    entityNameText.text = $"{currentPlayer.username}'s turn";
+                } else {
+                    entityNameText.text = $"{currentPlayer.username}'s ally turn";
+                }
             }
         }
         currentPlayingEntity.StartTurn();
@@ -288,13 +296,11 @@ public class BattleManager : MonoBehaviour
 
     public void ClickFinishTurn()
     {
-        if (gameServer == null) {
-            gameServer = GameServer.FindObjectOfType<GameServer>();
+        if (!GameServer.instance.isOffline) {
+            SkipTurn skipTurn = new SkipTurn();
+            skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
+            GameServer.instance.SendData(skipTurn);
         }
-
-        SkipTurn skipTurn = new SkipTurn();
-        skipTurn.entityPlayingIndex = battleTurn.playingEntityIndex;
-        gameServer.SendData(skipTurn);
         
         FinishTurn();
     }

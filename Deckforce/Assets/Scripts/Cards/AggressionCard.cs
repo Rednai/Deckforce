@@ -12,7 +12,6 @@ public class AggressionCard : Card
     public override bool Activate(Player currentPlayer, List<Tile> targetsTiles, Tile centerTile)
     {
         if (CheckIfPossible(currentPlayer, targetsTiles)) {
-            Debug.Log("activate");
             currentPlayer.selectedCharacter.currentActionPoints -= cost;
             isActivated = true;
             ActivateParticle(userParticle, currentPlayer.selectedCharacter.transform.position,
@@ -35,6 +34,7 @@ public class AggressionCard : Card
                         ActivateEffects(Effect.TargetType.TARGET, targetEntity);
                         //TODO: voir si ce check if fonctionne
                     } else if (!CheckIfAlly(currentPlayer, targetEntity)) {
+                        Debug.Log("c'est pas un allié faut le niquer");
                         targetEntity.TakeDamage(damage);
                         ActivateEffects(Effect.TargetType.TARGET, targetEntity);            
                     }

@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
     {
         selectedCharacter.transform.GetChild(0).gameObject.SetActive(false);
         selectedCharacter.GetComponent<MovePlayer>().StopMoveMode();
-        //ManagingActivation(false);
+        ManagingActivation(false);
         GameObject.FindObjectOfType<SelectCase>().isClientPlaying = false;
     }
 }

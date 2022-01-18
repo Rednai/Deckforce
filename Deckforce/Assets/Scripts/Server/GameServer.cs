@@ -16,6 +16,7 @@ public class GameServer : MonoBehaviour
     private bool isWaitingForPlayers = false;
     private Action<List<PlayerJoin>> OnAllPlayersConnected;
     private int numberOfPlayersToWait;
+    public bool isOffline;
 
     private void Awake()
     {

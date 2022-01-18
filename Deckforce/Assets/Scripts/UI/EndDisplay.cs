@@ -11,7 +11,7 @@ public class EndDisplay : MonoBehaviour
 
     public void DisplayVictory(Player player)
     {
-        if (player.isClient) {
+        if (player.isClient && !GameServer.instance.isOffline) {
             endText.text = "You won!";
         } else {
             endText.text = $"{player.username} won!";

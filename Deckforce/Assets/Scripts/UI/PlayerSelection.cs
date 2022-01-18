@@ -21,12 +21,13 @@ public class PlayerSelection : MonoBehaviour
     public StatsSlider statsSlider;
     public Image characterIcon;
     public Image characterIconBackground;
+    public Button removePlayerButton;
 
     public GameObject selectionObjects;
 
     public GameObject readyDisplay;
 
-    GameServer gameServer;
+    public PlayersSelection playersSelection;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,6 @@ public class PlayerSelection : MonoBehaviour
         characterIndex = 0;
         charactersManager = GameObject.FindObjectOfType<CharactersManager>();
         SetSelectedCharacter(false);
-        gameServer = GameObject.FindObjectOfType<GameServer>();
     }
 
     public void IncreaseCharacterIndex()
@@ -69,10 +69,14 @@ public class PlayerSelection : MonoBehaviour
 
             chooseCharacter.playerId = players.Find(x => x.isClient == true).id;
             chooseCharacter.characterId = selectedCharacter.id;
-            if (gameServer == null) {
-                gameServer = GameObject.FindObjectOfType<GameServer>();
+            if (!GameServer.instance.isOffline) {
+                GameServer.instance.SendData(chooseCharacter);
             }
-            gameServer.SendData(chooseCharacter);
         }
+    }
+
+    public void RemovePlayer()
+    {
+        playersSelection.RemovePlayer(this);
     }
 }

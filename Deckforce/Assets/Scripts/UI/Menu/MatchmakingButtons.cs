@@ -22,11 +22,20 @@ public class MatchmakingButtons : MonoBehaviour
         Matchmaking.instance.FindMatch(Queues.OneVsOne, OnMatchFound);
     }
 
-    
     public void OnCancelMatch()
     {
         Matchmaking.instance.CancelMatchmaking(Queues.OneVsOne);
         ResetButtons();
+    }
+
+    public void PlayOffline()
+    {
+        waitingForPlayers.SetActive(false);
+        playerSelection.gameObject.SetActive(true);
+        playerSelection.addPlayerButton.gameObject.SetActive(true);
+        GameServer.instance.isOffline = true;
+        playerSelection.readyButton.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void ResetButtons()
@@ -44,8 +53,8 @@ public class MatchmakingButtons : MonoBehaviour
 
         Authentification.instance.userInfo.currentTeam = int.Parse(getMatchResult.Members.Find(member => member.Entity.Id == Authentification.instance.userInfo.entityId).TeamId);
         GameServer.instance.Connect(
-            getMatchResult.ServerDetails.IPV4Address, // "127.0.0.1",
-            getMatchResult.ServerDetails.Ports[0].Num, //56100,
+            /*getMatchResult.ServerDetails.IPV4Address,*/  "127.0.0.1",
+            /*getMatchResult.ServerDetails.Ports[0].Num,*/ 56100,
             () => { GameServer.instance.WaitForOtherPlayers(2, OnAllPlayersConnected); } // TODO : Changer le nombre de joueur selon la queue /!\
         );
     }
