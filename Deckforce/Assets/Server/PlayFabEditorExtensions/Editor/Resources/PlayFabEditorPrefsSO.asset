@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: hugo.boichard@gmail.com
-  DevAccountToken: uifu6emwmrrwdcyn7jqzpkj5hopyhbj7d615355yh71737ne3r83utk7rx16hzucaryyk98cjofbnzmrhpiipsu5eenyqxgz3i4f3yey3ug8seryrp7igjo5owkp63hee15ga3wu4ympkm7zsyh1ydaji6c4936o9wc4x5dhwfrr8dxfneimdhymishme3iabhkfjj5q
-  SelectedStudio: 
+  DevAccountEmail: malo.de-dinechin@epitech.eu
+  DevAccountToken: hn58d8znzyja7isrig3sq6oa1m786srb9o3m9qhh798hory3tcgmwajct15w3ga1ggzjffpeqks68t1kzu3hed5p1aw8i9dw738xpqd3rz6s79skfk59u7gz8a6jdg9pyfzpn3zd37om5eywhasx8uku4tmfxqzdnbuxjixf91j46f5ojtgptetga93yx6mem9kkx75h
+  SelectedStudio: Brain Surge
   SdkPath: Assets/Server/PlayFabSDK
   EdExPath: 
   LocalCloudScriptPath: 
